@@ -7,7 +7,7 @@ class Assistant:
 
     def validate_user_input(self):
         print("Validating the users message")
-        Validator
+
 
     def verbalise_message(self):
         print("Here is my message to you")
