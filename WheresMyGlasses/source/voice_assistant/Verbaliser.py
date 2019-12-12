@@ -1,6 +1,9 @@
 
 
 class Verbaliser():
+    """
+    Class containing a number of output messages that can be sent to the text to speech engine
+    """
     def __init__(self):
         print("Verbalising a message")
 
@@ -58,5 +61,8 @@ class Verbaliser():
         return "I did not hear that properly, please ask again a bit louder"
 
 
-
-
+Verbaliser.construct_location_message("glasses", "head")
+Verbaliser.construct_check_input_message("glasses")
+Verbaliser.construct_unknown_object_message("pizza pie")
+Verbaliser.construct_not_found_message("glasses")
+Verbaliser.construct_bad_input_message()
