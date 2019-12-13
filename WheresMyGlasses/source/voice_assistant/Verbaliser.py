@@ -16,7 +16,7 @@ class Verbaliser():
         :param location: String, where the object is located or nearby
         :return:
         """
-        print("The " + located_object + " is by the " + location)
+        # print("The " + located_object + " is by the " + location)
         return "The " + located_object + " is by the " + location
 
     @staticmethod
@@ -27,7 +27,7 @@ class Verbaliser():
         :param lost_object: A String describing the lost object
         :return:
         """
-        print("The system could not find " + lost_object)
+        # print("The system could not find " + lost_object)
         return "The system could not find " + lost_object
 
     @staticmethod
@@ -37,7 +37,7 @@ class Verbaliser():
         :param unknown_object:
         :return:
         """
-        print("Ive never heard of pizza pie before, but might be able to help you with something else")
+        # print("Ive never heard of pizza pie before, but might be able to help you with something else")
         return "Ive never heard of " + unknown_object + " before, but might be able to help you with something else"
 
     @staticmethod
@@ -47,7 +47,7 @@ class Verbaliser():
         :param potential_object:
         :return:
         """
-        print("I didnt quite hear that. Did you say you want to look for " + potential_object)
+        # print("I didnt quite hear that. Did you say you want to look for " + potential_object)
         return "I didnt quite hear that. Did you say you want to look for " + potential_object
 
     @staticmethod
@@ -57,12 +57,34 @@ class Verbaliser():
         speech recognition.
         :return:
         """
-        print("I did not hear that properly, please ask again a bit louder")
+        # print("I did not hear that properly, please ask again a bit louder")
         return "I did not hear that properly, please ask again a bit louder"
 
+    @staticmethod
+    def construct_bad_intent_message(intent):
+        """
+        Construct a message explaining that the system does not understand that particular intent
+        and cannot help
+        :param intent:
+        :return:
+        """
+        # print("I don't think I can do that, I can help you search for items")
+        return "I don't think I can do that, I can help you search for items"
 
-Verbaliser.construct_location_message("glasses", "head")
-Verbaliser.construct_check_input_message("glasses")
-Verbaliser.construct_unknown_object_message("pizza pie")
-Verbaliser.construct_not_found_message("glasses")
-Verbaliser.construct_bad_input_message()
+    @staticmethod
+    def construct_search_message(object):
+        """
+        Construct a message confirming we are going to search for the requested object
+        :param object: String, describing the object to search for
+        :return:
+        """
+        # print("Okay, lets look for the " + object)
+        return "Okay, lets look for the " + object + "..."
+
+
+# Verbaliser.construct_location_message("glasses", "head")
+# Verbaliser.construct_check_input_message("glasses")
+# Verbaliser.construct_unknown_object_message("pizza pie")
+# Verbaliser.construct_not_found_message("glasses")
+# Verbaliser.construct_bad_input_message()
+# Verbaliser.construct_bad_intent_message("play_music")
