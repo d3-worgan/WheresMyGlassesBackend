@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dffb968b-9d51-46b5-84f0-eb799868edd9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Verbaliser.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,8 +17,10 @@
     <session id="-2054048021">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -31,50 +35,55 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="4034" />
+          <entry key="dummy" value="14" />
+          <entry key="py" value="6602" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="4034" />
+          <entry key="PLAIN_TEXT" value="14" />
+          <entry key="Python" value="6602" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Verbaliser.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="447">
+              <caret line="41" column="81" selection-start-line="41" selection-start-column="81" selection-end-line="41" selection-end-column="81" />
+              <folding>
+                <element signature="e#0#70#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="60" column="53" selection-start-line="60" selection-start-column="53" selection-end-line="60" selection-end-column="53" />
+            <state relative-caret-position="408">
+              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -102,8 +111,9 @@
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/test_verbaliser.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/Main.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Verbaliser.py" />
-        <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" />
+        <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py" />
+        <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" />
       </list>
     </option>
   </component>
@@ -111,6 +121,23 @@
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyPep8Inspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -120,6 +147,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,7 +177,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -168,7 +195,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Validator">
+  <component name="RunManager" selected="Python.VoiceAssistant">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -223,7 +250,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Verbaliser.py" />
+      <option name="SCRIPT_NAME" value="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\voice_assistant\MessageBuilder.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -232,7 +259,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests in test_verbaliser.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="VoiceAssistant" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="WheresMyGlasses" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in G:/Bsc(Hons) Computer Science/2019-20 Year 3/UFCFXK-30-3 Digital Systems Project/WheresMyGlasses/WheresMyGlasses/source/voice_assistant/test_verbaliser.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -248,15 +296,17 @@
     </configuration>
     <list>
       <item itemvalue="Python.Main" />
-      <item itemvalue="Python tests.Unittests in test_verbaliser.py" />
+      <item itemvalue="Python tests.Unittests in G:/Bsc(Hons) Computer Science/2019-20 Year 3/UFCFXK-30-3 Digital Systems Project/WheresMyGlasses/WheresMyGlasses/source/voice_assistant/test_verbaliser.py" />
       <item itemvalue="Python.Verbaliser" />
       <item itemvalue="Python.Validator" />
+      <item itemvalue="Python.VoiceAssistant" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.VoiceAssistant" />
         <item itemvalue="Python.Validator" />
         <item itemvalue="Python.Verbaliser" />
-        <item itemvalue="Python tests.Unittests in test_verbaliser.py" />
+        <item itemvalue="Python tests.Unittests in G:/Bsc(Hons) Computer Science/2019-20 Year 3/UFCFXK-30-3 Digital Systems Project/WheresMyGlasses/WheresMyGlasses/source/voice_assistant/test_verbaliser.py" />
         <item itemvalue="Python.Main" />
       </list>
     </recent_temporary>
@@ -283,20 +333,20 @@
     <frame x="953" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21474358" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22008547" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32921347" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32921347" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4033708" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32921347" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32921347" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -313,41 +363,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/test_verbaliser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/test_verbaliser.py" />
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Verbaliser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="94" selection-start-line="4" selection-start-column="94" selection-end-line="4" selection-end-column="94" />
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py">
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="34">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="60" column="53" selection-start-line="60" selection-start-column="53" selection-end-line="60" selection-end-column="53" />
+        <state relative-caret-position="408">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="41" column="81" selection-start-line="41" selection-start-column="81" selection-end-line="41" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#70#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

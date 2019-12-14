@@ -10,7 +10,7 @@ class Validator:
         :param confidence_score: The speech engines confidence score
         :return: True if the score was above 80% or False otherwise
         """
-        if confidence_score > 80:
+        if confidence_score >= 80:
             return True
         else:
             return False
@@ -22,7 +22,7 @@ class Validator:
         :param confidence_score: The speech engines confidence score
         :return: True if the score was above 70% or False otherwise
         """
-        if 80 > confidence_score > 70:
+        if 80 > confidence_score >= 70:
             return True
         else:
             return False
@@ -53,9 +53,9 @@ class Validator:
             return False
 
 
-print("Validator.input_was_definite(81) " + str(Validator.input_was_definite(81)))
-print("Validator.input_was_definite(79) " + str(Validator.input_was_definite(79)))
-print("Validator.input_was_certain(71) " + str(Validator.input_was_certain(71)))
-print("Validator.input_was_certain(69) " + str(Validator.input_was_certain(69)))
-print("Validator.intent_is_valid(""search_for_objects"") " + str(Validator.intent_is_valid("search_for_objects")))
-print("Validator.intent_is_valid(""peanuts"")" + str(Validator.intent_is_valid("peanuts")))
+# print("Validator.input_was_definite(81) " + str(Validator.input_was_definite(81)))
+# print("Validator.input_was_definite(79) " + str(Validator.input_was_definite(79)))
+# print("Validator.input_was_certain(71) " + str(Validator.input_was_certain(71)))
+# print("Validator.input_was_certain(69) " + str(Validator.input_was_certain(69)))
+# print("Validator.intent_is_valid(""search_for_objects"") " + str(Validator.intent_is_valid("search_for_objects")))
+# print("Validator.intent_is_valid(""peanuts"")" + str(Validator.intent_is_valid("peanuts")))
