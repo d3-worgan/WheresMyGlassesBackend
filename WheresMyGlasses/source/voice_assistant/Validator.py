@@ -10,7 +10,7 @@ class Validator:
         :param confidence_score: The speech engines confidence score
         :return: True if the score was above 80% or False otherwise
         """
-        if confidence_score > 80:
+        if confidence_score >= 80:
             return True
         else:
             return False
@@ -22,7 +22,7 @@ class Validator:
         :param confidence_score: The speech engines confidence score
         :return: True if the score was above 70% or False otherwise
         """
-        if 79 > confidence_score > 70:
+        if 80 > confidence_score >= 70:
             return True
         else:
             return False

@@ -1,6 +1,6 @@
 
 
-class Verbaliser():
+class MessageBuilder:
     """
     Class containing a number of output messages that can be sent to the text to speech engine
     """
@@ -48,7 +48,7 @@ class Verbaliser():
         :return:
         """
         # print("I didnt quite hear that. Did you say you want to look for " + potential_object)
-        return "I didnt quite hear that. Did you say you want to look for " + potential_object
+        return "Did you say you want to look for " + potential_object
 
     @staticmethod
     def construct_bad_input_message():
@@ -82,9 +82,9 @@ class Verbaliser():
         return "Okay, lets look for the " + object + "..."
 
 
-# Verbaliser.construct_location_message("glasses", "head")
-# Verbaliser.construct_check_input_message("glasses")
-# Verbaliser.construct_unknown_object_message("pizza pie")
-# Verbaliser.construct_not_found_message("glasses")
-# Verbaliser.construct_bad_input_message()
-# Verbaliser.construct_bad_intent_message("play_music")
+# MessageBuilder.construct_location_message("glasses", "head")
+# MessageBuilder.construct_check_input_message("glasses")
+# MessageBuilder.construct_unknown_object_message("pizza pie")
+# MessageBuilder.construct_not_found_message("glasses")
+# MessageBuilder.construct_bad_input_message()
+# MessageBuilder.construct_bad_intent_message("play_music")
