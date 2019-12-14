@@ -53,41 +53,34 @@ class Assistant:
 
 assistant = Assistant()
 
-
-print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 90)")
-assistant.validate_user_input("search_for_objects", "glasses", 90)
-
-print("assistant.validate_user_input(""search_for_objects"", ""pigeon"", 90)")
-assistant.validate_user_input("search_for_objects", "pigeon", 90)
-
-print("assistant.validate_user_input(""search_for_objects"", ""dentures"", 90)")
-assistant.validate_user_input("search_for_objects", "dentures", 90)
-
-print("assistant.validate_user_input(""search_for_objects"", ""piano"", 90)")
-assistant.validate_user_input("search_for_objects", "piano", 90)
-
-print("assistant.validate_user_input(""play_music"", ""glasses"", 90)")
-assistant.validate_user_input("play_music", "glasses", 90)
-
-print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 81)")
-assistant.validate_user_input("search_for_objects", "glasses", 81)
-
-print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 80)")
-assistant.validate_user_input("search_for_objects", "glasses", 80)
-
-print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 79)")
-assistant.validate_user_input("search_for_objects", "glasses", 79)
-
-print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 69)")
-assistant.validate_user_input("search_for_objects", "glasses", 69)
-
+"""
+Test methods
+"""
+# print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 90)")
+# assistant.validate_user_input("search_for_objects", "glasses", 90)
+#
+# print("assistant.validate_user_input(""search_for_objects"", ""pigeon"", 90)")
 # assistant.validate_user_input("search_for_objects", "pigeon", 90)
+#
+# print("assistant.validate_user_input(""search_for_objects"", ""dentures"", 90)")
 # assistant.validate_user_input("search_for_objects", "dentures", 90)
+#
+# print("assistant.validate_user_input(""search_for_objects"", ""piano"", 90)")
 # assistant.validate_user_input("search_for_objects", "piano", 90)
+#
+# print("assistant.validate_user_input(""play_music"", ""glasses"", 90)")
 # assistant.validate_user_input("play_music", "glasses", 90)
+#
+# print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 81)")
 # assistant.validate_user_input("search_for_objects", "glasses", 81)
+#
+# print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 80)")
 # assistant.validate_user_input("search_for_objects", "glasses", 80)
+#
+# print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 79)")
 # assistant.validate_user_input("search_for_objects", "glasses", 79)
+#
+# print("assistant.validate_user_input(""search_for_objects"", ""glasses"", 69)")
 # assistant.validate_user_input("search_for_objects", "glasses", 69)
-
-
+#
+#
