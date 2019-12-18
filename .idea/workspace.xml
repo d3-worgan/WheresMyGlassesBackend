@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dffb968b-9d51-46b5-84f0-eb799868edd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/SearchAssistant.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,30 +18,33 @@
         <counts>
           <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="names" value="1" />
           <entry key="py" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dummy" value="14" />
-          <entry key="py" value="7582" />
+          <entry key="dummy" value="27" />
+          <entry key="py" value="8667" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="14" />
-          <entry key="Python" value="7582" />
+          <entry key="PLAIN_TEXT" value="27" />
+          <entry key="Python" value="8667" />
         </counts>
       </usages-collector>
     </session>
@@ -58,7 +63,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="68">
               <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
               <folding>
                 <element signature="e#0#70#0" expanded="true" />
@@ -68,19 +73,27 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/SearchAssistant.py">
+        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+            <state relative-caret-position="442">
+              <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#69#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/9k.names">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/DetectedObject.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="80" selection-start-line="2" selection-start-column="80" selection-end-line="2" selection-end-column="80" />
+            <state>
+              <caret column="20" selection-start-column="6" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -141,12 +154,13 @@
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/DetectedObject.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/Snapshot.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/SearchAssistant.py" />
+        <option value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
+    <option name="x" value="955" />
+    <option name="width" value="972" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -215,7 +229,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="C:/Anaconda/envs/biocomp" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\search_assistant" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -229,8 +248,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.VoiceAssistant">
-    <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.ObjectLocator">
+    <configuration name="ObjectLocator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -238,11 +257,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/Main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -329,19 +348,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Main" />
       <item itemvalue="Python tests.Unittests in G:/Bsc(Hons) Computer Science/2019-20 Year 3/UFCFXK-30-3 Digital Systems Project/WheresMyGlasses/WheresMyGlasses/source/voice_assistant/test_verbaliser.py" />
       <item itemvalue="Python.Verbaliser" />
       <item itemvalue="Python.Validator" />
       <item itemvalue="Python.VoiceAssistant" />
+      <item itemvalue="Python.ObjectLocator" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ObjectLocator" />
         <item itemvalue="Python.VoiceAssistant" />
         <item itemvalue="Python.Validator" />
         <item itemvalue="Python.Verbaliser" />
         <item itemvalue="Python tests.Unittests in G:/Bsc(Hons) Computer Science/2019-20 Year 3/UFCFXK-30-3 Digital Systems Project/WheresMyGlasses/WheresMyGlasses/source/voice_assistant/test_verbaliser.py" />
-        <item itemvalue="Python.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -364,15 +383,15 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="955" y="0" width="972" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22008547" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22055675" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32921347" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32921347" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32921347" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4033708" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -405,13 +424,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py">
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        <state relative-caret-position="68">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#70#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -422,13 +441,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py">
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#70#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="34">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/DetectedObject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="6" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -439,17 +465,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/DetectedObject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="80" selection-start-line="2" selection-start-column="80" selection-end-line="2" selection-end-column="80" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/9k.names">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/SearchAssistant.py">
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+        <state relative-caret-position="442">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#69#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
