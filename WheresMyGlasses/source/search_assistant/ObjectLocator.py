@@ -1,29 +1,31 @@
 from WheresMyGlasses.source.search_assistant.Snapshot import Snapshot
 from WheresMyGlasses.source.search_assistant.DetectedObject import ObjectDetected
+from WheresMyGlasses.source.search_assistant.LocatedObject import LocatedObject
 
 import cv2
 import numpy as np
+import datetime
 
 
 class ObjectLocator:
     """
-    The object locator searches the room for objects and attempts to generate some
-    location information for each object.
+    The object locator searches takes snapshots of the room and generates information
+    for each one.
 
-    The voice interface can contact the object locator to search the room, and then tell the
-    user what the object locator found.
-
+    The voice interface can contact the object locator to take a snapshot, and then tell
+    the user what the object locator found.
     """
 
     def __init__(self):
         """
-        Initialise the object locator by loading the object detector
+        Initialise the object locator by loading the neural network and object detector.
+        Maintain a history of snapshots to be able to check previously for requested objects
         """
         print("Preparing object locator...")
 
         # Save a number of snapshots to search for object in memory
         self.snapshot_frequency = 10
-        self.snapshot_buffer_size = 1440
+        self.snapshot_buffer_size = 20
         self.snapshot_history = []
 
         # Load the neural network
@@ -50,11 +52,23 @@ class ObjectLocator:
 
         print("Object locator ready.")
 
-    def search_room(self):
+    def take_snapshot(self, id):
+        """
+        Takes a picture and evaluates it for objects and their locations.
+        Saves the information to a Snapshot in the snapshot history.
+        :return:
+        """
+
+        print("Taking a snapshot")
+        snapshot = Snapshot()
 
         # Read an image from the camera
         ret, img = self.video_capture.read()
         height, width, channels = img.shape
+
+        snapshot.image = img
+        snapshot.timestamp = datetime.datetime.now()
+        snapshot.id = id
 
         # Process the image and run through YOLO
         print("Object detection.")
@@ -92,55 +106,41 @@ class ObjectLocator:
         # Reduces double detections and errors
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
-        # Finalize a list of detected objects
-        detected_objects = []
+        # Add the detected objects to the snapshot
         for i in range(len(boxes)):
             if i in indexes:
-                detected_objects.append(
+                snapshot.objects_detected.append(
                     ObjectDetected(class_ids[i], self.classes[class_ids[i]], confidences[i], centers[i][0],
                                    centers[i][1], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]))
 
-        # Draw bounding boxes on detected objects
-        font = cv2.FONT_HERSHEY_PLAIN
-        color = (0, 255, 0)
-        for obj in detected_objects:
-            cv2.rectangle(img, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 2)
-            cv2.putText(img, obj.label, (obj.x, obj.y + 30), font, 3, color, 3)
-
         # Locate items that are close to each other
-        for obj in detected_objects:
-            for loc in detected_objects:
+        for obj in snapshot.objects_detected:
+            for loc in snapshot.objects_detected:
                 if loc.cid != obj.cid:
                     if loc.x < obj.center_x < (loc.x + loc.w) and loc.y < obj.center_y < (loc.y + loc.h):
+                        snapshot.objects_located.append(LocatedObject(obj.label, loc.label))
                         print("The " + obj.label + " is by the " + loc.label)
                         cv2.circle(img, (obj.center_x, obj.center_y), 20, (255, 0, 0), 3)
 
-        # Display results
-        cv2.imshow("Image", img)
-
-        # Finish up
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        print("Done.")
-
-
-    def take_snapshot(self):
-        """
-        Takes a snapshot and saves it to the snapshot history, maintains a specified
-        number of snapshots
-        :return:
-        """
-        print("Taking a snapshot")
         if len(self.snapshot_history) > self.snapshot_buffer_size:
             self.snapshot_history.pop(0)
-
-        self.snapshot_history.append(Snapshot())
+        else:
+            self.snapshot_history.append(snapshot)
 
     def find_snapshot(self):
         print("Searching for items...")
 
 
-
 ol = ObjectLocator()
+i = 0
+while i < 40:
+    ol.take_snapshot(i)
+    ol.snapshot_history[-1].print_snapshot()
+    i += 1
 
-ol.search_room()
+print("Snapshots " + str(len(ol.snapshot_history)))
+for snap in ol.snapshot_history:
+    print()
+    snap.print_details()
+cv2.destroyAllWindows()
+print("Done.")
