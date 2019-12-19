@@ -156,14 +156,10 @@ class ObjectLocator:
 
         # Check in memory to see if the object has been seen before
         else:
-            if len(self.snapshot_history) > 0:
-                object_located = False
-                i = len(self.snapshot_history)
-                while not object_located and i >= 0:
-                    if object_name in self.snapshot_history[i].objects_located:
-                        for pair in snapshot.objects_located:
-                            if pair.object1 == object_name or pair.object2 == object_name:
-                                object_located = True
-                                return pair
+            for snapshot in self.snapshot_history:
+                for pair in snapshot.objects_located:
+                    if pair.object1 == object_name or pair.object2 == object_name:
+                        return pair
+
 
 
