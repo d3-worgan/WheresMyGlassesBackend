@@ -70,10 +70,12 @@ class ObjectLocator:
         snapshot.timestamp = datetime.datetime.now()
         snapshot.id = id
 
-        # Process the image and run through YOLO
+        # Process the image
         #print("Object detection.")
         blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
         self.net.setInput(blob)
+
+        # Detection
         outs = self.net.forward(self.output_layers)
 
         # Store information we extract from the image
@@ -127,9 +129,37 @@ class ObjectLocator:
         else:
             self.snapshot_history.append(snapshot)
 
-    def find_snapshot(self):
+        return snapshot
+
+    def locate_object(self, object_name):
+        """
+        Takes a snapshot of the room and checks if the object is there.
+        If the object is not there then search in memory to see if it has been seen before.
+        :param object_name: String, the name of the object to search for, needs to match a class name
+                            in the object detectors names file
+        :return: True or False depe
+        """
         print("Searching for items...")
 
+        # Check if the requested object is in the room now
+        snapshot = self.take_snapshot("x")
+        if object_name in snapshot.objects_located:
+            for pair in snapshot.objects_located:
+                if pair.object1 == object_name or pair.object2 == object_name:
+                    return pair
+
+        # Check in memory to see if the object has been seen before
+        else:
+            object_located = False
+            i = len(self.snapshot_history)
+            while not object_located and i > 0:
+                if object_name in self.snapshot_history[i].objects_located:
+                    for pair in snapshot.objects_located:
+                        if pair.object1 == object_name or pair.object2 == object_name:
+                            object_located = True
+                            return pair
+
+        return None
 
 # ol = ObjectLocator()
 # i = 0

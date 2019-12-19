@@ -82,9 +82,3 @@ class MessageBuilder:
         return "Okay, lets look for the " + object + "..."
 
 
-# MessageBuilder.construct_location_message("glasses", "head")
-# MessageBuilder.construct_check_input_message("glasses")
-# MessageBuilder.construct_unknown_object_message("pizza pie")
-# MessageBuilder.construct_not_found_message("glasses")
-# MessageBuilder.construct_bad_input_message()
-# MessageBuilder.construct_bad_intent_message("play_music")
