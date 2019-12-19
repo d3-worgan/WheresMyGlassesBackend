@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dffb968b-9d51-46b5-84f0-eb799868edd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/MessageBuilderTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/MessageBuilderTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,26 +25,26 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="names" value="1" />
-          <entry key="py" value="16" />
+          <entry key="py" value="18" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="16" />
+          <entry key="Python" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="27" />
-          <entry key="py" value="12651" />
+          <entry key="py" value="13106" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="27" />
-          <entry key="Python" value="12651" />
+          <entry key="Python" value="13106" />
         </counts>
       </usages-collector>
     </session>
@@ -56,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="151" column="13" lean-forward="true" selection-start-line="151" selection-start-column="13" selection-end-line="151" selection-end-column="13" />
+            <state relative-caret-position="471">
+              <caret line="154" column="35" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
               <folding>
                 <element signature="e#0#69#0" expanded="true" />
               </folding>
@@ -65,11 +63,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocateObjectTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="13" />
+              <folding>
+                <element signature="e#0#79#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocationDemo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-end-line="3" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#79#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/MessageBuilderTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="62" lean-forward="true" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+            <state relative-caret-position="153">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -82,24 +104,6 @@
               <folding>
                 <element signature="e#0#70#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/LocatedObject.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/DetectedObject.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="20" selection-start-column="6" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -134,7 +138,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1428">
@@ -174,11 +178,12 @@
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/DetectionAccuracyTest.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/DetectionAccuracyTest.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocationDemo.py" />
-        <option value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/ValidatorTest.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/MessageBuilderTest.py" />
+        <option value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" />
+        <option value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocateObjectTest.py" />
       </list>
     </option>
   </component>
@@ -283,7 +288,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.MessageBuilderTest">
+  <component name="RunManager" selected="Python.LocateObjectTest">
     <configuration name="DetectionAccuracyTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -297,6 +302,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/DetectionAccuracyTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="LocateObjectTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="WheresMyGlasses" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocateObjectTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -347,27 +373,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ObjectLocator" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WheresMyGlasses" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="ValidatorTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -390,19 +395,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.ObjectLocator" />
       <item itemvalue="Python.DetectionAccuracyTest" />
       <item itemvalue="Python.LocationDemo" />
       <item itemvalue="Python.MessageBuilderTest" />
       <item itemvalue="Python.ValidatorTest" />
+      <item itemvalue="Python.LocateObjectTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.LocateObjectTest" />
         <item itemvalue="Python.MessageBuilderTest" />
         <item itemvalue="Python.ValidatorTest" />
         <item itemvalue="Python.LocationDemo" />
         <item itemvalue="Python.DetectionAccuracyTest" />
-        <item itemvalue="Python.ObjectLocator" />
       </list>
     </recent_temporary>
   </component>
@@ -426,6 +431,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25320512" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -449,6 +455,17 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py</url>
+          <line>62</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/Python/Python 3.7/Lib/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -468,16 +485,6 @@
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/9k.names" />
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/imagenet1000_clsidx_to_labels.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocationDemo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/DetectionAccuracyTest.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -526,23 +533,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="151" column="13" lean-forward="true" selection-start-line="151" selection-start-column="13" selection-end-line="151" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -557,10 +547,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocationDemo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-end-line="3" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="154" column="35" selection-start-line="154" selection-start-column="35" selection-end-line="154" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocateObjectTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="13" />
+          <folding>
+            <element signature="e#0#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/MessageBuilderTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="62" lean-forward="true" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+        <state relative-caret-position="153">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1428">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
         </state>
       </provider>
     </entry>

@@ -124,12 +124,14 @@ class ObjectLocator:
                         print("The " + obj.label + " is by the " + loc.label)
                         cv2.circle(img, (obj.center_x, obj.center_y), 20, (255, 0, 0), 3)
 
+        return snapshot
+
+    def add_snapshot_to_history(self, id):
+        snapshot = self.take_snapshot(id)
         if len(self.snapshot_history) > self.snapshot_buffer_size:
             self.snapshot_history.pop(0)
         else:
             self.snapshot_history.append(snapshot)
-
-        return snapshot
 
     def locate_object(self, object_name):
         """
@@ -143,34 +145,25 @@ class ObjectLocator:
 
         # Check if the requested object is in the room now
         snapshot = self.take_snapshot("x")
-        if object_name in snapshot.objects_located:
-            for pair in snapshot.objects_located:
-                if pair.object1 == object_name or pair.object2 == object_name:
-                    return pair
+        print("Took a snapshot")
+
+        for obj in snapshot.objects_detected:
+            if obj.label == object_name:
+                for pair in snapshot.objects_located:
+                    print("Checking if the object was located")
+                    if pair.object1 == object_name or pair.object2 == object_name:
+                        return pair
 
         # Check in memory to see if the object has been seen before
         else:
-            object_located = False
-            i = len(self.snapshot_history)
-            while not object_located and i > 0:
-                if object_name in self.snapshot_history[i].objects_located:
-                    for pair in snapshot.objects_located:
-                        if pair.object1 == object_name or pair.object2 == object_name:
-                            object_located = True
-                            return pair
+            if len(self.snapshot_history) > 0:
+                object_located = False
+                i = len(self.snapshot_history)
+                while not object_located and i >= 0:
+                    if object_name in self.snapshot_history[i].objects_located:
+                        for pair in snapshot.objects_located:
+                            if pair.object1 == object_name or pair.object2 == object_name:
+                                object_located = True
+                                return pair
 
-        return None
 
-# ol = ObjectLocator()
-# i = 0
-# while True:
-#     ol.take_snapshot(i)
-#     ol.snapshot_history[-1].print_snapshot()
-#     i += 1
-#
-# print("Snapshots " + str(len(ol.snapshot_history)))
-# for snap in ol.snapshot_history:
-#     print()
-#     snap.print_details()
-# cv2.destroyAllWindows()
-# print("Done.")
