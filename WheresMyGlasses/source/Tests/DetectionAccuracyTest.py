@@ -1,6 +1,7 @@
 from WheresMyGlasses.source.search_assistant.ObjectLocator import ObjectLocator
 import cv2
 
+
 ol = ObjectLocator(100)
 
 # Take 100 snapshots with 3 key items
