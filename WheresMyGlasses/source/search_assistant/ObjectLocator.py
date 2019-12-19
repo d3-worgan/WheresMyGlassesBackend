@@ -16,7 +16,7 @@ class ObjectLocator:
     the user what the object locator found.
     """
 
-    def __init__(self):
+    def __init__(self, buffer_size):
         """
         Initialise the object locator by loading the neural network and object detector.
         Maintain a history of snapshots to be able to check previously for requested objects
@@ -25,7 +25,7 @@ class ObjectLocator:
 
         # Save a number of snapshots to search for object in memory
         self.snapshot_frequency = 10
-        self.snapshot_buffer_size = 20
+        self.snapshot_buffer_size = buffer_size
         self.snapshot_history = []
 
         # Load the neural network
@@ -59,7 +59,7 @@ class ObjectLocator:
         :return:
         """
 
-        print("Taking a snapshot")
+        #print("Taking a snapshot")
         snapshot = Snapshot()
 
         # Read an image from the camera
@@ -71,7 +71,7 @@ class ObjectLocator:
         snapshot.id = id
 
         # Process the image and run through YOLO
-        print("Object detection.")
+        #print("Object detection.")
         blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
         self.net.setInput(blob)
         outs = self.net.forward(self.output_layers)
@@ -131,16 +131,16 @@ class ObjectLocator:
         print("Searching for items...")
 
 
-ol = ObjectLocator()
-i = 0
-while i < 40:
-    ol.take_snapshot(i)
-    ol.snapshot_history[-1].print_snapshot()
-    i += 1
-
-print("Snapshots " + str(len(ol.snapshot_history)))
-for snap in ol.snapshot_history:
-    print()
-    snap.print_details()
-cv2.destroyAllWindows()
-print("Done.")
+# ol = ObjectLocator()
+# i = 0
+# while True:
+#     ol.take_snapshot(i)
+#     ol.snapshot_history[-1].print_snapshot()
+#     i += 1
+#
+# print("Snapshots " + str(len(ol.snapshot_history)))
+# for snap in ol.snapshot_history:
+#     print()
+#     snap.print_details()
+# cv2.destroyAllWindows()
+# print("Done.")
