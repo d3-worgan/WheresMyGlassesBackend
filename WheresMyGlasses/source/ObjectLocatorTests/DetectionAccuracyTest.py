@@ -1,4 +1,4 @@
-from WheresMyGlasses.source.search_assistant.ObjectLocator import ObjectLocator
+from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
 import cv2
 
 

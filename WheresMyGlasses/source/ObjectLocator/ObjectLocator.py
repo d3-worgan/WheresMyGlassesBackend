@@ -1,6 +1,6 @@
-from WheresMyGlasses.source.search_assistant.Snapshot import Snapshot
-from WheresMyGlasses.source.search_assistant.DetectedObject import ObjectDetected
-from WheresMyGlasses.source.search_assistant.LocatedObject import LocatedObject
+from WheresMyGlasses.source.ObjectLocator.Snapshot import Snapshot
+from WheresMyGlasses.source.ObjectLocator.DetectedObject import ObjectDetected
+from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
 
 import cv2
 import numpy as np
@@ -28,6 +28,8 @@ class ObjectLocator:
         self.snapshot_buffer_size = buffer_size
         self.snapshot_history = []
 
+
+
         # Load the neural network
         print("Initalizing YOLO...")
         self.net = cv2.dnn.readNetFromDarknet("yolov3.cfg", "yolov3.weights")
@@ -51,6 +53,19 @@ class ObjectLocator:
             raise Exception("Could not open video device")
 
         print("Object locator ready.")
+        #self.run_locator()
+
+    def run_locator(self):
+        try:
+            i = 0
+            while True:
+                self.take_snapshot(i)
+                self.add_snapshot_to_history(i)
+                self.snapshot_history[-1].print_snapshot()
+                i += 1
+        finally:
+            cv2.destroyAllWindows()
+            print("Done.")
 
     def locate_object(self, object_name):
         """

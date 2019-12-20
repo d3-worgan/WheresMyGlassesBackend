@@ -1,5 +1,5 @@
-from WheresMyGlasses.source.voice_assistant.Validator import Validator
-from WheresMyGlasses.source.voice_assistant.MessageBuilder import MessageBuilder
+from WheresMyGlasses.source.VoiceAssistant.Validator import Validator
+from WheresMyGlasses.source.VoiceAssistant.MessageBuilder import MessageBuilder
 
 
 class Assistant:

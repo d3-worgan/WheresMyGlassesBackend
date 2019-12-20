@@ -1,4 +1,4 @@
-from WheresMyGlasses.source.voice_assistant.Validator import Validator
+from WheresMyGlasses.source.VoiceAssistant.Validator import Validator
 
 print("Validator.input_was_definite(81) " + str(Validator.input_was_definite(81)))
 print("Validator.input_was_definite(79) " + str(Validator.input_was_definite(79)))

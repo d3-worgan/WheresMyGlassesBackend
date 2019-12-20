@@ -1,4 +1,4 @@
-from WheresMyGlasses.source.voice_assistant.MessageBuilder import MessageBuilder
+from WheresMyGlasses.source.VoiceAssistant.MessageBuilder import MessageBuilder
 
 
 print(MessageBuilder.construct_location_message("glasses", "head"))
