@@ -52,6 +52,57 @@ class ObjectLocator:
 
         print("Object locator ready.")
 
+    def locate_object(self, object_name):
+        """
+        Takes a snapshot of the room and checks if the object is there.
+        If the object is not there then search in memory to see if it has been seen before.
+        :param object_name: String, the name of the object to search for, needs to match a
+                            class name in the object detectors names file.
+        :return: A pair of object names if it was located or None if it was not found
+        """
+        print("Searching for items...")
+        pair = None
+
+        # Check if the requested object is in the room now
+        snapshot = self.take_snapshot("x")
+        print("Took a snapshot")
+        for obj in snapshot.objects_detected:
+            if obj.label == object_name:
+                for pair in snapshot.objects_located:
+                    print("Checking if the object was located")
+                    if pair.object1 == object_name or pair.object2 == object_name:
+                        return pair
+
+        # Check in memory to see if the object has been seen before
+        else:
+            print("The object was not in the snapshot, searching memory...")
+            for snapshot in reversed(self.snapshot_history):
+                print("Checking snapshot " + str(snapshot.id))
+                for obj in snapshot.objects_detected:
+                    if obj.label == object_name:
+                        print("Detected the object at " + str(snapshot.timestamp))
+                        for pair in snapshot.objects_located:
+                            if pair.object1 == object_name or pair.object2 == object_name:
+                                print("Object was located at " + str(snapshot.timestamp))
+                                return pair
+                        print("But it was not located...")
+
+        return pair
+
+    def add_snapshot_to_history(self, id):
+        """
+        Take a snapshot and add save it to the buffer in case we need to search
+        backwards later. If the buffer is full then delete the oldest snapshot
+        in the list.
+        :param id: Give an ID to the Snapshot
+        :return:
+        """
+        snapshot = self.take_snapshot(id)
+        if len(self.snapshot_history) > self.snapshot_buffer_size:
+            self.snapshot_history.pop(0)
+        else:
+            self.snapshot_history.append(snapshot)
+
     def take_snapshot(self, id):
         """
         Takes a picture and evaluates it for objects and their locations.
@@ -120,46 +171,15 @@ class ObjectLocator:
             for loc in snapshot.objects_detected:
                 if loc.cid != obj.cid:
                     if loc.x < obj.center_x < (loc.x + loc.w) and loc.y < obj.center_y < (loc.y + loc.h):
-                        snapshot.objects_located.append(LocatedObject(obj.label, loc.label))
+                        snapshot.objects_located.append(LocatedObject(snapshot.id, snapshot.timestamp, obj.label, loc.label))
                         print("The " + obj.label + " is by the " + loc.label)
                         cv2.circle(img, (obj.center_x, obj.center_y), 20, (255, 0, 0), 3)
 
         return snapshot
 
-    def add_snapshot_to_history(self, id):
-        snapshot = self.take_snapshot(id)
-        if len(self.snapshot_history) > self.snapshot_buffer_size:
-            self.snapshot_history.pop(0)
-        else:
-            self.snapshot_history.append(snapshot)
 
-    def locate_object(self, object_name):
-        """
-        Takes a snapshot of the room and checks if the object is there.
-        If the object is not there then search in memory to see if it has been seen before.
-        :param object_name: String, the name of the object to search for, needs to match a class name
-                            in the object detectors names file
-        :return: True or False depe
-        """
-        print("Searching for items...")
 
-        # Check if the requested object is in the room now
-        snapshot = self.take_snapshot("x")
-        print("Took a snapshot")
 
-        for obj in snapshot.objects_detected:
-            if obj.label == object_name:
-                for pair in snapshot.objects_located:
-                    print("Checking if the object was located")
-                    if pair.object1 == object_name or pair.object2 == object_name:
-                        return pair
-
-        # Check in memory to see if the object has been seen before
-        else:
-            for snapshot in self.snapshot_history:
-                for pair in snapshot.objects_located:
-                    if pair.object1 == object_name or pair.object2 == object_name:
-                        return pair
 
 
 
