@@ -1,66 +1,109 @@
 from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
 import cv2
 
+"""
+Test to measure the utility of the object locator.
+1. Specify a number of items to locate
+2. Take a test sample i.e. x amount of snapshots.
+3. Count the number times each object was located or detected in a snapshot.
+4. Add the total number of locations divided by number of objects for a score.
+4. A Test is passed if the score is 80 out of 100.
+"""
 
-ol = ObjectLocator(100)
+test_sample = 13
+pass_rate = 80
+ol = ObjectLocator(test_sample)
 
-# Take 100 snapshots with 3 key items
-# Run through snapshots and total number of detections for each item
-# Run through snapshots and total number of locations for each item
-# Score out of 100
 
+target_objects = []
+
+b = ["bottle", 0, 0]
+m = ["mouse", 0, 0]
+w = ["wine glass", 0, 0]
+dog = ["dog", 0, 0]
+
+target_objects.append(b)
+# target_objects.append(m)
+# target_objects.append(w)
+#target_objects.append(dog)
+
+locations = []
+
+d = "diningtable"
+bed = "bed"
+person = "person"
+
+#locations.append(d)
+#locations.append(bed)
+locations.append(person)
+
+
+# Take samples
 i = 0
-while i < 100:
+while i < test_sample:
     ol.take_snapshot(i)
+    ol.add_snapshot_to_history(i)
     ol.snapshot_history[-1].print_snapshot()
     i += 1
+cv2.destroyAllWindows()
 
-print("Snapshots " + str(len(ol.snapshot_history)))
-
-# Count detections
-d_bottle = 0
-d_mouse = 0
-d_wine_glass = 0
-
-# Count locations
-l_bottle = 0
-l_mouse = 0
-l_wine_glass = 0
-
+# Collect results
 for snap in ol.snapshot_history:
-    print()
-    snap.print_details()
+    #print()
+    #snap.print_details()
 
     # Count detections
     for detection in snap.objects_detected:
-        if detection.label == "bottle":
-            d_bottle += 1
-        if detection.label == "mouse":
-            d_mouse += 1
-        if detection.label == "wine glass":
-            d_wine_glass += 1
+        for target in target_objects:
+            if detection.label == target[0]:
+                target[1] += 1
 
     # Count locations
     for location in snap.objects_located:
-        print("loco")
-        if location.object1 == "bottle" and location.object2 == "diningtable":
-            l_bottle += 1
-        if location.object1 == "mouse" and location.object2 == "diningtable":
-            l_mouse += 1
-        if location.object1 == "wine glass" and location.object2 == "diningtable":
-            l_wine_glass += 1
+        for target in target_objects:
+            if location.object1 == target[0] or location.object2 == target[0]:
+                target[2] += 1
+
+# Calculate results
+detection_score = 0
+location_score = 0
+total_score = 0
+for target in target_objects:
+    detection_score += target[1]
+    location_score += target[2]
+
+total_score = (detection_score + location_score / len(target_objects)) / 2
+total_score = 100 * total_score / test_sample
+detection_score = detection_score / len(target_objects)
+detection_score = 100 * detection_score / test_sample
+location_score = location_score / len(target_objects)
+location_score = 100 * location_score / test_sample
+
+# Calculate Pass/Fail
+total_pass = False
+if total_score >= pass_rate:
+    total_pass = True
+
+location_pass = False
+if location_score >= pass_rate:
+    location_pass = True
+
+detection_pass = False
+if detection_score >= pass_rate:
+    detection_pass = True
 
 print()
-print("Detections")
-print("bottle     " + str(d_bottle))
-print("mouse      " + str(d_mouse))
-print("wine glass " + str(d_wine_glass))
+print("Results")
+for target in target_objects:
+    print(target)
+
+# Output results
 print()
-print("Locations")
-print("bottle     " + str(l_bottle))
-print("mouse      " + str(l_mouse))
-print("wine glass " + str(l_wine_glass))
-
-
-cv2.destroyAllWindows()
+print("Pass rate " + str(pass_rate))
+print("Total Score " + str(total_score))
+print("Total Pass " + str(total_pass))
+print("Location Score " + str(location_score))
+print("Location Pass " + str(location_pass))
+print("Detection Score " + str(detection_score))
+print("Detection Pass " + str(detection_pass))
 print("Done.")
