@@ -1,5 +1,5 @@
-from WheresMyGlasses.source.search_assistant.ObjectLocator import ObjectLocator
-from WheresMyGlasses.source.voice_assistant.MessageBuilder import MessageBuilder
+from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
+from WheresMyGlasses.source.VoiceAssistant.MessageBuilder import MessageBuilder
 
 
 # TEST/DEMO

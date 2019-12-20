@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-from WheresMyGlasses.source.search_assistant.LocatedObject import LocatedObject
+from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
 
 class Snapshot:
     def __init__(self):
