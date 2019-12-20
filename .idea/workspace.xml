@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dffb968b-9d51-46b5-84f0-eb799868edd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/DetectionAccuracyTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocateObjectHistoryTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectHistoryTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocateObjectTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocationDemo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/MessageBuilderTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/VoiceAssistantTests/MessageBuilderTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/ValidatorTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/VoiceAssistantTests/ValidatorTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/Tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/DetectedObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/DetectedObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/LocatedObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/LocatedObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/ObjectLocator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/Snapshot.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/Snapshot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/MessageBuilder.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/VoiceAssistant/MessageBuilder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/Validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/VoiceAssistant/Validator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/VoiceAssistant.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/VoiceAssistant/VoiceAssistant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/voice_assistant/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/VoiceAssistant/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectHistoryTest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,13 +40,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="27" />
-          <entry key="py" value="14904" />
+          <entry key="py" value="16667" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="27" />
-          <entry key="Python" value="14904" />
+          <entry key="Python" value="16667" />
         </counts>
       </usages-collector>
     </session>
@@ -69,8 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/ObjectLocator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="59" column="17" lean-forward="true" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+            <state relative-caret-position="56">
+              <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
               <folding>
                 <element signature="e#0#69#0" expanded="true" />
               </folding>
@@ -87,18 +74,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="83" selection-start-line="7" selection-end-line="17" selection-end-column="83" />
-              <folding>
-                <element signature="e#0#79#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/LocatedObject.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -109,10 +84,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectHistoryTest.py">
+        <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="476">
-              <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+              <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
               <folding>
                 <element signature="e#0#79#0" expanded="true" />
               </folding>
@@ -129,11 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-632">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="311">
+              <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
               <folding>
                 <element signature="e#0#79#0" expanded="true" />
               </folding>
@@ -203,6 +178,7 @@
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/RunLocatorTest.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/search_assistant/ObjectLocator.py" />
         <option value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/MessageBuilderTest.py" />
+        <option value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py" />
       </list>
     </option>
   </component>
@@ -259,6 +235,13 @@
               <item name="WheresMyGlasses" type="462c0819:PsiDirectoryNode" />
               <item name="WheresMyGlasses" type="462c0819:PsiDirectoryNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="ObjectLocator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WheresMyGlasses" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WheresMyGlasses" type="462c0819:PsiDirectoryNode" />
+              <item name="WheresMyGlasses" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
               <item name="ObjectLocatorTests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -273,12 +256,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\Tests" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\Tests" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\search_assistant" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\VoiceAssistantTests" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\Tests" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -293,8 +277,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.RunLocatorTest">
-    <configuration name="LocateObjectHistoryTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.DetectionAccuracyTest">
+    <configuration name="DetectionAccuracyTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -302,11 +286,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocateObjectHistoryTest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -315,7 +299,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="LocationDemo" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="LocateObjectTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -323,11 +307,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocationDemo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -336,7 +320,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="MessageBuilderTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ObjectLocator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WheresMyGlasses" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -344,11 +328,32 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/MessageBuilderTest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/ObjectLocator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RunLocatorTest (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="WheresMyGlasses" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/RunLocatorTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -378,41 +383,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ValidatorTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WheresMyGlasses" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/source/Tests/ValidatorTest.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.LocateObjectHistoryTest" />
-      <item itemvalue="Python.LocationDemo" />
       <item itemvalue="Python.RunLocatorTest" />
-      <item itemvalue="Python.ValidatorTest" />
-      <item itemvalue="Python.MessageBuilderTest" />
+      <item itemvalue="Python.LocateObjectTest" />
+      <item itemvalue="Python.ObjectLocator" />
+      <item itemvalue="Python.DetectionAccuracyTest" />
+      <item itemvalue="Python.RunLocatorTest (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.DetectionAccuracyTest" />
+        <item itemvalue="Python.RunLocatorTest (1)" />
+        <item itemvalue="Python.LocateObjectTest" />
+        <item itemvalue="Python.ObjectLocator" />
         <item itemvalue="Python.RunLocatorTest" />
-        <item itemvalue="Python.LocationDemo" />
-        <item itemvalue="Python.MessageBuilderTest" />
-        <item itemvalue="Python.ValidatorTest" />
-        <item itemvalue="Python.LocateObjectHistoryTest" />
       </list>
     </recent_temporary>
   </component>
@@ -438,12 +422,12 @@
     <frame x="953" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25320512" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25320512" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32921347" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32921347" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32921347" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4033708" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -515,16 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectHistoryTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/DetectedObject.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -546,30 +520,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/ObjectLocator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="59" column="17" lean-forward="true" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/Tests/LocationDemo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" selection-start-line="19" selection-end-line="20" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-632">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
           <folding>
             <element signature="e#0#79#0" expanded="true" />
           </folding>
@@ -592,8 +546,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="83" selection-start-line="7" selection-end-line="17" selection-end-column="83" />
+        <state relative-caret-position="323">
+          <caret line="19" column="14" lean-forward="true" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/LocateObjectTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocator/ObjectLocator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
+          <folding>
+            <element signature="e#0#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WheresMyGlasses/source/ObjectLocatorTests/DetectionAccuracyTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
           <folding>
             <element signature="e#0#79#0" expanded="true" />
           </folding>

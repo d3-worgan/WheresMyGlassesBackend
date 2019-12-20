@@ -1,17 +1,26 @@
 from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
 from WheresMyGlasses.source.VoiceAssistant.MessageBuilder import MessageBuilder
 
-ol = ObjectLocator(100)
 
+# TEST/DEMO
+# Capture some samples
+# Choose an item to request
+# Search the room or the history to see if the object was located
+
+# System running
+ol = ObjectLocator(100)
+i = 0
+while i < 100:
+    ol.add_snapshot_to_history(i)
+    i += 1
+
+# 'Received request'
 requested_object = "bottle"
 
+# Process request
 pair = ol.locate_object(requested_object)
-message = None
 
-if pair is not None:
-    print(pair.object1)
-    print(pair.object2)
-
+# Output
 if pair is None:
     message = MessageBuilder.construct_not_found_message(requested_object)
 else:
