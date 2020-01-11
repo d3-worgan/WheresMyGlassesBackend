@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
+
 
 class Snapshot:
     def __init__(self):
@@ -16,11 +16,11 @@ class Snapshot:
         print("ID " + str(self.id))
         print("Timestamp " + str(self.timestamp))
         print("Objects detected " + str(len(self.objects_detected)))
-        for obj in self.objects_detected:
-            print(obj.label)
+        # for obj in self.objects_detected:
+        #     print(obj.label)
         print("Objects located  " + str(len(self.objects_located)))
         for pair in self.objects_located:
-            print(pair.object1 + " " + pair.object2)
+            print(f"The {pair.object1} is by the {pair.object2}")
 
     def print_snapshot(self):
         """
