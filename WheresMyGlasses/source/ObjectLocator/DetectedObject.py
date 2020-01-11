@@ -1,6 +1,6 @@
 class ObjectDetected:
     """
-    A structure to easily handle information extracted from the object location.
+    A structure to easily handle information extracted from the object detection.
     """
     def __init__(self, cid, label, confidence, center_x, center_y, x, y, w, h):
         self.cid = cid

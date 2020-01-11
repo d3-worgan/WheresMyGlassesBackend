@@ -1,7 +1,7 @@
 class LocatedObject:
-    def __init__(self, snapshot_id, timestamp, object1, object2):
-        print("Located an object")
-        self.snapshot_id = snapshot_id
-        self.timestamp = timestamp
+    """
+    A pair of objects which were located near each other
+    """
+    def __init__(self, object1, object2):
         self.object1 = object1
         self.object2 = object2
