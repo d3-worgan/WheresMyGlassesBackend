@@ -3,6 +3,7 @@ from WheresMyGlasses.source.ObjectLocator.DetectedObject import ObjectDetected
 import cv2
 import numpy as np
 
+
 class ObjectDetector:
     """
     Wrap the YOLO object detector in a class so that the object locator can easily
@@ -34,12 +35,8 @@ class ObjectDetector:
         :return: A list of objects that were detected in the image
         """
 
-        #print("Detecting objects...")
-        # Process the image
-
+        # Prepare image
         height, width, channels = frame.shape
-
-        # print("Object detection.")
         blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
         self.net.setInput(blob)
 
@@ -73,7 +70,7 @@ class ObjectDetector:
                     class_ids.append(class_id)
                     centers.append([center_x, center_y])
 
-        # Reduces double detections and errors
+        # Reduce double detections and errors
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
         # Return a list of objects detected in the image
@@ -83,9 +80,5 @@ class ObjectDetector:
                 detections.append(
                     ObjectDetected(class_ids[i], self.classes[class_ids[i]], confidences[i], centers[i][0],
                                    centers[i][1], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]))
-
-        # print(f"Found {len(detections)} objects")
-        # for object in detections:
-        #     print(object.label)
 
         return detections

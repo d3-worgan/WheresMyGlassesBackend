@@ -4,6 +4,11 @@ from matplotlib import pyplot as plt
 
 
 class Snapshot:
+    """
+    The Snapshot is used to hold all the information extracted from a given image. A
+    picture is taken and then analysed by the object detector and locator, the extractions
+    are then stored in a Snapshot for use later.
+    """
     def __init__(self):
         self.objects_detected = []
         self.objects_located = []
@@ -13,6 +18,10 @@ class Snapshot:
         self.image = None
 
     def print_details(self):
+        """
+        Print some details and information about the snapshot to the console.
+        :return:
+        """
         print("ID " + str(self.id))
         print("Timestamp " + str(self.timestamp))
         print("Objects detected " + str(len(self.objects_detected)))
@@ -28,14 +37,13 @@ class Snapshot:
         detected objects.
         :return:
         """
-
         # Draw bounding boxes on detected objects
-        font = cv2.FONT_HERSHEY_PLAIN
-        color = (0, 255, 0)
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        color = (255, 100, 100)
 
         for obj in self.objects_detected:
-            cv2.rectangle(self.image, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 2)
-            cv2.putText(self.image, obj.label, (obj.x, obj.y + 30), font, 3, color, 3)
+            cv2.rectangle(self.image, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 1)
+            cv2.putText(self.image, obj.label + " " + str(round(obj.confidence, 2)), (obj.x, obj.y + 30), font, 1, color, 1)
 
         # Display results
         cv2.imshow("Image", self.image)
