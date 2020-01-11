@@ -87,6 +87,8 @@ def on_message(client, userdata, msg):
 print("Start")
 broker = "192.168.0.27"
 client = mqtt.Client("seeker")
+
+history_size = 20
 snapshot_history = []
 ol = ObjectLocator()
 lock = threading.Lock()
@@ -106,10 +108,18 @@ print("Saving snapshots to history...")
 i = 0
 while True:
     lock.acquire()
-    snapshot_history.append(ol.take_snapshot(i))
-    snapshot_history[-1].print_snapshot()
-    #snapshot_history[-1].print_details()
-    i += 1
+    if len(snapshot_history) < history_size:
+        snapshot_history.append(ol.take_snapshot(i))
+        snapshot_history[-1].print_snapshot()
+        #snapshot_history[-1].print_details()
+        i += 1
+    else:
+        snapshot_history.pop(0)
+        snapshot_history.append(ol.take_snapshot(i))
+        snapshot_history[-1].print_snapshot()
+        # snapshot_history[-1].print_details()
+        i += 1
+
     lock.release()
     time.sleep(0.1)
 
