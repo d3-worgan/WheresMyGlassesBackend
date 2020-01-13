@@ -60,7 +60,7 @@ def on_message(client, userdata, msg):
         location = ol.search_snapshot(snapshot, m_decode)
         if location is not None:
             print(f"The {m_decode} was in the snapshot, returning location.")
-            client.publish("seeker/processed_requests", "snapshot = {} @ {}".format(location.object1, location.object2))
+            client.publish("seeker/processed_requests", "snapshot = {} @ {}".format(location.object, location.location))
         else:
             # Check the Snapshot history to see if we have seen the object before
             print(f"The {m_decode} was not in the snapshot, searching the snapshot history...")
@@ -69,7 +69,7 @@ def on_message(client, userdata, msg):
                 location = ol.search_snapshot(snap, m_decode)
                 if location is not None:
                     print(f"The {m_decode} was in the snapshot, returning location.")
-                    client.publish("seeker/processed_requests", "history = {} @ {}".format(location.object1, location.object2))
+                    client.publish("seeker/processed_requests", "history = {} @ {}".format(location.object, location.location))
                     break
 
             # Inform the front end the object could not be found
@@ -84,11 +84,12 @@ def on_message(client, userdata, msg):
     lock.release()
 
 
+
 print("Start")
 broker = "192.168.0.27"
 client = mqtt.Client("seeker")
 
-history_size = 20
+history_size = 1000
 snapshot_history = []
 ol = ObjectLocator()
 lock = threading.Lock()

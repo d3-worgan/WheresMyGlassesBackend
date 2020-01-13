@@ -6,6 +6,7 @@ class ObjectDetected:
         self.cid = cid
         self.label = label
         self.confidence = confidence
+#        self.camera_id
         self.center_x = center_x
         self.center_y = center_y
         self.x = x

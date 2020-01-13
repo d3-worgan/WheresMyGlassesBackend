@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+import json
 
 
 class Snapshot:
@@ -16,6 +17,10 @@ class Snapshot:
         self.id = None
         self.light_brightness = 0
         self.image = None
+
+    def to_json(self):
+        data = {}
+        data['']
 
     def print_details(self):
         """

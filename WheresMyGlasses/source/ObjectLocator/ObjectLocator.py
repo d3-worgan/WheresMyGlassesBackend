@@ -70,6 +70,8 @@ class ObjectLocator:
                         locations.append(LocatedObject(obj.label, loc.label))
         return locations
 
+
+
     def search_snapshot(self, snapshot, object_name):
         """
         Checks to see if a requested object has been located in a particular snapshot
