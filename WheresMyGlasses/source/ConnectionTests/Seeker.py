@@ -2,10 +2,12 @@
 Video walk-through using Paho: https://www.youtube.com/watch?v=QAaXNt0oqSI
 """
 from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
+from WheresMyGlasses.source.ConnectionTests.BackendResponse import BackendResponse
 
 import paho.mqtt.client as mqtt
 import threading
 import time
+import json
 
 
 def on_log(client, userdata, level, buf):
@@ -38,6 +40,8 @@ def on_message(client, userdata, msg):
     global snapshot_history
     global lock
     bad_object = True
+    response = None
+    locations_identified = []
 
     # Decode the incoming message
     topic = msg.topic
@@ -57,29 +61,49 @@ def on_message(client, userdata, msg):
         # Use the object detector to see if the object is in the room
         snapshot = ol.take_snapshot('x')
         print("Searching snapshot...")
-        location = ol.search_snapshot(snapshot, m_decode)
-        if location is not None:
+        locations_identified = ol.search_snapshot(snapshot, m_decode)
+        if len(locations_identified) > 0:  # Object was found in current snapshot
             print(f"The {m_decode} was in the snapshot, returning location.")
-            client.publish("seeker/processed_requests", "snapshot = {} @ {}".format(location.object, location.location))
+            # if one location then code 1
+            if len(locations_identified) == 1:
+                print("Message code 1")
+                response = BackendResponse('1', m_decode, snapshot.timestamp, locations_identified)
+                print(response)
+            # if multiple locations then code 2
+            if len(locations_identified) > 1:
+                print("Message code 2")
+                response = BackendResponse('2', m_decode, snapshot.timestamp, locations_identified)
+                print(response)
         else:
             # Check the Snapshot history to see if we have seen the object before
             print(f"The {m_decode} was not in the snapshot, searching the snapshot history...")
             for snap in snapshot_history:
                 print(f"Searching snapshot {snap.id}")
-                location = ol.search_snapshot(snap, m_decode)
-                if location is not None:
+                locations_identified = ol.search_snapshot(snap, m_decode)
+                if len(locations_identified) > 0:
                     print(f"The {m_decode} was in the snapshot, returning location.")
-                    client.publish("seeker/processed_requests", "history = {} @ {}".format(location.object, location.location))
+                    # if one location then return code 3
+                    if len(locations_identified) == 1:
+                        response = BackendResponse('3', m_decode, snap.timestamp, locations_identified)
+                    # if multiple locations then return code 4
+                    if len(locations_identified) == 1:
+                        response = BackendResponse('4', m_decode, snapshot.timestamp, locations_identified)
                     break
 
             # Inform the front end the object could not be found
-            if location is None:
+            if len(locations_identified) == 0:
                 print(f"The {m_decode} was not in the snapshots, returning not found...")
-                client.publish("seeker/processed_requests", "Not Found")
+                response = BackendResponse('5', m_decode, None, None)
     else:
         # Inform the user the detector does not recognise that object
         print("The object has not been trained on the network, returning bad item")
-        client.publish("seeker/processed_requests", "Bad Object")
+        response = BackendResponse('6', m_decode, None, None)
+
+    if response:
+        response = response.pack()
+
+    print(response)
+    client.publish("seeker/processed_requests", response)
 
     lock.release()
 

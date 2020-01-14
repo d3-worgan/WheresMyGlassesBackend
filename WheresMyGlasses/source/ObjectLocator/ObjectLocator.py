@@ -77,15 +77,21 @@ class ObjectLocator:
         Checks to see if a requested object has been located in a particular snapshot
         :param snapshot: The Snapshot to investigate
         :param object_name: The name of the object to search for
-        :return: The pair of located objects in an LocatedObject if the snapshot contains
-                 the requested object, else return None
+        :return: Return a list of locations identified with the specified object
         """
+        # Return
+        locations = []
+        print(f"Checking if the object was located in snapshot {snapshot.id}")
         for pair in snapshot.objects_located:
-            print(f"Checking if the object was located in snapshot {snapshot.id}")
-            if pair.object1 == object_name or pair.object2 == object_name:
-                return pair
-            else:
-                return None
+            if pair.object == object_name:
+                locations.append(pair)
+            elif pair.location == object_name:
+                # Swap the names around so it makes better sense
+                temp = pair.location
+                pair.location = pair.object
+                pair.object = temp
+                locations.append(pair)
+        return locations
 
 
 

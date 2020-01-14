@@ -1,4 +1,4 @@
-
+from WheresMyGlasses.source.ConnectionTests.BackendResponse import BackendResponse
 
 class MessageBuilder:
     """
@@ -8,7 +8,7 @@ class MessageBuilder:
         print("Verbalising a message")
 
     @staticmethod
-    def construct_location_message(located_object, location):
+    def single_location_current_snapshot(br):
         """
         Construct a message describing where the required object is using the info
         from the back end.
@@ -16,8 +16,10 @@ class MessageBuilder:
         :param location: String, where the object is located or nearby
         :return:
         """
-        # print("The " + located_object + " is by the " + location)
-        return "The " + located_object + " is by the " + location
+        br = BackendResponse()
+        message = f"I just seen a {br.locations_identified[0].object} by the " \
+                  f"{br.locations_identified[0].location}"
+        return message
 
     @staticmethod
     def construct_not_found_message(lost_object):
@@ -31,14 +33,15 @@ class MessageBuilder:
         return "The system could not find " + lost_object
 
     @staticmethod
-    def construct_unknown_object_message(unknown_object):
+    def construct_unknown_object_message(br):
         """
         Construct a message explaining the system does not recognise that object
         :param unknown_object:
         :return:
         """
-        # print("Ive never heard of pizza pie before, but might be able to help you with something else")
-        return "Ive never heard of " + unknown_object + " before, but might be able to help you with something else"
+        message = f"I've never heard of {br.original_request} before, but maybe I can help you " \
+                  f"find something else"
+        return message
 
     @staticmethod
     def construct_check_input_message(potential_object):
