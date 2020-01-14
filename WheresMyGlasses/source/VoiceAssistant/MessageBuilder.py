@@ -85,3 +85,4 @@ class MessageBuilder:
         return "Okay, lets look for the " + object + "..."
 
 
+print(MessageBuilder.construct_bad_input_message())

@@ -7,7 +7,14 @@ from WheresMyGlasses.source.ConnectionTests.BackendResponse import BackendRespon
 import paho.mqtt.client as mqtt
 import threading
 import time
-import json
+from datetime import datetime
+
+
+def minutes_passed(snaptime):
+    current_time = datetime.now()
+    passed = current_time - snaptime
+    minutes_passed = passed.seconds / 60
+    return round(minutes_passed, 2)
 
 
 def on_log(client, userdata, level, buf):
@@ -82,6 +89,10 @@ def on_message(client, userdata, msg):
                 locations_identified = ol.search_snapshot(snap, m_decode)
                 if len(locations_identified) > 0:
                     print(f"The {m_decode} was in the snapshot, returning location.")
+                    # calculate how long ago
+                    time_passed = minutes_passed(snap.timestamp)
+                    print(time_passed)
+
                     # if one location then return code 3
                     if len(locations_identified) == 1:
                         response = BackendResponse('3', m_decode, snap.timestamp, locations_identified)
@@ -93,11 +104,11 @@ def on_message(client, userdata, msg):
             # Inform the front end the object could not be found
             if len(locations_identified) == 0:
                 print(f"The {m_decode} was not in the snapshots, returning not found...")
-                response = BackendResponse('5', m_decode, None, None)
+                response = BackendResponse('5', m_decode, None, [])
     else:
         # Inform the user the detector does not recognise that object
         print("The object has not been trained on the network, returning bad item")
-        response = BackendResponse('6', m_decode, None, None)
+        response = BackendResponse('6', m_decode, None, [])
 
     if response:
         response = response.pack()

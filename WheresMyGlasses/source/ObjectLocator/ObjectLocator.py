@@ -3,7 +3,7 @@ from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
 from WheresMyGlasses.source.ObjectLocator.ObjectDetector import ObjectDetector
 
 import cv2
-import datetime
+from datetime import datetime
 
 
 class ObjectLocator:
@@ -39,7 +39,7 @@ class ObjectLocator:
         """
         snapshot = Snapshot()
         snapshot.id = sid
-        snapshot.timestamp = datetime.datetime.now()
+        snapshot.timestamp = datetime.now()
 
         # Read an image from the camera
         ret, img = self.video_capture.read()
@@ -63,18 +63,33 @@ class ObjectLocator:
         :return: A list describing pairs of objects that were 'near' each other in the image.
         """
         locations = []
+
+        # Put together pairs of objects
         for obj in detections:
             for loc in detections:
                 if loc.cid != obj.cid:
                     if loc.x < obj.center_x < (loc.x + loc.w) and loc.y < obj.center_y < (loc.y + loc.h):
                         locations.append(LocatedObject(obj.label, loc.label))
+
+        # Delete pairs where they are in the same location i.e. no new information
+        for location1 in locations:
+            for location2 in locations:
+                if location2 is not location1:
+                    if location1.object == location2.object and location1.location == location2.location:
+                        locations.remove(location2)
+                    elif location1.object == location2.location and location1.location == location2.object:
+                        locations.remove(location2)
+
         return locations
 
 
 
     def search_snapshot(self, snapshot, object_name):
         """
-        Checks to see if a requested object has been located in a particular snapshot
+        Checks to see if a requested object has been located in a particular snapshot. If
+        the object is in there then make sure the requested object is in the object and not
+        in the location. This avoids saying e.g. "the table is by the glasses" instead of
+        "the glasses are by the table"
         :param snapshot: The Snapshot to investigate
         :param object_name: The name of the object to search for
         :return: Return a list of locations identified with the specified object
