@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-
+from WheresMyGlasses.source.ObjectLocator.BackendResponse import BackendResponse
 
 class Snapshot:
     """
@@ -17,6 +17,11 @@ class Snapshot:
         self.light_brightness = 0
         self.image = None
 
+    def to_response(self, code):
+        br = BackendResponse(code, self.timestamp, self.objects_located)
+        response = br.pack()
+        return response
+
     def print_details(self):
         """
         Print some details and information about the snapshot to the console.
@@ -29,7 +34,7 @@ class Snapshot:
         #     print(obj.label)
         print("Objects located  " + str(len(self.objects_located)))
         for pair in self.objects_located:
-            print(f"The {pair.object1} is by the {pair.object2}")
+            print(f"The {pair.object} is by the {pair.location}")
 
     def print_snapshot(self):
         """
