@@ -1,8 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-import json
-from WheresMyGlasses.source.ConnectionTests.BackendResponse import BackendResponse
+from WheresMyGlasses.source.ObjectLocator.BackendResponse import BackendResponse
 
 class Snapshot:
     """

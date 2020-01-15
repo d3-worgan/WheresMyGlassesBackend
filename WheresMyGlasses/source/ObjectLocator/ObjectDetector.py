@@ -12,12 +12,16 @@ class ObjectDetector:
     def __init__(self):
         # Load the neural network
         print("Initalizing YOLO...")
-        self.net = cv2.dnn.readNetFromDarknet("yolov3.cfg", "yolov3.weights")
+        self.net_directory = "../DetectionModelsAndNets/"
+        self.net_config = self.net_directory + "yolov3.cfg"
+        self.net_weights = self.net_directory + "yolov3.weights"
+        self.net_class_names = self.net_directory + "coco.names"
+        self.net = cv2.dnn.readNetFromDarknet(self.net_config, self.net_weights)
 
         # Load the class names
         print("loading class names...")
         self.classes = []
-        with open("coco.names", "r") as f:
+        with open(self.net_class_names, "r") as f:
             self.classes = [line.strip() for line in f.readlines()]
 
         # Build the network

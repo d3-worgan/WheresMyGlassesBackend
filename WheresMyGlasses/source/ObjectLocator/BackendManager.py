@@ -2,7 +2,7 @@
 Video walk-through using Paho: https://www.youtube.com/watch?v=QAaXNt0oqSI
 """
 from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
-from WheresMyGlasses.source.ConnectionTests.BackendResponse import BackendResponse
+from WheresMyGlasses.source.ObjectLocator.BackendResponse import BackendResponse
 
 import paho.mqtt.client as mqtt
 import threading
@@ -62,8 +62,8 @@ def on_message(client, userdata, msg):
             message_code = '2'
         else:
             print(f"The {m_decode} was not in the snapshot, searching the snapshot history...")
-            for snap in snapshot_history:
-                print(f"Searching snapshot {snap.id}")
+            for i, snap in enumerate(snapshot_history):
+                print(f"Searching snapshot {i}")
                 locations_identified = ol.search_snapshot(snap, m_decode)
                 if len(locations_identified) == 1:
                     object_located = True
