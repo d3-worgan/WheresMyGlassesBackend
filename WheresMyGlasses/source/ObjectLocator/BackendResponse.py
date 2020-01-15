@@ -18,14 +18,6 @@ class BackendResponse:
         self.location_time = location_time
         self.locations_identified = locations_identified
 
-
-        # if locations_identified:
-        #     for loc in locations_identified:
-        #         x = json.loads(loc)
-        #         print(x)
-        #         lo = LocatedObject(x['object'], x['location'])
-        #         self.locations_identified.append(lo)
-
     def pack(self):
         """
         Pack the objects information into a json object so that it can be transmitted over

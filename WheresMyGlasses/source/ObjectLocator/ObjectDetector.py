@@ -6,12 +6,10 @@ import numpy as np
 
 class ObjectDetector:
     """
-    Wrap the YOLO object detector in a class so that the object locator can easily
-    process an image and detect objects.
+    Load the YOLO object detector network
     """
     def __init__(self):
-        # Load the neural network
-        print("Initalizing YOLO...")
+        print("Initializing YOLO...")
         self.net_directory = "../DetectionModelsAndNets/"
         self.net_config = self.net_directory + "yolov3.cfg"
         self.net_weights = self.net_directory + "yolov3.weights"

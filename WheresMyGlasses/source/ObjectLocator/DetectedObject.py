@@ -1,6 +1,6 @@
 class ObjectDetected:
     """
-    A structure to easily handle information extracted from the object detection.
+    Load information from the object detector
     """
     def __init__(self, cid, label, confidence, center_x, center_y, x, y, w, h):
         self.cid = cid  # Class id
