@@ -39,7 +39,8 @@ class ObjectLocator:
         """
         snapshot = Snapshot()
         snapshot.id = sid
-        snapshot.timestamp = datetime.now()
+        now = datetime.now()
+        snapshot.timestamp = now.strftime("%H:%M")
 
         # Read an image from the camera
         ret, img = self.video_capture.read()
