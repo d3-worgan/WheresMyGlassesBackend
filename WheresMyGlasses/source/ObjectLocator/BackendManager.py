@@ -123,8 +123,8 @@ def take_snapshots():
 
 
 def validate_object(m_decode, ol):
+    print("Searching names file for requested object ", m_decode)
     for name in ol.object_detector.classes:
-        print("Searching names file for requested object ", m_decode)
         if name == m_decode:
             print("Object is in training data")
             return True
