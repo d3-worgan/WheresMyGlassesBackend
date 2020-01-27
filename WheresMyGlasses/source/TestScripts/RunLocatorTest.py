@@ -1,5 +1,5 @@
 from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
 
-ol = ObjectLocator(100)
+ol = ObjectLocator()
 
 ol.run_locator()

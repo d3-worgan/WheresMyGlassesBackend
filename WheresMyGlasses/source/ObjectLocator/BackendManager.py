@@ -7,6 +7,7 @@ from WheresMyGlasses.source.ObjectLocator.BackendResponse import BackendResponse
 import paho.mqtt.client as mqtt
 import threading
 import time
+from datetime import datetime
 
 
 def on_log(client, userdata, level, buf):
@@ -22,6 +23,16 @@ def on_connect(client, userdata, flags, rc):
 
 def on_disconnect(client, userdata, flags, rc=0):
     print("Disconnected result code " + str(rc))
+
+
+def minutes_passed(timestamp):
+    if timestamp:
+        current_time = datetime.now()
+        print("Current time ", current_time)
+        print("Location time ", timestamp)
+        passed = current_time - timestamp
+        minutes_passed = passed.seconds / 60
+        return round(minutes_passed, 2)
 
 
 def on_message(client, userdata, msg):
@@ -47,32 +58,48 @@ def on_message(client, userdata, msg):
     object_located = False
     message_code = ''
 
+    start_search = datetime.now()
+
     if validate_object(m_decode, ol):
         # Use the object detector to see if the object is in the room
         current_snapshot = ol.take_snapshot('x')
         print("Searching snapshot...")
         locations_identified = ol.search_snapshot(current_snapshot, m_decode)
+
         if len(locations_identified) == 1:
+            # If the object is in a single location in the current snapshot
             print("Message code 1")
             object_located = True
             message_code = '1'
         elif len(locations_identified) > 1:
+            # If the object is in multiple locations in the current snapshot
             print("Message code 2")
             object_located = True
             message_code = '2'
         else:
             print(f"The {m_decode} was not in the snapshot, searching the snapshot history...")
             for i, snap in enumerate(snapshot_history):
+                search_time = minutes_passed(start_search)
+                print(search_time)
+                #if search_time > 0.
                 print(f"Searching snapshot {i}")
                 locations_identified = ol.search_snapshot(snap, m_decode)
                 if len(locations_identified) == 1:
                     object_located = True
-                    message_code = '3'
                     current_snapshot = snap
+                    if minutes_passed(current_snapshot.timestamp) < 2:
+                        # The object appeared in a snapshot in the last 2 minutes
+                        message_code = '1'
+                    else:
+                        # Appeared in a snapshot a while ago
+                        message_code = '3'
                 elif len(locations_identified) > 1:
                     object_located = True
-                    message_code = '4'
                     current_snapshot = snap
+                    if minutes_passed(current_snapshot.timestamp) < 2:
+                        message_code = '2'
+                    else:
+                        message_code = '4'
 
         if not object_located:
             print("The object was not found, message code 5")
@@ -91,9 +118,9 @@ def on_message(client, userdata, msg):
     if response:
         response = response.pack()
         print(response)
-        client.publish("seeker/processed_requests", response)
+        client.publish("backend/response", response)
     else:
-        client.publish("seeker/processed_requests", "*backend error*")
+        client.publish("backend/response", "*backend error*")
 
     lock.release()
 
@@ -108,13 +135,13 @@ def take_snapshots():
         lock.acquire()
         if len(snapshot_history) < history_size:
             snapshot_history.append(ol.take_snapshot(i))
-            snapshot_history[-1].print_snapshot()
+            snapshot_history[-1].display_snapshot()
             # snapshot_history[-1].print_details()
             i += 1
         else:
             snapshot_history.pop(0)
             snapshot_history.append(ol.take_snapshot(i))
-            snapshot_history[-1].print_snapshot()
+            snapshot_history[-1].display_snapshot()
             # snapshot_history[-1].print_details()
             i += 1
 
@@ -137,6 +164,7 @@ if __name__ == "__main__":
 
     history_size = 1000
     snapshot_history = []
+
     ol = ObjectLocator()
     lock = threading.Lock()
 
@@ -148,8 +176,7 @@ if __name__ == "__main__":
     print("Connecting to broker ", broker)
     client.connect(broker)
     client.loop_start()
-    client.subscribe("voice_assistant/user_requests")
-
+    client.subscribe("backend_handler/frontend_request")
 
     print("Saving snapshots to history...")
 

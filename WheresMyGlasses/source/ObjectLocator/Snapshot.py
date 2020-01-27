@@ -10,12 +10,9 @@ class Snapshot:
     are then stored in a Snapshot for use later.
     """
     def __init__(self):
-        self.objects_detected = []
-        self.objects_located = []
         self.timestamp = None
         self.id = None
-        self.light_brightness = 0
-        self.image = None
+        self.camera_snaps = []
 
     def to_response(self, code):
         br = BackendResponse(code, self.timestamp, self.objects_located)
@@ -29,14 +26,17 @@ class Snapshot:
         """
         print("ID " + str(self.id))
         print("Timestamp " + str(self.timestamp))
-        print("Objects detected " + str(len(self.objects_detected)))
-        # for obj in self.objects_detected:
-        #     print(obj.label)
-        print("Objects located  " + str(len(self.objects_located)))
-        for pair in self.objects_located:
-            print(f"The {pair.object} is by the {pair.location}")
 
-    def print_snapshot(self):
+        for i, camera_snap in enumerate(self.camera_snaps):
+            print("Camera " + str(i))
+            print("Number detections " + str(len(camera_snap.detections)))
+            for obj in camera_snap.detections:
+                print(obj.label)
+            print("Number locations " + str(len(camera_snap.locations)))
+            for loc in camera_snap.locations:
+                print(f"The {loc.object} is by the {loc.location}")
+
+    def display_snapshot(self):
         """
         Display the image taken of the snapshot with bounding boxes around the
         detected objects.
@@ -46,12 +46,18 @@ class Snapshot:
         font = cv2.FONT_HERSHEY_SIMPLEX
         color = (255, 100, 100)
 
-        for obj in self.objects_detected:
-            cv2.rectangle(self.image, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 1)
-            cv2.putText(self.image, obj.label + " " + str(round(obj.confidence, 2)), (obj.x, obj.y + 30), font, 1, color, 1)
+        windows = {}
+        for i, camera_snap in enumerate(self.camera_snaps):
+            winName = "Camera " + str(i)
+            windows[camera_snap] = winName
+            cv2.namedWindow(winName)
 
-        # Display results
-        cv2.imshow("Image", self.image)
+        for i, camera_snap in enumerate(self.camera_snaps):
+            window = windows[camera_snap]
+            for obj in camera_snap.detections:
+                cv2.rectangle(camera_snap.frame, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 1)
+                cv2.putText(camera_snap.frame, obj.label + " " + str(round(obj.confidence, 2)), (obj.x, obj.y + 30), font, 1, color, 1)
+                cv2.imshow(window, camera_snap.frame)
 
         # Finish up
         cv2.waitKey(1)

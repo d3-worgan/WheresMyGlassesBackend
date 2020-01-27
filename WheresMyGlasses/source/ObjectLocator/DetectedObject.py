@@ -2,11 +2,11 @@ class ObjectDetected:
     """
     Load information from the object detector
     """
-    def __init__(self, cid, label, confidence, center_x, center_y, x, y, w, h):
+    def __init__(self, cid, label, confidence, camera_id, center_x, center_y, x, y, w, h):
         self.cid = cid  # Class id
         self.label = label
         self.confidence = confidence
-#        self.camera_id
+        self.camera_id = camera_id
         self.center_x = center_x
         self.center_y = center_y
         self.x = x  # top left of box

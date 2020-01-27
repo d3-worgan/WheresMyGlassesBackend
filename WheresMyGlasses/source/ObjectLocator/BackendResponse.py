@@ -1,6 +1,6 @@
 import json
-from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
-
+from datetime import datetime
+import time
 
 class BackendResponse:
     """
@@ -16,7 +16,17 @@ class BackendResponse:
         self.code_name = code_name
         self.original_request = original_request
         self.location_time = location_time
+        self.location_time_passed = self.minutes_passed()
         self.locations_identified = locations_identified
+
+    def minutes_passed(self):
+        if self.location_time:
+            current_time = datetime.now()
+            print("Current time ", current_time)
+            print("Location time ", self.location_time)
+            passed = current_time - self.location_time
+            minutes_passed = passed.seconds / 60
+            return round(minutes_passed, 2)
 
     def pack(self):
         """
@@ -28,6 +38,7 @@ class BackendResponse:
         package['code_name'] = self.code_name
         package['original_request'] = self.original_request
         package['location_time'] = str(self.location_time)
+        package['minutes_passed'] = str(self.location_time_passed)
         locations_identified = []
         for location in self.locations_identified:
             locations_identified.append(location.to_json())

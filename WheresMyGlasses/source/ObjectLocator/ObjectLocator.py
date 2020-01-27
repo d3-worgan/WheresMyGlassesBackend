@@ -1,6 +1,7 @@
 from WheresMyGlasses.source.ObjectLocator.Snapshot import Snapshot
 from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
 from WheresMyGlasses.source.ObjectLocator.ObjectDetector import ObjectDetector
+from WheresMyGlasses.source.ObjectLocator.CameraSnap import CameraSnap
 
 import cv2
 from datetime import datetime
@@ -22,11 +23,16 @@ class ObjectLocator:
         # Load detector (YOLO)
         self.object_detector = ObjectDetector()
 
+        self.video_devices = []
+
         # Open the camera stream
         print("Reading camera stream...")
-        self.video_capture = cv2.VideoCapture(0)
-        if not self.video_capture.isOpened():
-            raise Exception("Could not open video device")
+        self.video_devices.append(cv2.VideoCapture(0))
+        self.video_devices.append(cv2.VideoCapture(1))
+        if not self.video_devices[0].isOpened():
+            raise Exception("Could not open video device 1")
+        if not self.video_devices[1].isOpened():
+            raise Exception("Could not open video device 2")
 
         print("Object locator ready.")
 
@@ -39,18 +45,23 @@ class ObjectLocator:
         """
         snapshot = Snapshot()
         snapshot.id = sid
-        now = datetime.now()
-        snapshot.timestamp = now.strftime("%H:%M")
+        snapshot.timestamp = datetime.now()
 
-        # Read an image from the camera
-        ret, img = self.video_capture.read()
-        snapshot.image = img
+        # Read images from the camera
+        for i, camera in enumerate(self.video_devices):
+            ret, img = camera.read()
+            if ret:
+                snapshot.camera_snaps.append(CameraSnap(img, i))
+            else:
+                print("The camera is busted")
 
-        # Detect objects in the image
-        snapshot.objects_detected = self.object_detector.detect_objects(img)
+        # Detect objects in the images
+        for camera_snap in snapshot.camera_snaps:
+            camera_snap.detections = self.object_detector.detect_objects(camera_snap.frame, camera_snap.camera_id)
 
         # Try to locate the detected objects
-        snapshot.objects_located = self.locate_objects(snapshot.objects_detected)
+        for camera_snap in snapshot.camera_snaps:
+            camera_snap.locations = self.locate_objects(camera_snap.detections)
 
         return snapshot
 
@@ -70,7 +81,7 @@ class ObjectLocator:
             for loc in detections:
                 if loc.cid != obj.cid:
                     if loc.x < obj.center_x < (loc.x + loc.w) and loc.y < obj.center_y < (loc.y + loc.h):
-                        locations.append(LocatedObject(obj.label, loc.label))
+                        locations.append(LocatedObject(obj.label, loc.label, obj.camera_id))
 
         # Delete pairs where they are in the same location i.e. no new information
         for location1 in locations:
@@ -96,15 +107,16 @@ class ObjectLocator:
         # Return
         locations = []
         print(f"Checking if the object was located in snapshot {snapshot.id}")
-        for pair in snapshot.objects_located:
-            if pair.object == object_name:
-                locations.append(pair)
-            elif pair.location == object_name:
-                # Swap the names around so it makes better sense
-                temp = pair.location
-                pair.location = pair.object
-                pair.object = temp
-                locations.append(pair)
+        for camera_snap in snapshot.camera_snaps:
+            for pair in camera_snap.locations:
+                if pair.object == object_name:
+                    locations.append(pair)
+                elif pair.location == object_name:
+                    # Swap the names around so it makes better sense
+                    temp = pair.location
+                    pair.location = pair.object
+                    pair.object = temp
+                    locations.append(pair)
         return locations
 
 

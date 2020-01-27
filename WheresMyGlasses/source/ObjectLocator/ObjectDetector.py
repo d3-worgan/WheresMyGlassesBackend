@@ -14,7 +14,7 @@ class ObjectDetector:
         self.net_config = self.net_directory + "yolov3.cfg"
         self.net_weights = self.net_directory + "yolov3.weights"
         self.net_class_names = self.net_directory + "coco.names"
-        self.net = cv2.dnn.readNetFromDarknet(self.net_config, self.net_weights)
+        self.net = cv2.dnn.readNet(self.net_config, self.net_weights)
 
         # Load the class names
         print("loading class names...")
@@ -30,7 +30,7 @@ class ObjectDetector:
 
         print("Detector initialised.")
 
-    def detect_objects(self, frame):
+    def detect_objects(self, frame, camera_id):
         """
         Extract objects from an image.
         :param frame: Picture to process
@@ -39,7 +39,7 @@ class ObjectDetector:
 
         # Prepare image
         height, width, channels = frame.shape
-        blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
+        blob = cv2.dnn.blobFromImage(frame, 0.00392, (640, 640), (0, 0, 0), True, crop=False)
         self.net.setInput(blob)
 
         # Detection
@@ -80,7 +80,7 @@ class ObjectDetector:
         for i in range(len(boxes)):
             if i in indexes:
                 detections.append(
-                    ObjectDetected(class_ids[i], self.classes[class_ids[i]], confidences[i], centers[i][0],
+                    ObjectDetected(class_ids[i], self.classes[class_ids[i]], confidences[i], camera_id, centers[i][0],
                                    centers[i][1], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]))
 
         return detections
