@@ -3,10 +3,13 @@ Video walk-through using Paho: https://www.youtube.com/watch?v=QAaXNt0oqSI
 """
 from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
 from WheresMyGlasses.source.ObjectLocator.BackendResponse import BackendResponse
+from WheresMyGlasses.source.ObjectLocator.stream_manager import StreamManager
+from WheresMyGlasses.source.ObjectLocator.realsense_device_manager import DeviceManager
 
 import paho.mqtt.client as mqtt
 import threading
 import time
+import pyrealsense2 as rs
 from datetime import datetime
 
 
@@ -35,72 +38,76 @@ def minutes_passed(timestamp):
         return round(minutes_passed, 2)
 
 
-def on_message(client, userdata, msg):
+def process_requests(client, userdata, msg):
     """
-    Main callback function for when a request is received from the front end. First validate
-    the detector can recognise the specified object, then take a snapshot. If the
-    object is not the snapshot check in the snapshot history. Produce a message code and
-    build a response object to send to the front end.
-    :return: Publish a BackendResponse on the MQTT
+    Main callback from the MQTT client which processes the frontend requests and produces a backend response.
+    :return: No return, but publish a BackendResponse on the MQTT
     """
+
     # Decode the incoming message
     topic = msg.topic
     m_decode = str(msg.payload.decode("utf-8", "ignore"))
     print(f"Message {m_decode} received on {topic}")
 
-    global ol
-    global snapshot_history
-    global lock
-
+    # Grab the lock and restrict access to the snapshot history
     lock.acquire()
+
+    # Start building information for the backend response
     response = None
     current_snapshot = None
     object_located = False
     message_code = ''
 
-    start_search = datetime.now()
+    # Check the object has been trained on the detector
+    if validate_object(m_decode, locator):
 
-    if validate_object(m_decode, ol):
-        # Use the object detector to see if the object is in the room
-        current_snapshot = ol.take_snapshot('x')
+        # Check if the locator can locate the object in the current snapshot
+        current_snapshot = locator.take_snapshot('x')
         print("Searching snapshot...")
-        locations_identified = ol.search_snapshot(current_snapshot, m_decode)
+        locations_identified = locator.search_snapshot(current_snapshot, m_decode)
 
+        # The locator located an object
         if len(locations_identified) == 1:
-            # If the object is in a single location in the current snapshot
             print("Message code 1")
             object_located = True
             message_code = '1'
+
+        # The locator located multiple objects
         elif len(locations_identified) > 1:
-            # If the object is in multiple locations in the current snapshot
             print("Message code 2")
             object_located = True
             message_code = '2'
+
+        # The locator did not find the object in the current snapshot and starts looking through the snapshot history
         else:
             print(f"The {m_decode} was not in the snapshot, searching the snapshot history...")
             for i, snap in enumerate(snapshot_history):
-                search_time = minutes_passed(start_search)
-                print(search_time)
-                #if search_time > 0.
                 print(f"Searching snapshot {i}")
-                locations_identified = ol.search_snapshot(snap, m_decode)
+                locations_identified = locator.search_snapshot(snap, m_decode)
+
+                # The locator found a snapshot with the object located
                 if len(locations_identified) == 1:
                     object_located = True
                     current_snapshot = snap
+
+                    # Use the correct message code to describe how long ago the location was
                     if minutes_passed(current_snapshot.timestamp) < 2:
-                        # The object appeared in a snapshot in the last 2 minutes
                         message_code = '1'
                     else:
-                        # Appeared in a snapshot a while ago
                         message_code = '3'
+
+                # The locator found a snapshot with multiple object locations
                 elif len(locations_identified) > 1:
                     object_located = True
                     current_snapshot = snap
+
+                    # Use the correct message code to describe the location information
                     if minutes_passed(current_snapshot.timestamp) < 2:
                         message_code = '2'
                     else:
                         message_code = '4'
 
+        # The object was not found in the current snapshot of any of the historical snapshots
         if not object_located:
             print("The object was not found, message code 5")
             message_code = '5'
@@ -110,11 +117,13 @@ def on_message(client, userdata, msg):
         object_located = False
         message_code = '6'
 
+    # Build the response object using the information gathered
     if object_located:
-        response = BackendResponse(message_code, m_decode, current_snapshot.timestamp, ol.search_snapshot(current_snapshot, m_decode))
+        response = BackendResponse(message_code, m_decode, current_snapshot.timestamp, locator.search_snapshot(current_snapshot, m_decode))
     else:
         response = BackendResponse(message_code, m_decode, None, [])
 
+    # Pack the response object into json and publish to the backend handler
     if response:
         response = response.pack()
         print(response)
@@ -122,64 +131,126 @@ def on_message(client, userdata, msg):
     else:
         client.publish("backend/response", "*backend error*")
 
+    # Release the lock so can continue taking snapshots while waiting for requests
     lock.release()
 
 
 def take_snapshots():
     """
-    Background loop taking regular snapshots to keep track of objects and state of the room.
+    Background loop taking regular snapshots to keep track of objects and state of the room. Display output.
     :return:
     """
-    i = 0
+
+    # Give each snapshot an id
+    snapshot_id = 0
     while True:
+        # Take a snapshot on specified intervals
+        t = datetime.now()
+        #if t.second % snapshot_interval == 0:
+
+        # Use the lock to avoid competing with the "process_requests" thread in the snapshot_history
         lock.acquire()
+
+        # Take the snapshot
+        snapshot = locator.take_snapshot(snapshot_id)
+
+        # Display snapshot
+        if display_output:
+            stream_manager.display_bboxes(snapshot, flip_cameras)
+
+        # Maintain a fixed size queue
         if len(snapshot_history) < history_size:
-            snapshot_history.append(ol.take_snapshot(i))
-            snapshot_history[-1].display_snapshot()
-            # snapshot_history[-1].print_details()
-            i += 1
+            snapshot_history.append(locator.take_snapshot(snapshot_id))
+            snapshot_id += 1
         else:
             snapshot_history.pop(0)
-            snapshot_history.append(ol.take_snapshot(i))
-            snapshot_history[-1].display_snapshot()
-            # snapshot_history[-1].print_details()
-            i += 1
+            snapshot_history.append(locator.take_snapshot(snapshot_id))
+            snapshot_id += 1
 
+        # Release the lock so the request handler can access the snapshot_history
         lock.release()
+
+        # Need to sleep otherwise will keep blocking the request handler
         time.sleep(0.1)
 
 
-def validate_object(m_decode, ol):
+def validate_object(m_decode, locator):
+    """
+    Searches the object detectors list of trained classes to check the request is valid
+    :param m_decode:
+    :param locator:
+    :return:
+    """
     print("Searching names file for requested object ", m_decode)
-    for name in ol.object_detector.classes:
+    for name in locator.object_detector.classes:
         if name == m_decode:
             print("Object is in training data")
             return True
 
 
 if __name__ == "__main__":
-    print("Start")
-    broker = "192.168.0.27"
-    client = mqtt.Client("Backend")
 
-    history_size = 1000
+    print("Loading the backend handler...")
+
+    # Camera stream parameters
+    resolution_width = 640  # frame width px
+    resolution_height = 480  # frame height px
+    frame_rate = 30  # fps
+    flip_cameras = False  # True to flip view
+    display_output = True  # True to display camera streams with bounding box info
+
+    # Open and configure devices
+    print("Loading camera devices...")
+    print("Camera config %s x %s @ %s fps" % (resolution_width, resolution_height, frame_rate))
+    rs_config = rs.config()
+    rs_config.enable_stream(rs.stream.color, resolution_width, resolution_height, rs.format.bgr8, frame_rate)
+    device_manager = DeviceManager(rs.context(), rs_config)
+    device_manager.enable_all_devices()
+
+    # Open and configure output streams (so we can view the snapshots)
+    print("Loading camera streams...")
+    stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
+    stream_manager.load_display_windows(device_manager._enabled_devices)
+
+    # Load the object detection and location system
+    print("Loading the object locator...")
+    locator = ObjectLocator(device_manager)
+
+    # # Load the MQTT client and register callback functions
+    # print("Loading MQTT client")
+    # client = mqtt.Client("Backend")
+    #
+    # # Callbacks for debugging connection
+    # client.on_connect = on_connect
+    # client.on_log = on_log
+    # client.on_disconnect = on_disconnect
+    #
+    # # Main callback for processing frontend requests
+    # client.on_message = process_requests
+    #
+    # # Use the MQTT broker on the BackendHandler (i.e. raspberry pi & snips)
+    # broker = "192.168.0.27"
+    #
+    # # Connect MQTT and start listening for frontend requests
+    # print("Connecting to MQTT broker ", broker)
+    # client.connect(broker)
+    # client.loop_start()
+    # client.subscribe("backend_handler/frontend_request")
+
+    # Initialise the snapshot history, calculate the number of snapshots required to store a days worth of data using
+    # the specified intervals
+    snapshot_interval = 10  # (seconds)
+    seconds_in_a_day = 86400
+    history_size = seconds_in_a_day / snapshot_interval
     snapshot_history = []
+    print("Snapshot interval " + str(snapshot_interval))
+    print("Snapshot history size " + str(history_size))
 
-    ol = ObjectLocator()
+    # Use a lock to manage access to the snapshot_history
     lock = threading.Lock()
 
-    client.on_connect = on_connect
-    client.on_log = on_log
-    client.on_disconnect = on_disconnect
-    client.on_message = on_message
-
-    print("Connecting to broker ", broker)
-    client.connect(broker)
-    client.loop_start()
-    client.subscribe("backend_handler/frontend_request")
-
-    print("Saving snapshots to history...")
-
+    # Start taking regular snapshots and listening for incoming requests on MQTT
+    print("BackendManager loaded, waiting for requests.")
     try:
         take_snapshots()
     except KeyboardInterrupt:
@@ -187,6 +258,6 @@ if __name__ == "__main__":
     finally:
         print("done")
         lock.release()
-        client.loop_stop()
-        client.disconnect()
+        # client.loop_stop()
+        # client.disconnect()
 

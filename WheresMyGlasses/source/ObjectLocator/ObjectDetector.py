@@ -37,6 +37,8 @@ class ObjectDetector:
         :return: A list of objects that were detected in the image
         """
 
+        #print(f"Analysing {camera_id} for objects")
+
         # Prepare image
         height, width, channels = frame.shape
         blob = cv2.dnn.blobFromImage(frame, 0.00392, (640, 640), (0, 0, 0), True, crop=False)
@@ -57,7 +59,7 @@ class ObjectDetector:
                 scores = detection[5:]
                 class_id = np.argmax(scores)
                 confidence = scores[class_id]
-                if confidence > 0.5:
+                if confidence > 0.4:
                     label = self.classes[class_id]
                     # Object detected
                     center_x = int(detection[0] * width)
@@ -83,4 +85,5 @@ class ObjectDetector:
                     ObjectDetected(class_ids[i], self.classes[class_ids[i]], confidences[i], camera_id, centers[i][0],
                                    centers[i][1], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]))
 
+        #print(f"Detected {len(detections)} objects")
         return detections

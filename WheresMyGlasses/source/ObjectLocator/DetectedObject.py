@@ -13,3 +13,5 @@ class ObjectDetected:
         self.y = y  # top left of box
         self.w = w  # width of box
         self.h = h  # height of box
+
+

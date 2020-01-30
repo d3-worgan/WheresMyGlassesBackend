@@ -15,7 +15,7 @@ class Snapshot:
         self.camera_snaps = []
 
     def to_response(self, code):
-        br = BackendResponse(code, self.timestamp, self.objects_located)
+        br = BackendResponse(code, self.timestamp, self.camera_snaps)
         response = br.pack()
         return response
 
@@ -28,7 +28,7 @@ class Snapshot:
         print("Timestamp " + str(self.timestamp))
 
         for i, camera_snap in enumerate(self.camera_snaps):
-            print("Camera " + str(i))
+            print("Camera " + str(i) + " " + str(camera_snap.camera_id))
             print("Number detections " + str(len(camera_snap.detections)))
             for obj in camera_snap.detections:
                 print(obj.label)
@@ -36,33 +36,33 @@ class Snapshot:
             for loc in camera_snap.locations:
                 print(f"The {loc.object} is by the {loc.location}")
 
-    def display_snapshot(self):
-        """
-        Display the image taken of the snapshot with bounding boxes around the
-        detected objects.
-        :return:
-        """
-        # Draw bounding boxes on detected objects
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        color = (255, 100, 100)
-
-        windows = {}
-        for i, camera_snap in enumerate(self.camera_snaps):
-            winName = "Camera " + str(i)
-            windows[camera_snap] = winName
-            cv2.namedWindow(winName)
-
-        for i, camera_snap in enumerate(self.camera_snaps):
-            window = windows[camera_snap]
-            for obj in camera_snap.detections:
-                cv2.rectangle(camera_snap.frame, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 1)
-                cv2.putText(camera_snap.frame, obj.label + " " + str(round(obj.confidence, 2)), (obj.x, obj.y + 30), font, 1, color, 1)
-                cv2.imshow(window, camera_snap.frame)
-
-        # Finish up
-        cv2.waitKey(1)
-        #cv2.destroyAllWindows()
-        #print("Done.")
+    # def display_snapshot(self):
+    #     """
+    #     Display the image taken of the snapshot with bounding boxes around the
+    #     detected objects.
+    #     :return:
+    #     """
+    #     # # Draw bounding boxes on detected objects
+    #     # font = cv2.FONT_HERSHEY_SIMPLEX
+    #     # color = (255, 100, 100)
+    #     #
+    #     # windows = {}
+    #     # for i, camera_snap in enumerate(self.camera_snaps):
+    #     #     winName = "Camera " + str(i)
+    #     #     windows[camera_snap] = winName
+    #     #     cv2.namedWindow(winName)
+    #     #
+    #     # for i, camera_snap in enumerate(self.camera_snaps):
+    #     #     window = windows[camera_snap]
+    #     #     for obj in camera_snap.detections:
+    #     #         cv2.rectangle(camera_snap.frame, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 1)
+    #     #         cv2.putText(camera_snap.frame, obj.label + " " + str(round(obj.confidence, 2)), (obj.x, obj.y + 30), font, 1, color, 1)
+    #     #         cv2.imshow(window, camera_snap.frame)
+    #     #
+    #     # # Finish up
+    #     # cv2.waitKey(1)
+    #     # #cv2.destroyAllWindows()
+    #     # #print("Done.")
 
     def calculate_brightness(self):
         """

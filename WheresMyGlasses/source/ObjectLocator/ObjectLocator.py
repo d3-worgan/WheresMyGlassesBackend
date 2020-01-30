@@ -2,37 +2,24 @@ from WheresMyGlasses.source.ObjectLocator.Snapshot import Snapshot
 from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
 from WheresMyGlasses.source.ObjectLocator.ObjectDetector import ObjectDetector
 from WheresMyGlasses.source.ObjectLocator.CameraSnap import CameraSnap
-
-import cv2
+from WheresMyGlasses.source.ObjectLocator.stream_manager import StreamManager
+import numpy as np
+import pyrealsense2 as rs
 from datetime import datetime
-
+import cv2
 
 class ObjectLocator:
     """
-    The object locator uses the object detection module and a camera stream to analyse
-    pictures for objects. It can take a "Snapshot" using the camera and extract the
-    location information from the frame.
+    Pulls together the camera streams and object detector to produce or investigate snapshots.
     """
-    def __init__(self):
-        """
-        Initialise the object locator by loading the neural network and object detector.
-        Then start reading from the camera stream.
-        """
-        print("Preparing object locator...")
 
-        # Load detector (YOLO)
+    def __init__(self, device_manager):
+
+        # Use the device manager to grab images from the cameras
+        self.device_manager = device_manager
+
+        # Use the object detector to analyse images and extract detection info.
         self.object_detector = ObjectDetector()
-
-        self.video_devices = []
-
-        # Open the camera stream
-        print("Reading camera stream...")
-        self.video_devices.append(cv2.VideoCapture(0))
-        self.video_devices.append(cv2.VideoCapture(1))
-        if not self.video_devices[0].isOpened():
-            raise Exception("Could not open video device 1")
-        if not self.video_devices[1].isOpened():
-            raise Exception("Could not open video device 2")
 
         print("Object locator ready.")
 
@@ -40,26 +27,28 @@ class ObjectLocator:
         """
         Takes a picture and evaluates it for objects and their locations.
         :param sid: Give the Snapshot an ID for reference.
-        :return: A Snapshot containing the detected objects and location information
-                 from an image.
+        :return: A Snapshot containing the detected objects and location information from an image.
         """
+        #print("Taking a snapshot")
         snapshot = Snapshot()
         snapshot.id = sid
         snapshot.timestamp = datetime.now()
 
-        # Read images from the camera
-        for i, camera in enumerate(self.video_devices):
-            ret, img = camera.read()
-            if ret:
-                snapshot.camera_snaps.append(CameraSnap(img, i))
-            else:
-                print("The camera is busted")
+        # Take images from each camera
+        #print("Reading camera stream")
+        frames_devices = self.device_manager.poll_frames()
+        for i, (device, frame) in enumerate(frames_devices.items()):
+            image = np.asarray(frame[rs.stream.color].get_data())
+            image = cv2.flip(image, 0)
+            snapshot.camera_snaps.append(CameraSnap(image, device))
 
         # Detect objects in the images
+        #print("Searching for objects")
         for camera_snap in snapshot.camera_snaps:
             camera_snap.detections = self.object_detector.detect_objects(camera_snap.frame, camera_snap.camera_id)
 
         # Try to locate the detected objects
+        #print("Locating objects")
         for camera_snap in snapshot.camera_snaps:
             camera_snap.locations = self.locate_objects(camera_snap.detections)
 
@@ -67,10 +56,9 @@ class ObjectLocator:
 
     def locate_objects(self, detections):
         """
-        Computes if objects are close to each other to produce information describing
-        the location of an object. If the center of an object is within the same space
-        as another object it is considered near to it. I.e. if the center xy of object
-        is within the bounding box of another, then pair them together as a location.
+        Computes if objects are close to each other to produce information describing the location of an object. If the
+        center of an object is within the same space as another object it is considered near to it. I.e. if the center
+        xy of object a is within the bounding box of object b, then a is located next to b.
         :param detections: A list of detected objects found in an image
         :return: A list describing pairs of objects that were 'near' each other in the image.
         """
@@ -96,10 +84,9 @@ class ObjectLocator:
 
     def search_snapshot(self, snapshot, object_name):
         """
-        Checks to see if a requested object has been located in a particular snapshot. If
-        the object is in there then make sure the requested object is in the object and not
-        in the location. This avoids saying e.g. "the table is by the glasses" instead of
-        "the glasses are by the table"
+        Checks to see if a requested object has been located in a particular snapshot. If the object is in there then
+        make sure the requested object is in the object and not in the location. This avoids saying e.g. "the table is
+        by the glasses" instead of "the glasses are by the table"
         :param snapshot: The Snapshot to investigate
         :param object_name: The name of the object to search for
         :return: Return a list of locations identified with the specified object
