@@ -1,4 +1,4 @@
-class ObjectDetected:
+class DetectedObject:
     """
     Load information from the object detector
     """

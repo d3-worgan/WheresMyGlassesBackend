@@ -11,7 +11,7 @@ import threading
 import time
 import pyrealsense2 as rs
 from datetime import datetime
-
+import sys, os
 
 def on_log(client, userdata, level, buf):
     print("log: " + buf)
@@ -190,9 +190,27 @@ def validate_object(m_decode, locator):
 
 if __name__ == "__main__":
 
-    print("Loading the backend handler...")
+    """
+    Entry point for the backend system. Intialise paramters etc here....
+    """
 
-    # Camera stream parameters
+    # Specify model (yolov3, yolo9000, yoloSuper, open_images, oi_custom)
+    od_model = "yolov3"
+
+    # Specify the location of the detection models, configs & data files
+    model_folder = r"G:\DetectionModels\\"
+    assert os.path.exists(model_folder), "Couldnt find the detection models folder..."
+
+    # Specify Darknet implementation (True = Darknet implementation, False = openCV implementation)
+    use_darknet = False
+
+    # Specify an interval to take regular snapshots
+    snapshot_interval = 1  # (seconds)
+
+    # Specify MQTT brokers address (i.e. raspberry pi IP)
+    broker = "192.168.0.159"
+
+    # Specify camera stream parameters
     resolution_width = 1920  # frame width px
     resolution_height = 1080  # frame height px
     # resolution_width = 1280  # frame width px
@@ -201,37 +219,40 @@ if __name__ == "__main__":
     flip_cameras = False  # True to flip view
     display_output = True  # True to display camera streams with bounding box info
 
+    # Which cameras to use? (e.g. True = use realsense cameras & api, false = use openCV & webcam
+    use_realsense = False
+
     # Open and configure devices
     print("Loading camera devices...")
     print("Camera config %s x %s @ %s fps" % (resolution_width, resolution_height, frame_rate))
-    rs_config = rs.config()
-    rs_config.enable_stream(rs.stream.color, resolution_width, resolution_height, rs.format.bgr8, frame_rate)
-    device_manager = DeviceManager(rs.context(), rs_config)
-    device_manager.enable_all_devices()
+    if use_realsense:
+        print("Loading realsense devices")
+        rs_config = rs.config()
+        rs_config.enable_stream(rs.stream.color, resolution_width, resolution_height, rs.format.bgr8, frame_rate)
+        device_manager = DeviceManager(rs.context(), rs_config)
+        device_manager.enable_all_devices()
+        assert len(device_manager._enabled_devices) > 0, "No realsense devices were found"
 
-    # Open and configure output streams (so we can view the snapshots)
-    print("Loading camera streams...")
-    stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
-    stream_manager.load_display_windows(device_manager._enabled_devices)
+        # Open and configure output streams (so we can view the snapshots)
+        print("Loading camera streams...")
+        stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
+        stream_manager.load_display_windows(device_manager._enabled_devices)
+        locator = ObjectLocator(od_model, model_folder, use_darknet, device_manager)
+    else:
+        print("Loading cameras with openCV")
+        locator = ObjectLocator(od_model, model_folder, use_darknet, None)
 
-    # Load the object detection and location system
-    print("Loading the object locator...")
-    locator = ObjectLocator(device_manager)
+    # # Load the object detection and location system
+    # print("Loading the object locator...")
+    # locator = ObjectLocator(od_model, model_folder, use_darknet, device_manager)
 
-    # # Load the MQTT client and register callback functions
+    # Load the MQTT client and register callback functions
     print("Loading MQTT client")
     client = mqtt.Client("Backend")
-
-    # Callbacks for debugging connection
     client.on_connect = on_connect
     client.on_log = on_log
     client.on_disconnect = on_disconnect
-
-    # Main callback for processing frontend requests
-    client.on_message = process_requests
-
-    # Use the MQTT broker on the BackendHandler (i.e. raspberry pi & snips)
-    broker = "192.168.0.159"
+    client.on_message = process_requests  # Main callback for processing frontend requests
 
     # Connect MQTT and start listening for frontend requests
     print("Connecting to MQTT broker ", broker)
@@ -239,20 +260,22 @@ if __name__ == "__main__":
     client.loop_start()
     client.subscribe("backend_handler/frontend_request")
 
-    # Initialise the snapshot history, calculate the number of snapshots required to store a days worth of data using
-    # the specified intervals
-    snapshot_interval = 10  # (seconds)
+    # Initialise the snapshot history, calculate the number of snapshots required to store a days worth of data
+    # using the specified intervals
     seconds_in_a_day = 86400
     history_size = seconds_in_a_day / snapshot_interval
     snapshot_history = []
     print("Snapshot interval " + str(snapshot_interval))
     print("Snapshot history size " + str(history_size))
 
+    assert history_size > 0, "The history size should be greater than zero?"
+
     # Use a lock to manage access to the snapshot_history
     lock = threading.Lock()
 
     # Start taking regular snapshots and listening for incoming requests on MQTT
     print("BackendManager loaded, waiting for requests.")
+
     try:
         take_snapshots()
     except KeyboardInterrupt:
@@ -260,6 +283,6 @@ if __name__ == "__main__":
     finally:
         print("done")
         lock.release()
-        # client.loop_stop()
-        # client.disconnect()
+        client.loop_stop()
+        client.disconnect()
 
