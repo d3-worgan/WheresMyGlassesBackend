@@ -59,7 +59,7 @@ class ObjectDetector:
                 scores = detection[5:]
                 class_id = np.argmax(scores)
                 confidence = scores[class_id]
-                if confidence > 0.4:
+                if confidence > 0.1:
                     label = self.classes[class_id]
                     # Object detected
                     center_x = int(detection[0] * width)
@@ -75,7 +75,7 @@ class ObjectDetector:
                     centers.append([center_x, center_y])
 
         # Reduce double detections and errors
-        indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
+        indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.1, 0.1)
 
         # Return a list of objects detected in the image
         detections = []

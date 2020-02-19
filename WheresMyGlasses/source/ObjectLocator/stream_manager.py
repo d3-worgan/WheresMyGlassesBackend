@@ -18,8 +18,8 @@ class StreamManager:
 
         # Allow window to be smaller than frame:
         #self.defaultWinSize = (int(1920/3), int(1080/3)) # Good for 1920x1080 display, e.g. monitor in control room
-        # self.defaultWinSize = (int(1920/5), int(1080/5))  # Good for Living Lab TV when using low resolution.
-        self.defaultWinSize = (int(frame_width/2), int(frame_height/2))
+        self.defaultWinSize = (int(1920/5), int(1080/5))  # Good for Living Lab TV when using low resolution.
+        #self.defaultWinSize = (int(frame_width/2), int(frame_height/2))
 
         # Set window positions for known cameras based on integer tiling in a 3x3 grid, roughly reflecting their
         # positions in the lab:
@@ -40,11 +40,11 @@ class StreamManager:
         # This allows simplified window naming and consistent window positioning between runs.
         # If cameras are moved around in the lab, these should be changed.
         self.camNames = {
-            "830112071467":'5',
+            "830112071467":'Living Room',
             "830112071329":'4',
             "831612070394":'2',
-            "831612071422":'3',
-            "831612071440":'8',
+            "831612071422":'Dining Area',
+            "831612071440":'Kitchen',
         }
 
         self.frame_width = frame_width

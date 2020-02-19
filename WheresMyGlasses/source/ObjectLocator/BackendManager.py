@@ -119,9 +119,9 @@ def process_requests(client, userdata, msg):
 
     # Build the response object using the information gathered
     if object_located:
-        response = BackendResponse(message_code, m_decode, current_snapshot.timestamp, locator.search_snapshot(current_snapshot, m_decode))
+        response = BackendResponse(message_code, m_decode, current_snapshot.timestamp, locator.search_snapshot(current_snapshot, m_decode), stream_manager)
     else:
-        response = BackendResponse(message_code, m_decode, None, [])
+        response = BackendResponse(message_code, m_decode, None, [], stream_manager)
 
     # Pack the response object into json and publish to the backend handler
     if response:
@@ -193,8 +193,10 @@ if __name__ == "__main__":
     print("Loading the backend handler...")
 
     # Camera stream parameters
-    resolution_width = 640  # frame width px
-    resolution_height = 480  # frame height px
+    resolution_width = 1920  # frame width px
+    resolution_height = 1080  # frame height px
+    # resolution_width = 1280  # frame width px
+    # resolution_height = 720  # frame height px
     frame_rate = 30  # fps
     flip_cameras = False  # True to flip view
     display_output = True  # True to display camera streams with bounding box info
@@ -217,25 +219,25 @@ if __name__ == "__main__":
     locator = ObjectLocator(device_manager)
 
     # # Load the MQTT client and register callback functions
-    # print("Loading MQTT client")
-    # client = mqtt.Client("Backend")
-    #
-    # # Callbacks for debugging connection
-    # client.on_connect = on_connect
-    # client.on_log = on_log
-    # client.on_disconnect = on_disconnect
-    #
-    # # Main callback for processing frontend requests
-    # client.on_message = process_requests
-    #
-    # # Use the MQTT broker on the BackendHandler (i.e. raspberry pi & snips)
-    # broker = "192.168.0.27"
-    #
-    # # Connect MQTT and start listening for frontend requests
-    # print("Connecting to MQTT broker ", broker)
-    # client.connect(broker)
-    # client.loop_start()
-    # client.subscribe("backend_handler/frontend_request")
+    print("Loading MQTT client")
+    client = mqtt.Client("Backend")
+
+    # Callbacks for debugging connection
+    client.on_connect = on_connect
+    client.on_log = on_log
+    client.on_disconnect = on_disconnect
+
+    # Main callback for processing frontend requests
+    client.on_message = process_requests
+
+    # Use the MQTT broker on the BackendHandler (i.e. raspberry pi & snips)
+    broker = "192.168.0.159"
+
+    # Connect MQTT and start listening for frontend requests
+    print("Connecting to MQTT broker ", broker)
+    client.connect(broker)
+    client.loop_start()
+    client.subscribe("backend_handler/frontend_request")
 
     # Initialise the snapshot history, calculate the number of snapshots required to store a days worth of data using
     # the specified intervals

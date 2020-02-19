@@ -11,13 +11,14 @@ class BackendResponse:
     can then unpack the recieved message back into a BackendResponse object so that it can
     be processed.
     """
-    def __init__(self, code_name, original_request, location_time, locations_identified):
+    def __init__(self, code_name, original_request, location_time, locations_identified, stream_manager):
         print("Creating a backend response")
         self.code_name = code_name
         self.original_request = original_request
         self.location_time = location_time
         self.location_time_passed = self.minutes_passed()
         self.locations_identified = locations_identified
+        self.stream_manager = stream_manager
 
     def minutes_passed(self):
         if self.location_time:
@@ -39,6 +40,10 @@ class BackendResponse:
         package['original_request'] = self.original_request
         package['location_time'] = str(self.location_time)
         package['minutes_passed'] = str(self.location_time_passed)
+
+        # for l in self.locations_identified:
+        #     l.camera_id = self.stream_manager.camNames[l.camera_id]
+
         locations_identified = []
         for location in self.locations_identified:
             locations_identified.append(location.to_json())
