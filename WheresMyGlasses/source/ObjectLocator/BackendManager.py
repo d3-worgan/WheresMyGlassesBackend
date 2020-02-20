@@ -204,9 +204,6 @@ if __name__ == "__main__":
     # Specify Darknet implementation (e.g. True = Darknet implementation, False = openCV implementation)
     use_darknet = False
 
-    # Specify camera devices (e.g. True = use realsense api & cameras, false = use openCV api & webcams
-    use_realsense = False
-
     # Specify an interval to take regular snapshots
     snapshot_interval = 1  # (seconds)
 
@@ -230,20 +227,18 @@ if __name__ == "__main__":
     print("Camera config %s x %s @ %s fps" % (resolution_width, resolution_height, frame_rate))
     rs_config = rs.config()
     rs_config.enable_stream(rs.stream.color, resolution_width, resolution_height, rs.format.bgr8, frame_rate)
-    device_manager = DeviceManager(rs.context(), rs_config, use_realsense)
-
-    if use_realsense:
-        device_manager.enable_all_devices()
-        assert len(device_manager._enabled_devices) > 0, "No realsense devices were found"
+    device_manager = DeviceManager(rs.context(), rs_config)
+    device_manager.enable_all_devices()
+    assert len(device_manager._enabled_devices) > 0, "No realsense devices were found"
 
     # Open and configure output streams (so we can view the snapshots)
     print("Loading camera streams...")
     stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
-    stream_manager.load_display_windows(device_manager._enabled_devices, use_realsense)
+    stream_manager.load_display_windows(device_manager._enabled_devices)
 
     # Load the object detection and location system
     print("Loading the object locator...")
-    locator = ObjectLocator(od_model, model_folder, use_darknet, use_realsense, device_manager)
+    locator = ObjectLocator(od_model, model_folder, use_darknet, device_manager)
 
     if use_mqtt:
         # Load the MQTT client and register callback functions

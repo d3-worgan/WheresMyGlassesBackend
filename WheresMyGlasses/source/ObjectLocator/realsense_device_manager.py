@@ -109,7 +109,7 @@ def post_process_depth_frame(depth_frame, decimation_magnitude=1.0, spatial_magn
 
 
 class DeviceManager:
-    def __init__(self, context, pipeline_configuration, use_realsense):
+    def __init__(self, context, pipeline_configuration):
         """
         Class to manage the Intel RealSense devices
         Parameters:
@@ -119,18 +119,13 @@ class DeviceManager:
         pipeline_configuration  : rs.config()
                                   The realsense library configuration to be used for the application
         """
-        self.use_realsense = use_realsense
-
-        if self.use_realsense:
-            assert isinstance(context, type(rs.context()))
-            assert isinstance(pipeline_configuration, type(rs.config()))
-            self._context = context
-            self._available_devices = enumerate_connected_devices(context)
-            self._enabled_devices = {}
-            self._config = pipeline_configuration
-            self._frame_counter = 0
-        else:
-            self._enabled_devices = {'Camera 0': cv2.VideoCapture(0), 'Camera 1': cv2.VideoCapture(1)}
+        assert isinstance(context, type(rs.context()))
+        assert isinstance(pipeline_configuration, type(rs.config()))
+        self._context = context
+        self._available_devices = enumerate_connected_devices(context)
+        self._enabled_devices = {}
+        self._config = pipeline_configuration
+        self._frame_counter = 0
 
     def enable_device(self, device_serial, enable_ir_emitter):
         """
@@ -195,24 +190,19 @@ class DeviceManager:
         -----------
         """
         frames = {}
-        if self.use_realsense:
-            for (serial, device) in self._enabled_devices.items():
-                streams = device.pipeline_profile.get_streams()
-                frameset = device.pipeline.poll_for_frames()
-                if frameset.size() == len(streams):
-                    frames[serial] = {}
-                    for stream in streams:
-                        if rs.stream.infrared == stream.stream_type():
-                            frame = frameset.get_infrared_frame(stream.stream_index())
-                            key_ = (stream.stream_type(), stream.stream_index())
-                        else:
-                            frame = frameset.first_or_default(stream.stream_type())
-                            key_ = stream.stream_type()
-                        frames[serial][key_] = frame
-        else:
-            ret0, frames['Camera 0'] = self._enabled_devices['Camera 0'].read()
-            ret1, frames['Camera 1'] = self._enabled_devices['Camera 1'].read()
-
+        for (serial, device) in self._enabled_devices.items():
+            streams = device.pipeline_profile.get_streams()
+            frameset = device.pipeline.poll_for_frames()
+            if frameset.size() == len(streams):
+                frames[serial] = {}
+                for stream in streams:
+                    if rs.stream.infrared == stream.stream_type():
+                        frame = frameset.get_infrared_frame(stream.stream_index())
+                        key_ = (stream.stream_type(), stream.stream_index())
+                    else:
+                        frame = frameset.first_or_default(stream.stream_type())
+                        key_ = stream.stream_type()
+                    frames[serial][key_] = frame
         return frames
 
     def get_depth_shape(self):

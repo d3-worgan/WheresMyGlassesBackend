@@ -14,10 +14,9 @@ class ObjectLocator:
     Pulls together the camera streams and object detector to produce or investigate snapshots.
     """
 
-    def __init__(self, od_model, model_folder, use_darknet, use_realsense, device_manager):
+    def __init__(self, od_model, model_folder, use_darknet, device_manager):
 
         self.use_darknet = use_darknet
-        self.use_realsense = use_realsense
 
         # Use the device manager to grab images from the cameras
         self.device_manager = device_manager
@@ -41,33 +40,20 @@ class ObjectLocator:
         # Take images from each camera
         # print("Reading camera stream")
 
-        if self.use_realsense:
-            frames_devices = self.device_manager.poll_frames()
-            for i, (device, frame) in enumerate(frames_devices.items()):
-                image = np.asarray(frame[rs.stream.color].get_data())
-                image = cv2.flip(image, 0)
-                snapshot.camera_snaps.append(CameraSnap(image, device))
-        else:
-            frames = self.device_manager.poll_frames()
-            snapshot.camera_snaps.append(CameraSnap(frames['Camera 0'], 'Camera 0'))
-            snapshot.camera_snaps.append(CameraSnap(frames['Camera 1'], 'Camera 1'))
-
-        #print(snapshot.camera_snaps[0].frame)
-
-        #cv2.imshow("Image", snapshot.camera_snaps[0].frame)
+        frames_devices = self.device_manager.poll_frames()
+        for i, (device, frame) in enumerate(frames_devices.items()):
+            image = np.asarray(frame[rs.stream.color].get_data())
+            image = cv2.flip(image, 0)
+            snapshot.camera_snaps.append(CameraSnap(image, device))
 
         # Detect objects in the images
-        # print("Searching for objects")
         for camera_snap in snapshot.camera_snaps:
-            print("Camera Snap x" + camera_snap.camera_id)
             if self.use_darknet:
                 camera_snap.detections = self.object_detector.detect_objects_dn(camera_snap.frame, camera_snap.camera_id)
             else:
-                print(camera_snap.frame)
                 camera_snap.detections = self.object_detector.detect_objects_cv(camera_snap.frame, camera_snap.camera_id)
 
         # Try to locate the detected objects
-        # print("Locating objects")
         for camera_snap in snapshot.camera_snaps:
             camera_snap.locations = self.locate_objects(camera_snap.detections)
 
