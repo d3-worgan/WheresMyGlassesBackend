@@ -11,6 +11,8 @@ class ObjectDetector:
     """
     def __init__(self, od_model, model_folder, use_darknet):
         print("Initialising detector")
+
+        # Find the paths for the specified object detection model
         weights, config, meta_data, names = self.load_specified_model(od_model, model_folder)
         self.classes = []
         with open(names, "r") as f:

@@ -11,7 +11,8 @@ import threading
 import time
 import pyrealsense2 as rs
 from datetime import datetime
-import sys, os
+import os
+
 
 def on_log(client, userdata, level, buf):
     print("log: " + buf)
@@ -191,11 +192,13 @@ def validate_object(m_decode, locator):
 if __name__ == "__main__":
 
     """
-    Entry point for the backend system. Intialise paramters etc here....
+    Entry point for the backend system. Initialise parameters etc here....
     """
 
     # Specify model (yolov3, yolo9000, yoloSuper, open_images, oi_custom)
-    od_model = "yolov3"
+    od_model = "oi_custom"
+    assert od_model is "yolov3" or od_model is "yolo9000" or od_model is "yoloSuper" or od_model is "open_images" \
+           or od_model is "oi_custom", "Invalid model specified"
 
     # Specify the location of the detection models, configs & data files
     model_folder = r"G:\DetectionModels"
@@ -212,10 +215,10 @@ if __name__ == "__main__":
     broker = "192.168.0.159"
 
     # Specify camera stream parameters
-    resolution_width = 1920  # frame width px
-    resolution_height = 1080  # frame height px
-    # resolution_width = 1280  # frame width px
-    # resolution_height = 720  # frame height px
+    # resolution_width = 1920  # frame width px
+    # resolution_height = 1080  # frame height px
+    resolution_width = 1280  # frame width px
+    resolution_height = 720  # frame height px
     frame_rate = 30  # fps
     flip_cameras = False  # True to flip view
     display_output = True  # True to display camera streams with bounding box info
@@ -235,6 +238,7 @@ if __name__ == "__main__":
     print("Loading camera streams...")
     stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
     stream_manager.load_display_windows(device_manager._enabled_devices)
+    assert len(stream_manager.display_windows) > 0, "No display windows"
 
     # Load the object detection and location system
     print("Loading the object locator...")
@@ -262,10 +266,9 @@ if __name__ == "__main__":
     snapshot_history = []
     print("Snapshot interval " + str(snapshot_interval))
     print("Snapshot history size " + str(history_size))
-
     assert history_size > 0, "The history size should be greater than zero?"
 
-    # Use a lock to manage access to the snapshot_history
+    # Avoid conflict between take_snapshots and process requests on the snapshot history
     lock = threading.Lock()
 
     # Start taking regular snapshots and listening for incoming requests on MQTT
@@ -276,9 +279,8 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("User quit.")
     finally:
-        print("done")
         lock.release()
         if use_mqtt:
             client.loop_stop()
             client.disconnect()
-
+        print("done")
