@@ -53,7 +53,7 @@ class StreamManager:
         self.display_windows = {}
         print("Loaded lab manager " + str(self.frame_width) + " " + str(self.frame_height) + " " + str(self.frames_second))
 
-    def load_display_windows(self, enabled_devices):
+    def load_display_windows(self, enabled_devices, use_realsense):
         """
         Creates a window for each enabled device,
         saves the window into the 'self.display_windows = {}'

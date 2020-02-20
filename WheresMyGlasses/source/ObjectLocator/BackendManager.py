@@ -148,7 +148,7 @@ def take_snapshots():
         t = datetime.now()
         #if t.second % snapshot_interval == 0:
 
-        # Use the lock to avoid competing with the "process_requests" thread in the snapshot_history
+        # Use the lock to avoid competing with the "process_requests" thread for the snapshot_history
         lock.acquire()
 
         # Take the snapshot
@@ -198,16 +198,20 @@ if __name__ == "__main__":
     od_model = "yolov3"
 
     # Specify the location of the detection models, configs & data files
-    model_folder = r"G:\DetectionModels\\"
-    assert os.path.exists(model_folder), "Couldnt find the detection models folder..."
+    model_folder = r"G:\DetectionModels"
+    assert os.path.exists(model_folder), "Couldn't find the detection models folder..."
 
-    # Specify Darknet implementation (True = Darknet implementation, False = openCV implementation)
+    # Specify Darknet implementation (e.g. True = Darknet implementation, False = openCV implementation)
     use_darknet = False
+
+    # Specify camera devices (e.g. True = use realsense api & cameras, false = use openCV api & webcams
+    use_realsense = False
 
     # Specify an interval to take regular snapshots
     snapshot_interval = 1  # (seconds)
 
-    # Specify MQTT brokers address (i.e. raspberry pi IP)
+    # Turn on MQTT listener (brokers address = raspberry pi IP)
+    use_mqtt = False
     broker = "192.168.0.159"
 
     # Specify camera stream parameters
@@ -219,46 +223,42 @@ if __name__ == "__main__":
     flip_cameras = False  # True to flip view
     display_output = True  # True to display camera streams with bounding box info
 
-    # Which cameras to use? (e.g. True = use realsense cameras & api, false = use openCV & webcam
-    use_realsense = False
+    print("Loading the backend manager...")
 
     # Open and configure devices
     print("Loading camera devices...")
     print("Camera config %s x %s @ %s fps" % (resolution_width, resolution_height, frame_rate))
+    rs_config = rs.config()
+    rs_config.enable_stream(rs.stream.color, resolution_width, resolution_height, rs.format.bgr8, frame_rate)
+    device_manager = DeviceManager(rs.context(), rs_config, use_realsense)
+
     if use_realsense:
-        print("Loading realsense devices")
-        rs_config = rs.config()
-        rs_config.enable_stream(rs.stream.color, resolution_width, resolution_height, rs.format.bgr8, frame_rate)
-        device_manager = DeviceManager(rs.context(), rs_config)
         device_manager.enable_all_devices()
         assert len(device_manager._enabled_devices) > 0, "No realsense devices were found"
 
-        # Open and configure output streams (so we can view the snapshots)
-        print("Loading camera streams...")
-        stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
-        stream_manager.load_display_windows(device_manager._enabled_devices)
-        locator = ObjectLocator(od_model, model_folder, use_darknet, device_manager)
-    else:
-        print("Loading cameras with openCV")
-        locator = ObjectLocator(od_model, model_folder, use_darknet, None)
+    # Open and configure output streams (so we can view the snapshots)
+    print("Loading camera streams...")
+    stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
+    stream_manager.load_display_windows(device_manager._enabled_devices, use_realsense)
 
-    # # Load the object detection and location system
-    # print("Loading the object locator...")
-    # locator = ObjectLocator(od_model, model_folder, use_darknet, device_manager)
+    # Load the object detection and location system
+    print("Loading the object locator...")
+    locator = ObjectLocator(od_model, model_folder, use_darknet, use_realsense, device_manager)
 
-    # Load the MQTT client and register callback functions
-    print("Loading MQTT client")
-    client = mqtt.Client("Backend")
-    client.on_connect = on_connect
-    client.on_log = on_log
-    client.on_disconnect = on_disconnect
-    client.on_message = process_requests  # Main callback for processing frontend requests
+    if use_mqtt:
+        # Load the MQTT client and register callback functions
+        print("Loading MQTT client")
+        client = mqtt.Client("Backend")
+        client.on_connect = on_connect
+        client.on_log = on_log
+        client.on_disconnect = on_disconnect
+        client.on_message = process_requests  # Main callback for processing frontend requests
 
-    # Connect MQTT and start listening for frontend requests
-    print("Connecting to MQTT broker ", broker)
-    client.connect(broker)
-    client.loop_start()
-    client.subscribe("backend_handler/frontend_request")
+        # Connect MQTT and start listening for frontend requests
+        print("Connecting to MQTT broker ", broker)
+        client.connect(broker)
+        client.loop_start()
+        client.subscribe("backend_handler/frontend_request")
 
     # Initialise the snapshot history, calculate the number of snapshots required to store a days worth of data
     # using the specified intervals
@@ -283,6 +283,7 @@ if __name__ == "__main__":
     finally:
         print("done")
         lock.release()
-        client.loop_stop()
-        client.disconnect()
+        if use_mqtt:
+            client.loop_stop()
+            client.disconnect()
 

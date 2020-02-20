@@ -72,6 +72,9 @@ class ObjectDetector:
 
         #print(f"Analysing {camera_id} for objects")
 
+        print("Detecting Frame")
+        print(frame)
+
         # Prepare image
         height, width, channels = frame.shape
         blob = cv2.dnn.blobFromImage(frame, 0.00392, (640, 640), (0, 0, 0), True, crop=False)
@@ -129,11 +132,14 @@ class ObjectDetector:
         :return:
         """
 
+        print("Loading specified model...")
+        print("Folder path " + model_folder)
         weights = None
         config = None
         meta_data = None
         names = None
         if od_model == "yolov3":
+            print("Loading YOLOV3 network and model")
             weights = os.path.join(model_folder, "yolov3.weights")
             config = os.path.join(model_folder, "yolov3.cfg")
             meta_data = os.path.join(model_folder, "coco.data")
@@ -165,5 +171,10 @@ class ObjectDetector:
         assert config, "Couldn't find the .cfg file for " + od_model
         assert meta_data, "Couldn't find the .data file for " + od_model
         assert names, "Couldn't find the .names file for " + od_model
+
+        # print("Weights path: " + weights)
+        # print("Config path: " + config)
+        # print("meta_data path: " + meta_data)
+        # print("names path " + names)
 
         return weights, config, meta_data, names
