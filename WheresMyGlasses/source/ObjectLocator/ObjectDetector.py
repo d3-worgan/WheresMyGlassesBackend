@@ -1,5 +1,5 @@
 from WheresMyGlasses.source.ObjectLocator.DetectedObject import DetectedObject
-
+#from WheresMyGlasses.source.ObjectLocator import darknet
 import cv2
 import numpy as np
 import sys, os
@@ -17,30 +17,37 @@ class ObjectDetector:
         self.classes = []
         with open(names, "r") as f:
             self.classes = [line.strip() for line in f.readlines()]
+        self.colors = np.random.uniform(0, 255, size=(len(self.classes), 3))
+
         if use_darknet:
             print("Loading Darknet original")
             self.net = darknet.load_net_custom(config.encode("ascii"), weights.encode("ascii"), 0, 1)  # batch size = 1
             self.meta = darknet.load_meta(meta_data.encode("ascii"))
         else:
             print("Loading Darknet openCV")
-            self.net = cv2.dnn.readNet(config, weights)
+            print("config path " + config)
+            print("weights path " + weights)
+            self.net = cv2.dnn.readNetFromDarknet(config, weights)
             self.layer_names = self.net.getLayerNames()
             self.output_layers = [self.layer_names[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
-            self.colors = np.random.uniform(0, 255, size=(len(self.classes), 3))
+
         print("Detector initialised.")
 
     def detect_objects_dn(self, frame, camera_id):
         """
         Extract object from an image using YOLO in original implementation of Darknet
-        :param frame:
-        :param camera_id:
-        :return:
+        :param frame: The image to process
+        :param camera_id: The camera which took the picture
+        :return: An image resized to fit darknet & a list of detected objects
         """
         # Prepare image
         height, width, channels = frame.shape
-        blob = cv2.dnn.blobFromImage(frame, 0.00392, (640, 640), (0, 0, 0), True, crop=False)
+        darknet_image = darknet.make_image(darknet.network_width(self.net), darknet.network_height(self.net), 3)
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame_resized = cv2.resize(frame_rgb, (darknet.network_width(self.net), darknet.network_height(self.net)), interpolation=cv2.INTER_LINEAR)
+        darknet.copy_image_from_bytes(darknet_image, frame_resized.tobytes())
 
-        dees = darknet.detect(self.net, self.meta, blob, thresh=0.5, hier_thresh=.5, nms=.45)
+        dees = darknet.detect_image(self.net, self.meta, darknet_image, thresh=0.5, hier_thresh=.5, nms=.45)
 
         print(dees)
         detected_objects = []
@@ -63,7 +70,7 @@ class ObjectDetector:
             detected_object = DetectedObject(dindex, label, confidence, center_x, center_y, x, y, w, h)
             detected_objects.append(detected_object)
 
-        return detected_objects
+        return frame_resized, detected_objects
 
     def detect_objects_cv(self, frame, camera_id):
         """
@@ -72,14 +79,9 @@ class ObjectDetector:
         :return: A list of objects that were detected in the image
         """
 
-        #print(f"Analysing {camera_id} for objects")
-
-        print("Detecting Frame")
-        print(frame)
-
         # Prepare image
         height, width, channels = frame.shape
-        blob = cv2.dnn.blobFromImage(frame, 0.00392, (640, 640), (0, 0, 0), True, crop=False)
+        blob = cv2.dnn.blobFromImage(frame, 1/255.0, (640, 640), (0, 0, 0), True, crop=False)
         self.net.setInput(blob)
 
         # Detection
@@ -143,29 +145,29 @@ class ObjectDetector:
         if od_model == "yolov3":
             print("Loading YOLOV3 network and model")
             weights = os.path.join(model_folder, "yolov3.weights")
-            config = os.path.join(model_folder, "yolov3.cfg")
-            meta_data = os.path.join(model_folder, "coco.data")
-            names = os.path.join(model_folder, "coco.names")
+            config = os.path.join(model_folder, "cfg\yolov3.cfg")
+            meta_data = os.path.join(model_folder, "cfg\coco.data")
+            names = os.path.join(model_folder, "cfg\coco.names")
         elif od_model == "yolo9000":
             weights = os.path.join(model_folder, "yolo9000.weights")
-            config = os.path.join(model_folder, "yolo9000.cfg")
-            meta_data = os.path.join(model_folder, "combine9k.data")
-            names = os.path.join(model_folder, "9k.names")
+            config = os.path.join(model_folder, "cfg\yolo9000.cfg")
+            meta_data = os.path.join(model_folder, "cfg\combine9k.data")
+            names = os.path.join(model_folder, "cfg\9k.names")
         elif od_model == "yoloSuper":
             weights = os.path.join(model_folder, "yoloSuper.weights")
-            config = os.path.join(model_folder, "yoloSuper.cfg")
-            meta_data = os.path.join(model_folder, "coco.data")
-            names = os.path.join(model_folder, "coco.names")
+            config = os.path.join(model_folder, "cfg\yoloSuper.cfg")
+            meta_data = os.path.join(model_folder, "cfg\coco.data")
+            names = os.path.join(model_folder, "cfg\coco.names")
         elif od_model == "open_images":
             weights = os.path.join(model_folder, "openimages.weights")
-            config = os.path.join(model_folder, "openimages.cfg")
-            meta_data = os.path.join(model_folder, "openimages.data")
-            names = os.path.join(model_folder, "openimages.names")
+            config = os.path.join(model_folder, "cfg\openimages.cfg")
+            meta_data = os.path.join(model_folder, "cfg\openimages.data")
+            names = os.path.join(model_folder, "cfg\openimages.names")
         elif od_model == "oi_custom":
             weights = os.path.join(model_folder, "oi_custom.weights")
-            config = os.path.join(model_folder, "oi_custom.cfg")
-            meta_data = os.path.join(model_folder, "oi_custom.data")
-            names = os.path.join(model_folder, "oi_custom.names")
+            config = os.path.join(model_folder, "cfg\oi_custom.cfg")
+            meta_data = os.path.join(model_folder, "cfg\oi_custom.data")
+            names = os.path.join(model_folder, "cfg\oi_custom.names")
         else:
             print("Specified model is not available, default yoloSuper")
 

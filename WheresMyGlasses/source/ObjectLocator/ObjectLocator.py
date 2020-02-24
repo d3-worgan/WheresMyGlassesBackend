@@ -2,7 +2,6 @@ from WheresMyGlasses.source.ObjectLocator.Snapshot import Snapshot
 from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
 from WheresMyGlasses.source.ObjectLocator.ObjectDetector import ObjectDetector
 from WheresMyGlasses.source.ObjectLocator.CameraSnap import CameraSnap
-from WheresMyGlasses.source.ObjectLocator.stream_manager import StreamManager
 import numpy as np
 import pyrealsense2 as rs
 from datetime import datetime
@@ -16,6 +15,7 @@ class ObjectLocator:
 
     def __init__(self, od_model, model_folder, use_darknet, device_manager):
 
+        # CV or Darknet?
         self.use_darknet = use_darknet
 
         # Use the device manager to grab images from the cameras
@@ -49,11 +49,13 @@ class ObjectLocator:
         # Detect objects in the images
         for camera_snap in snapshot.camera_snaps:
             if self.use_darknet:
-                camera_snap.detections = self.object_detector.detect_objects_dn(camera_snap.frame, camera_snap.camera_id)
+                image_resized, camera_snap.detections = self.object_detector.detect_objects_dn(camera_snap.frame, camera_snap.camera_id)
+                camera_snap.frame = cv2.cvtColor(image_resized, cv2.COLOR_BGR2RGB)
             else:
                 camera_snap.detections = self.object_detector.detect_objects_cv(camera_snap.frame, camera_snap.camera_id)
 
         # Try to locate the detected objects
+
         for camera_snap in snapshot.camera_snaps:
             camera_snap.locations = self.locate_objects(camera_snap.detections)
 
