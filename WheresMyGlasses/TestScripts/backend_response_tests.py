@@ -1,6 +1,6 @@
 import json
-from WheresMyGlasses.source.ObjectLocator.LocatedObject import LocatedObject
-from WheresMyGlasses.source.ObjectLocator.BackendResponse import BackendResponse
+from WheresMyGlasses.ObjectLocator.located_object import LocatedObject
+from WheresMyGlasses.ObjectLocator.backend_response import BackendResponse
 
 print(LocatedObject)
 

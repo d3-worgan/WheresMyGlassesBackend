@@ -1,8 +1,8 @@
-from WheresMyGlasses.source.ObjectLocator.DetectedObject import DetectedObject
+from WheresMyGlasses.ObjectLocator.detected_object import DetectedObject
 #from WheresMyGlasses.source.ObjectLocator import darknet
 import cv2
 import numpy as np
-import sys, os
+import os
 
 
 class ObjectDetector:

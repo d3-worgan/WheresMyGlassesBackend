@@ -1,11 +1,11 @@
 """
 Video walk-through using Paho: https://www.youtube.com/watch?v=QAaXNt0oqSI
 """
-from WheresMyGlasses.source.ObjectLocator.ObjectLocator import ObjectLocator
-from WheresMyGlasses.source.ObjectLocator.BackendResponse import BackendResponse
-from WheresMyGlasses.source.ObjectLocator.stream_manager import StreamManager
-from WheresMyGlasses.source.ObjectLocator.realsense_device_manager import DeviceManager
-from WheresMyGlasses.source.ObjectLocator.connection import MQTTConnection
+from WheresMyGlasses.ObjectLocator.object_locator import ObjectLocator
+from WheresMyGlasses.ObjectLocator.backend_response import BackendResponse
+from WheresMyGlasses.ObjectLocator.stream_manager import StreamManager
+from WheresMyGlasses.ObjectLocator.realsense_device_manager import DeviceManager
+from WheresMyGlasses.ObjectLocator.connection import MQTTConnection
 import threading
 import time
 import pyrealsense2 as rs
