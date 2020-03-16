@@ -1,7 +1,7 @@
 from WheresMyGlasses.ObjectLocator.snapshot import Snapshot
 from WheresMyGlasses.ObjectLocator.located_object import LocatedObject
 from WheresMyGlasses.ObjectLocator.object_detector import ObjectDetector
-from WheresMyGlasses.ObjectLocator import camera_snap
+from WheresMyGlasses.ObjectLocator.camera_snap import CameraSnap
 import numpy as np
 import pyrealsense2 as rs
 from datetime import datetime
@@ -44,7 +44,7 @@ class ObjectLocator:
         for i, (device, frame) in enumerate(frames_devices.items()):
             image = np.asarray(frame[rs.stream.color].get_data())
             image = cv2.flip(image, 0)
-            snapshot.camera_snaps.append(camera_snap(image, device))
+            snapshot.camera_snaps.append(CameraSnap(image, device))
 
         # Detect objects in the images
         for camera_snap in snapshot.camera_snaps:

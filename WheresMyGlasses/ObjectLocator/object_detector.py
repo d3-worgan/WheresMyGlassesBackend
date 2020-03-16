@@ -142,32 +142,43 @@ class ObjectDetector:
         config = None
         meta_data = None
         names = None
+
         if od_model == "yolov3":
             print("Loading YOLOV3 network and model")
-            weights = os.path.join(model_folder, "yolov3.weights")
-            config = os.path.join(model_folder, "cfg\yolov3.cfg")
-            meta_data = os.path.join(model_folder, "cfg\coco.data")
-            names = os.path.join(model_folder, "cfg\coco.names")
+            weights = os.path.join(model_folder, "coco/yolov3/yolov3.weights")
+            config = os.path.join(model_folder, "coco/yolov3/yolov3.cfg")
+            meta_data = os.path.join(model_folder, "coco/coco.data")
+            names = os.path.join(model_folder, "coco/coco.names")
+        elif od_model == "yoloCSP":
+            weights = os.path.join(model_folder, "coco/yoloCSP/yoloCSP.weights")
+            config = os.path.join(model_folder, "coco/yoloCSP/yoloCSP.cfg")
+            meta_data = os.path.join(model_folder, "coco/coco.data")
+            names = os.path.join(model_folder, "coco/coco.names")
         elif od_model == "yolo9000":
-            weights = os.path.join(model_folder, "yolo9000.weights")
-            config = os.path.join(model_folder, "cfg\yolo9000.cfg")
-            meta_data = os.path.join(model_folder, "cfg\combine9k.data")
-            names = os.path.join(model_folder, "cfg\9k.names")
-        elif od_model == "yoloSuper":
-            weights = os.path.join(model_folder, "yoloSuper.weights")
-            config = os.path.join(model_folder, "cfg\yoloSuper.cfg")
-            meta_data = os.path.join(model_folder, "cfg\coco.data")
-            names = os.path.join(model_folder, "cfg\coco.names")
+            weights = os.path.join(model_folder, "yolo9000/yolo9000.weights")
+            config = os.path.join(model_folder, "yolo9000/yolo9000.cfg")
+            meta_data = os.path.join(model_folder, "yolo9000/combine9k.data")
+            names = os.path.join(model_folder, "yolo9000/9k.names")
         elif od_model == "open_images":
-            weights = os.path.join(model_folder, "openimages.weights")
-            config = os.path.join(model_folder, "cfg\openimages.cfg")
-            meta_data = os.path.join(model_folder, "cfg\openimages.data")
-            names = os.path.join(model_folder, "cfg\openimages.names")
-        elif od_model == "oi_custom":
-            weights = os.path.join(model_folder, "oi_custom.weights")
-            config = os.path.join(model_folder, "cfg\oi_custom.cfg")
-            meta_data = os.path.join(model_folder, "cfg\oi_custom.data")
-            names = os.path.join(model_folder, "cfg\oi_custom.names")
+            weights = os.path.join(model_folder, "open_images/yolov3-spp_final.weights")
+            config = os.path.join(model_folder, "open_images/yolov3-spp.cfg")
+            meta_data = os.path.join(model_folder, "open_images/yolo.data")
+            names = os.path.join(model_folder, "open_images/yolo.names")
+        elif od_model == "wmg_v3":
+            weights = os.path.join(model_folder, "wmg/wmg_v3/wmg_v3.weights")
+            config = os.path.join(model_folder, "wmg/wmg_v3/wmg_v3.cfg")
+            meta_data = os.path.join(model_folder, "wmg/wmg.data")
+            names = os.path.join(model_folder, "wmg/wmg.names")
+        elif od_model == "wmg_custom_anchors":
+            weights = os.path.join(model_folder, "wmg/wmg_custom_anchors/wmg_custom_anchors.weights")
+            config = os.path.join(model_folder, "wmg/wmg_custom_anchors/wmg_custom_anchors.cfg")
+            meta_data = os.path.join(model_folder, "wmg/wmg.data")
+            names = os.path.join(model_folder, "wmg/wmg.names")
+        elif od_model == "wmg_SPP":
+            weights = os.path.join(model_folder, "wmg/wmg_SPP/wmg_SPP.weights")
+            config = os.path.join(model_folder, "wmg/wmg_SPP/wmg_SPP.cfg")
+            meta_data = os.path.join(model_folder, "wmg/wmg.data")
+            names = os.path.join(model_folder, "wmg/wmg.names")
         else:
             print("Specified model is not available, default yoloSuper")
 
