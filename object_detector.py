@@ -1,4 +1,4 @@
-from WheresMyGlasses.ObjectLocator.detected_object import DetectedObject
+from detected_object import DetectedObject
 #from WheresMyGlasses.source.ObjectLocator import darknet
 import cv2
 import numpy as np
@@ -14,6 +14,8 @@ class ObjectDetector:
 
         # Find the paths for the specified object detection model
         weights, config, meta_data, names = self.load_specified_model(od_model, model_folder)
+
+        # Load the class names for the detection model
         self.classes = []
         with open(names, "r") as f:
             self.classes = [line.strip() for line in f.readlines()]

@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 import time
 
+
 class BackendResponse:
     """
     Used to implement communication protocol between backend-frontend. Backend does some

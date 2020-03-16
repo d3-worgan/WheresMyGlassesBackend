@@ -1,4 +1,4 @@
-from WheresMyGlasses.ObjectLocator.object_locator import ObjectLocator
+from object_locator import ObjectLocator
 from WheresMyGlasses.source.VoiceAssistant.MessageBuilder import MessageBuilder
 
 """Demonstrate backwards search"""

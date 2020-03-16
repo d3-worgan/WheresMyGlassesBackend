@@ -2,51 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dffb968b-9d51-46b5-84f0-eb799868edd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WheresMyGlasses.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WheresMyGlasses.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Dan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Dan.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/.idea/WheresMyGlasses.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/.idea/WheresMyGlasses.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/camera_snap.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/camera_snap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/detected_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/detected_object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/located_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/located_object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_locator.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_locator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/realsense_device_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/realsense_device_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/snapshot.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/snapshot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/stream_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/stream_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/BackendConnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/BackendConnection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/camera_snap.py" beforeDir="false" afterPath="$PROJECT_DIR$/camera_snap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/darknet.py" beforeDir="false" afterPath="$PROJECT_DIR$/darknet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/detected_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/detected_object.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/located_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/located_object.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/object_detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_locator.py" beforeDir="false" afterPath="$PROJECT_DIR$/object_locator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/realsense_device_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/realsense_device_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/snapshot.py" beforeDir="false" afterPath="$PROJECT_DIR$/snapshot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/stream_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/stream_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/DetectionAccuracyTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/DetectionAccuracyTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/LocateObjectTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/LocateObjectTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/Multicam.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/Multicam.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/ObjectDetectionTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/ObjectDetectionTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/RunLocatorTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/RunLocatorTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/action-wheresMyGlasses.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/action-wheresMyGlasses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/backend_response_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/backend_response_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/calculate_minutes.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/calculate_minutes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/mqtt_pub.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/mqtt_pub.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/mqtt_sub.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/mqtt_sub.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/mqttclasstest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/mqttclasstest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/multiprocessing_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/multiprocessing_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/multithread_mqtt.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/multithread_mqtt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/realsensetest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/realsensetest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/test_multicv.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/test_multicv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/test_strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/test_strings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/testpyyolo.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/testpyyolo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/bin/activate" beforeDir="false" afterPath="$PROJECT_DIR$/venv/bin/activate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/bin/activate.csh" beforeDir="false" afterPath="$PROJECT_DIR$/venv/bin/activate.csh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/bin/activate.fish" beforeDir="false" afterPath="$PROJECT_DIR$/venv/bin/activate.fish" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/pyvenv.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/venv/pyvenv.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/__init__.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,19 +81,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/WheresMyGlasses" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackendMulticam\WheresMyGlasses\" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\DetectionModelsAndNets" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\TestScripts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackendMulticam\WheresMyGlasses\source\ObjectLocator" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackend\WheresMyGlasses\source\DetectionModelsAndNets" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\ConnectionTests" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\ObjectLocatorTests" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\Tests" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackendMulticam\WheresMyGlasses\" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\DetectionModelsAndNets" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\TestScripts" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\ObjectLocator" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\VoiceAssistantTests" />
     </key>
   </component>
   <component name="RunManager" selected="Python.backend_manager">
@@ -175,7 +151,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_manager.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend_manager.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -279,11 +255,12 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="679" y="134" key="#backend_manager/0.0.1920.1040@0.0.1920.1040" timestamp="1583342091517" />
-    <state x="1166" y="211" key="FileChooserDialogImpl" timestamp="1583342163050">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="1192" y="241" width="424" height="513" key="FileChooserDialogImpl" timestamp="1584387492027">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="933" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583165259593" />
     <state x="1166" y="211" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1583342163050" />
+    <state x="1192" y="241" width="424" height="513" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1584387492027" />
     <state x="482" y="188" key="SettingsEditor" timestamp="1584384225341">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

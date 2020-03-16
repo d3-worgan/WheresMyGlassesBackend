@@ -1,5 +1,5 @@
 import cv2
-from WheresMyGlasses.ObjectLocator.object_detector import ObjectDetector
+from object_detector import ObjectDetector
 
 cameras = []
 cameras.append(cv2.VideoCapture(0))

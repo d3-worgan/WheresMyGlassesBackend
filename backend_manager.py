@@ -3,11 +3,11 @@ Video walk-through using Paho: https://www.youtube.com/watch?v=QAaXNt0oqSI
 """
 import argparse
 
-from WheresMyGlasses.ObjectLocator.object_locator import ObjectLocator
-from WheresMyGlasses.ObjectLocator.backend_response import BackendResponse
-from WheresMyGlasses.ObjectLocator.stream_manager import StreamManager
-from WheresMyGlasses.ObjectLocator.realsense_device_manager import DeviceManager
-from WheresMyGlasses.ObjectLocator.connection import MQTTConnection
+from object_locator import ObjectLocator
+from backend_response import BackendResponse
+from stream_manager import StreamManager
+from realsense_device_manager import DeviceManager
+from connection import MQTTConnection
 import threading
 import time
 import pyrealsense2 as rs
@@ -31,6 +31,7 @@ class BackendManager:
         self.device_manager = DeviceManager(rs.context(), rs_config)
         self.device_manager.enable_all_devices()
         assert len(self.device_manager._enabled_devices) > 0, "No realsense devices were found"
+        print(len(self.device_manager._enabled_devices) + " realsense devices connected")
 
         # Open and configure output streams (so we can view the snapshots)
         print("Loading camera streams...")
@@ -45,6 +46,7 @@ class BackendManager:
 
         # Connect to the MQTT
         if use_mqtt:
+            print("Connecting to MQTT")
             self.connection = MQTTConnection(broker, name, self.process_requests)
             self.connection.pClient.subscribe("frontend/request")
 
@@ -62,6 +64,41 @@ class BackendManager:
         self.lock = threading.Lock()
 
         print("BackendManager loaded, waiting for requests.")
+
+    def idle(self):
+        """
+        Background loop taking regular snapshots to keep track of objects and state of the room. Display output.
+        :return:
+        """
+        try:
+            # Give each snapshot an id
+            snapshot_id = 0
+            while True:
+
+                # Take a snapshot on specified intervals
+                if self.snapshot_interval > 0:
+                    t = datetime.now()
+                    if t.second % snapshot_interval == 0:
+                        self.add_snapshot_to_history(snapshot_id)
+                else:
+                    self.add_snapshot_to_history(snapshot_id)
+
+                # Display snapshot
+                if display_output:
+                    self.stream_manager.display_bboxes(self.snapshot_history[-1], flip_cameras)
+
+                # Need to sleep otherwise will keep blocking the request handler
+                time.sleep(0.1)
+
+        except KeyboardInterrupt:
+            print("User quit.")
+        finally:
+            print("done")
+            self.lock.release()
+            if use_mqtt:
+                self.connection.pClient.loop_stop()
+                self.connection.pClient.disconnect()
+            print("done")
 
     def process_requests(self, client, userdata, msg):
         """
@@ -159,7 +196,7 @@ class BackendManager:
         # Release the lock so can continue taking snapshots while waiting for requests
         self.lock.release()
 
-    def add_snapshot_to_history(self):
+    def add_snapshot_to_history(self, snapshot_id):
 
         # Use the lock to avoid competing with the "process_requests" thread for the snapshot_history
         self.lock.acquire()
@@ -178,42 +215,6 @@ class BackendManager:
 
         # Release the lock so the request handler can access the snapshot_history
         self.lock.release()
-
-    def idle(self):
-        """
-        Background loop taking regular snapshots to keep track of objects and state of the room. Display output.
-        :return:
-        """
-
-        try:
-            # Give each snapshot an id
-            snapshot_id = 0
-            while True:
-
-                # Take a snapshot on specified intervals
-                if self.snapshot_interval > 0:
-                    t = datetime.now()
-                    if t.second % snapshot_interval == 0:
-                        self.add_snapshot_to_history()
-                else:
-                    self.add_snapshot_to_history()
-
-                # Display snapshot
-                if display_output:
-                    self.stream_manager.display_bboxes(self.snapshot_history[-1], flip_cameras)
-
-                # Need to sleep otherwise will keep blocking the request handler
-                time.sleep(0.1)
-
-        except KeyboardInterrupt:
-            print("User quit.")
-        finally:
-            print("done")
-            self.lock.release()
-            if use_mqtt:
-                self.connection.pClient.loop_stop()
-                self.connection.pClient.disconnect()
-            print("done")
 
     def validate_object(self, m_decode, locator):
         """
@@ -244,15 +245,15 @@ if __name__ == "__main__":
     """
 
     parser = argparse.ArgumentParser(description='Run the object location system')
-    parser.add_argument("--model", help="Specify the name of the detection model e.g. yolov3, yolo9000, yoloCSP, open_images, wmg_v3"  , required=False, type=str, default="yoloCSP")
-    parser.add_argument("--location", help="Specify the path to base location of the detection models", required=False, type=str, default=r"E:\DetectionModels")
+    parser.add_argument("--model", help="Specify the name of the detection model e.g. yolov3, yolo9000, yoloCSP, open_images, wmg_v3, wmg_SPP, wmg_custom_anchors"  , required=False, type=str, default="yoloCSP")
+    parser.add_argument("--location", help="Specify the path to base location of the detection models", required=False, type=str, default=r"/media/dan/UltraDisk/wmg_detection_models")
     parser.add_argument("--interval", help="Specify an interval to take snapshots in seconds (else fast as possible)", required=False, type=float, default=0)
-    parser.add_argument("--darknet", help="True to use darknet implementation or False for openCV", required=False, type=boolean, default=True)
-    parser.add_argument("--mqtt", help="False to switch off connection to MQTT", required=False, type=boolean, default=True)
+    parser.add_argument("--darknet", help="True to use darknet implementation or False for openCV", required=False, type=bool, default=True)
+    parser.add_argument("--mqtt", help="False to switch off connection to MQTT", required=False, type=bool, default=True)
     parser.add_argument("--broker", help="Specify the IP address of the MQTT broker", required=False, type=str, default="192.168.0.159")
-    parser.add_argument("--display", help="True to display the output of the detection streams", required=False, type=boolean, default=True)
+    parser.add_argument("--display", help="True to display the output of the detection streams", required=False, type=bool, default=True)
     parser.add_argument("--resolution", help="Specify input res e.g. 1080, 720", required=False, type=int, default=1080)
-    parser.add_argument("--flip", help="True to vertically flip the camera image", required=False, type=boolean, default=True)
+    parser.add_argument("--flip", help="True to vertically flip the camera image", required=False, type=bool, default=True)
 
     args = parser.parse_args()
 
@@ -267,9 +268,8 @@ if __name__ == "__main__":
     flip_cameras = args.flip
 
     assert os.path.exists(model_folder), "Couldn't find the detection models folder..."
-    assert od_model is "yolov3" or od_model is "yolo9000" or od_model is "yoloCSP" or od_model is "open_images" \
-           or od_model is "wmg_v3" or od_model is "wmg_anchors" or od_model is "wmg_spp", "Invalid model specified"
-    assert snapshot_interval > 0, "interval must be float greater than 0"
+    # assert od_model is "yolov3" or od_model is "yolo9000" or od_model is "yoloCSP" or od_model is "open_images" or od_model is "wmg_v3" or od_model is "wmg_anchors" or od_model is "wmg_spp", "Invalid model specified"
+    assert snapshot_interval >= 0, "interval must be float greater than 0"
     assert res == 720 or res == 1080, "Resolution must be 720 or 1080"
 
     if res == 720:
@@ -282,6 +282,15 @@ if __name__ == "__main__":
         frame_rate = 30
     else:
         print("WARNING: Not a valid resolution")
+
+    print("Detection model     : " + od_model)
+    print("Model base directory: " + model_folder)
+    print("Snapshot interval   : " + str(snapshot_interval))
+    print("Darknet             : " + str(use_darknet))
+    print("MQTT Connection     : " + str(use_mqtt))
+    print("MQTT Broker         : " + str(broker))
+    print("Display on          : " + str(display_output))
+    print("Input Resolution    : " + str(res))
 
     backend_manager = BackendManager(od_model, model_folder, resolution_width, resolution_height, frame_rate, broker,
                                      "BackendManager", snapshot_interval, use_darknet, use_mqtt, display_output)

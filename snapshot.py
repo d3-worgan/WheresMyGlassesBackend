@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-from WheresMyGlasses.ObjectLocator.backend_response import BackendResponse
+from backend_response import BackendResponse
 
 class Snapshot:
     """
