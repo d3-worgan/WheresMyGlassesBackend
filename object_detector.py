@@ -1,5 +1,5 @@
 from detected_object import DetectedObject
-#from WheresMyGlasses.source.ObjectLocator import darknet
+import darknet
 import cv2
 import numpy as np
 import os
@@ -51,7 +51,7 @@ class ObjectDetector:
 
         dees = darknet.detect_image(self.net, self.meta, darknet_image, thresh=0.5, hier_thresh=.5, nms=.45)
 
-        print(dees)
+        #print(dees)
         detected_objects = []
         for d in dees:
 
@@ -69,7 +69,7 @@ class ObjectDetector:
             x = int(box[0] - box[2] / 2)  # Left hand side?
             y = int(box[1] - box[3] / 2)  # Left hand side?
 
-            detected_object = DetectedObject(dindex, label, confidence, center_x, center_y, x, y, w, h)
+            detected_object = DetectedObject(dindex, label, confidence, camera_id, center_x, center_y, x, y, w, h)
             detected_objects.append(detected_object)
 
         return frame_resized, detected_objects
@@ -176,9 +176,9 @@ class ObjectDetector:
             config = os.path.join(model_folder, "wmg/wmg_custom_anchors/wmg_custom_anchors.cfg")
             meta_data = os.path.join(model_folder, "wmg/wmg.data")
             names = os.path.join(model_folder, "wmg/wmg.names")
-        elif od_model == "wmg_SPP":
-            weights = os.path.join(model_folder, "wmg/wmg_SPP/wmg_SPP.weights")
-            config = os.path.join(model_folder, "wmg/wmg_SPP/wmg_SPP.cfg")
+        elif od_model == "wmg_spp":
+            weights = os.path.join(model_folder, "wmg/wmg_spp/wmg_SPP.weights")
+            config = os.path.join(model_folder, "wmg/wmg_spp/wmg_SPP.cfg")
             meta_data = os.path.join(model_folder, "wmg/wmg.data")
             names = os.path.join(model_folder, "wmg/wmg.names")
         else:

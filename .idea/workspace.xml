@@ -2,27 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dffb968b-9d51-46b5-84f0-eb799868edd9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/WheresMyGlasses.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WheresMyGlasses.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/backend_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/camera_snap.py" beforeDir="false" afterPath="$PROJECT_DIR$/camera_snap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/darknet.py" beforeDir="false" afterPath="$PROJECT_DIR$/darknet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/detected_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/detected_object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/located_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/located_object.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/object_detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/object_locator.py" beforeDir="false" afterPath="$PROJECT_DIR$/object_locator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/realsense_device_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/realsense_device_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/snapshot.py" beforeDir="false" afterPath="$PROJECT_DIR$/snapshot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/ObjectLocator/stream_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/stream_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/DetectionAccuracyTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/DetectionAccuracyTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/LocateObjectTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/LocateObjectTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/Multicam.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/Multicam.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/ObjectDetectionTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/ObjectDetectionTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/RunLocatorTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/RunLocatorTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/backend_response_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/WheresMyGlasses/TestScripts/backend_response_tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WheresMyGlasses/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_response.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/darknet.py" beforeDir="false" afterPath="$PROJECT_DIR$/darknet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/object_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/object_detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/object_locator.py" beforeDir="false" afterPath="$PROJECT_DIR$/object_locator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stream_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/stream_manager.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,16 +23,6 @@
         <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>ce</find>
-      <find>LocatedO</find>
-      <find>locations_id</find>
-      <find>locations_identified</find>
-      <find>phone</find>
-      <find>ol</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,23 +55,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="/media/d-worgan/UltraDisk/Bsc(Hons) Computer Science/2019-20 Year 3/UFCFXK-30-3 Digital Systems Project/Production/WheresMyGlassesFrontend" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackendMulticam\WheresMyGlasses\source\ObjectLocator" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackend\WheresMyGlasses\source\DetectionModelsAndNets" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\ConnectionTests" />
+      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\ObjectLocatorTests" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/WheresMyGlasses" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackendMulticam\WheresMyGlasses\" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\DetectionModelsAndNets" />
       <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\TestScripts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackendMulticam\WheresMyGlasses\source\ObjectLocator" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\Production\WheresMyGlassesBackend\WheresMyGlasses\source\DetectionModelsAndNets" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\ConnectionTests" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\ObjectLocatorTests" />
-      <recent name="G:\Bsc(Hons) Computer Science\2019-20 Year 3\UFCFXK-30-3 Digital Systems Project\WheresMyGlasses\WheresMyGlasses\source\Tests" />
     </key>
   </component>
   <component name="RunManager" selected="Python.backend_manager">
@@ -255,21 +233,27 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="679" y="134" key="#backend_manager/0.0.1920.1040@0.0.1920.1040" timestamp="1583342091517" />
-    <state x="1192" y="241" width="424" height="513" key="FileChooserDialogImpl" timestamp="1584387492027">
+    <state x="215" y="357" width="621" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584453578662">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="215" y="357" width="621" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053@67.27.1853.1053" timestamp="1584453578662" />
+    <state x="1192" y="241" width="424" height="513" key="FileChooserDialogImpl" timestamp="1584459857169">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="933" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583165259593" />
     <state x="1166" y="211" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1583342163050" />
+    <state x="1192" y="241" key="FileChooserDialogImpl/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1584459857169" />
     <state x="1192" y="241" width="424" height="513" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1584387492027" />
-    <state x="482" y="188" key="SettingsEditor" timestamp="1584384225341">
+    <state x="482" y="188" key="SettingsEditor" timestamp="1584446269503">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="430" y="159" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583342139999" />
-    <state x="482" y="188" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1584384225341" />
-    <state x="1137" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1583342041443">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="482" y="188" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1584446269503" />
+    <state x="1164" y="374" key="com.intellij.ide.util.TipDialog" timestamp="1584457330745">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="1137" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583342041443" />
+    <state x="1164" y="374" key="com.intellij.ide.util.TipDialog/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1584457330745" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

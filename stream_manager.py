@@ -65,7 +65,7 @@ class StreamManager:
             # If we don't know the name of this device, use its serial number.
             if device not in self.camNames:
                 self.camNames[device] = device
-            winName = 'Camera ' + self.camNames[device]
+            winName = self.camNames[device]
             self.display_windows[device] = winName
             cv2.namedWindow(winName,cv2.WINDOW_NORMAL) # cv2.WINDOW_NORMAL enables explicit sizing, as opposed to cv2.WINDOW_AUTOSIZE.
             cv2.resizeWindow(winName, self.defaultWinSize)
@@ -99,7 +99,7 @@ class StreamManager:
         color = (0, 255, 0)
         line_px = 2
 
-        snapshot.print_details()
+        #snapshot.print_details()
 
         for i, camera_snap in enumerate(snapshot.camera_snaps):
 

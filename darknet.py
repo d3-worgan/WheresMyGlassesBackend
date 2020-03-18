@@ -297,7 +297,7 @@ def detect(net, meta, image, thresh=.5, hier_thresh=.5, nms=.45):
     predict_image(net, IMAGE(w, h, c, image.ctypes.data_as(ctypes.POINTER(ctypes.c_float))))
     detections = get_network_boxes(net, w, h, thresh, hier_thresh, None, 0, pnum, 0)
     num_detections = pnum[0]
-    print("num " + str(num_detections))
+    #print("num " + str(num_detections))
 
     # Reduce poor detections
     if nms:
@@ -316,7 +316,7 @@ def detect(net, meta, image, thresh=.5, hier_thresh=.5, nms=.45):
 #    free_image(image)
     free_detections(detections, num_detections)
 
-    print("Returning detection results")
+    #print("Returning detection results")
     return res
 
 
@@ -366,7 +366,7 @@ def detect_image(net, meta, im, thresh=.5, hier_thresh=.5, nms=.45, debug=False)
         for i in range(meta.classes):
             if debug: print("Class-ranging on "+str(i)+" of "+str(meta.classes)+"= "+str(dets[j].prob[i]))
             if dets[j].prob[i] > 0:
-                print("Found a detection")
+                #print("Found a detection")
                 b = dets[j].bbox
                 # if altNames is None:
                 #     nameTag = meta.names[i]

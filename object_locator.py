@@ -111,6 +111,10 @@ class ObjectLocator:
                     pair.location = pair.object
                     pair.object = temp
                     locations.append(pair)
+        # if len(locations) < 0:
+        #     for camera_snap in snapshot.camera_snaps:
+        #         for detection in camera_snap.detections:
+        #             if detection
         return locations
 
 

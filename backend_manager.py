@@ -21,17 +21,17 @@ class BackendManager:
     Waits and processes requests from the frontend.
     """
 
-    def __init__(self, od_model, model_folder, res_width, res_hight, fps, broker, name, snapshot_interval, use_darknet, use_mqtt, display):
+    def __init__(self, od_model, model_folder, res_width, res_height, fps, broker, name, snapshot_interval, use_darknet, use_mqtt, display):
         print("Loading backend manager...")
 
         # Open and configure connected realsense devices
-        print("Camera config %s x %s @ %s fps" % (res_width, res_hight, fps))
+        print("Camera config %s x %s @ %s fps" % (res_width, res_height, fps))
         rs_config = rs.config()
-        rs_config.enable_stream(rs.stream.color, res_width, res_hight, rs.format.bgr8, fps)
+        rs_config.enable_stream(rs.stream.color, res_width, res_height, rs.format.bgr8, fps)
         self.device_manager = DeviceManager(rs.context(), rs_config)
         self.device_manager.enable_all_devices()
         assert len(self.device_manager._enabled_devices) > 0, "No realsense devices were found"
-        print(len(self.device_manager._enabled_devices) + " realsense devices connected")
+        print(str(len(self.device_manager._enabled_devices)) + " realsense devices connected")
 
         # Open and configure output streams (so we can view the snapshots)
         print("Loading camera streams...")
@@ -54,7 +54,10 @@ class BackendManager:
         # using the specified intervals
         seconds_in_a_day = 86400
         self.snapshot_interval = snapshot_interval
-        self.history_size = seconds_in_a_day / self.snapshot_interval
+        if self.snapshot_interval == 0:
+            self.history_size = 86400
+        else:
+            self.history_size = seconds_in_a_day / self.snapshot_interval
         self.snapshot_history = []
         print("Snapshot interval " + str(self.snapshot_interval))
         print("Snapshot history size " + str(self.history_size))
@@ -63,6 +66,7 @@ class BackendManager:
         # Avoid conflict between "self.update" and "self.process_requests" accessing the snapshot history
         self.lock = threading.Lock()
 
+        self.display = display
         print("BackendManager loaded, waiting for requests.")
 
     def idle(self):
@@ -84,7 +88,7 @@ class BackendManager:
                     self.add_snapshot_to_history(snapshot_id)
 
                 # Display snapshot
-                if display_output:
+                if self.display:
                     self.stream_manager.display_bboxes(self.snapshot_history[-1], flip_cameras)
 
                 # Need to sleep otherwise will keep blocking the request handler
@@ -120,13 +124,18 @@ class BackendManager:
         object_located = False
         message_code = ''
 
+        if m_decode == "glasses":
+            object = m_decode.capitalize()
+        else:
+            object = m_decode
+
         # Check the object has been trained on the detector
-        if self.validate_object(m_decode, self.locator):
+        if self.validate_object(object, self.locator):
 
             # Check if the locator can locate the object in the current snapshot
             current_snapshot = self.locator.take_snapshot('x')
             print("Searching snapshot...")
-            locations_identified = self.locator.search_snapshot(current_snapshot, m_decode)
+            locations_identified = self.locator.search_snapshot(current_snapshot, object)
 
             # The locator located an object
             if len(locations_identified) == 1:
@@ -142,10 +151,10 @@ class BackendManager:
 
             # The locator did not find the object in the current snapshot and starts looking through the snapshot history
             else:
-                print(f"The {m_decode} was not in the snapshot, searching the snapshot history...")
+                print(f"The {object} was not in the snapshot, searching the snapshot history...")
                 for i, snap in enumerate(self.snapshot_history):
                     print(f"Searching snapshot {i}")
-                    locations_identified = self.locator.search_snapshot(snap, m_decode)
+                    locations_identified = self.locator.search_snapshot(snap, object)
 
                     # The locator found a snapshot with the object located
                     if len(locations_identified) == 1:
@@ -181,9 +190,9 @@ class BackendManager:
 
         # Build the response object using the information gathered
         if object_located:
-            response = BackendResponse(message_code, m_decode, current_snapshot.timestamp, self.locator.search_snapshot(current_snapshot, m_decode), self.stream_manager)
+            response = BackendResponse(message_code, object, current_snapshot.timestamp, self.locator.search_snapshot(current_snapshot, object), self.stream_manager)
         else:
-            response = BackendResponse(message_code, m_decode, None, [], self.stream_manager)
+            response = BackendResponse(message_code, object, None, [], self.stream_manager)
 
         # Pack the response object into json and publish to the backend handler
         if response:
@@ -216,16 +225,16 @@ class BackendManager:
         # Release the lock so the request handler can access the snapshot_history
         self.lock.release()
 
-    def validate_object(self, m_decode, locator):
+    def validate_object(self, object, locator):
         """
         Check the requested object is in the training data
-        :param m_decode:
+        :param object:
         :param locator:
         :return:
         """
-        print("Searching names file for requested object ", m_decode)
+        print("Searching names file for requested object ", object)
         for name in locator.object_detector.classes:
-            if name == m_decode:
+            if name == object:
                 print("Object is in training data")
                 return True
 
@@ -249,7 +258,7 @@ if __name__ == "__main__":
     parser.add_argument("--location", help="Specify the path to base location of the detection models", required=False, type=str, default=r"/media/dan/UltraDisk/wmg_detection_models")
     parser.add_argument("--interval", help="Specify an interval to take snapshots in seconds (else fast as possible)", required=False, type=float, default=0)
     parser.add_argument("--darknet", help="True to use darknet implementation or False for openCV", required=False, type=bool, default=True)
-    parser.add_argument("--mqtt", help="False to switch off connection to MQTT", required=False, type=bool, default=True)
+    parser.add_argument("--mqtt", help="False to switch off connection to MQTT", required=False, type=bool, default=False)
     parser.add_argument("--broker", help="Specify the IP address of the MQTT broker", required=False, type=str, default="192.168.0.159")
     parser.add_argument("--display", help="True to display the output of the detection streams", required=False, type=bool, default=True)
     parser.add_argument("--resolution", help="Specify input res e.g. 1080, 720", required=False, type=int, default=1080)
@@ -261,7 +270,9 @@ if __name__ == "__main__":
     model_folder = args.location
     snapshot_interval = args.interval
     use_darknet = args.darknet
-    use_mqtt = args.mqtt
+    #use_mqtt = args.mqtt
+    use_mqtt = True
+    print(use_mqtt)
     broker = args.broker
     display_output = args.display
     res = args.resolution
@@ -271,6 +282,10 @@ if __name__ == "__main__":
     # assert od_model is "yolov3" or od_model is "yolo9000" or od_model is "yoloCSP" or od_model is "open_images" or od_model is "wmg_v3" or od_model is "wmg_anchors" or od_model is "wmg_spp", "Invalid model specified"
     assert snapshot_interval >= 0, "interval must be float greater than 0"
     assert res == 720 or res == 1080, "Resolution must be 720 or 1080"
+
+    resolution_width = 1280
+    resolution_height = 720
+    frame_rate = 30
 
     if res == 720:
         resolution_width = 1280
@@ -287,7 +302,7 @@ if __name__ == "__main__":
     print("Model base directory: " + model_folder)
     print("Snapshot interval   : " + str(snapshot_interval))
     print("Darknet             : " + str(use_darknet))
-    print("MQTT Connection     : " + str(use_mqtt))
+    print("Connect MQTT        : " + str(use_mqtt))
     print("MQTT Broker         : " + str(broker))
     print("Display on          : " + str(display_output))
     print("Input Resolution    : " + str(res))

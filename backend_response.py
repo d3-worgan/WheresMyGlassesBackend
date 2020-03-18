@@ -47,6 +47,9 @@ class BackendResponse:
 
         locations_identified = []
         for location in self.locations_identified:
+            print("Pre-ID " + location.camera_id)
+            location.camera_id = self.stream_manager.camNames[location.camera_id]
+            print("Post ID " + location.camera_id)
             locations_identified.append(location.to_json())
         package['locations_identified'] = locations_identified
         return json.dumps(package)
