@@ -1,4 +1,4 @@
-# WheresMyGlassesBackend
+# Wheres My Glasses (Backend)
 Object location system for the smart home and people with dementia. 
 
 Uses yolo object detection with the darknet neural network framework and intel realsense cameras.
