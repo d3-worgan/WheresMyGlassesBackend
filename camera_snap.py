@@ -2,7 +2,7 @@
 
 class CameraSnap:
     """
-    Holds an image from a camera and the information extracted from it
+    Holds the image and the extracted detection / location data
     """
     def __init__(self, frame, camera_id):
         self.frame = frame

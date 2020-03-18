@@ -1,6 +1,6 @@
 class DetectedObject:
     """
-    Holds information extracted by the object detector
+    Holds detection data extracted by the object detector
     """
     def __init__(self, cid, label, confidence, camera_id, center_x, center_y, x, y, w, h):
         self.cid = cid  # Class id

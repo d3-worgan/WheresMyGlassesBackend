@@ -25,6 +25,8 @@ Windows Python 2.7 version: https://github.com/AlexeyAB/darknet/blob/fc496d52bf2
 
 @author: Philip Kahn
 @date: 20180503
+
+edited dw 2019
 """
 #pylint: disable=R, W0401, W0614, W0703
 from ctypes import *
@@ -151,7 +153,7 @@ else:
     lib = CDLL("./libdarknet.so", RTLD_GLOBAL)
 
 
-"""LOAD FUNCTIONS FROM LIBRARY"""
+"""LOAD FUNCTIONS FROM .SO or .DLL (library)"""
 """"""""""""""""""""""""""""""" "
 lib.network_width.argtypes = [c_void_p]
 lib.network_width.restype = c_int

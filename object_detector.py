@@ -7,7 +7,8 @@ import os
 
 class ObjectDetector:
     """
-    Darknet and YOLO object detector
+    Darknet and YOLO object detector.
+    Either use the original darknet and python bindings or use the opencv implementation of darknet 
     """
     def __init__(self, od_model, model_folder, use_darknet):
         print("Initialising detector")
@@ -37,7 +38,7 @@ class ObjectDetector:
 
     def detect_objects_dn(self, frame, camera_id):
         """
-        Extract object from an image using YOLO in original implementation of Darknet
+        Extract objects from an image using YOLO in original implementation of Darknet
         :param frame: The image to process
         :param camera_id: The camera which took the picture
         :return: An image resized to fit darknet & a list of detected objects
@@ -49,9 +50,9 @@ class ObjectDetector:
         frame_resized = cv2.resize(frame_rgb, (darknet.network_width(self.net), darknet.network_height(self.net)), interpolation=cv2.INTER_LINEAR)
         darknet.copy_image_from_bytes(darknet_image, frame_resized.tobytes())
 
+        # Extracting detections
         dees = darknet.detect_image(self.net, self.meta, darknet_image, thresh=0.5, hier_thresh=.5, nms=.45)
 
-        #print(dees)
         detected_objects = []
         for d in dees:
 
@@ -127,12 +128,12 @@ class ObjectDetector:
                     DetectedObject(class_ids[i], self.classes[class_ids[i]], confidences[i], camera_id, centers[i][0],
                                    centers[i][1], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]))
 
-        #print(f"Detected {len(detections)} objects")
         return detections
 
     def load_specified_model(self, od_model, model_folder):
         """
-        Return the corresponding paths for the chosen model
+        Specify a model on the command line with the correct base directory.
+        Makes loading weights and cfgs for yolo easier
         :param od_model:
         :param model_folder:
         :return:

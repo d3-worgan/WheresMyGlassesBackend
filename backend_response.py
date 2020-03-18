@@ -5,12 +5,8 @@ import time
 
 class BackendResponse:
     """
-    Used to implement communication protocol between backend-frontend. Backend does some
-    computation using the information from the frontends request. The information e.g.
-    location information is stored into a BackendResponse object. The BackendResponse object
-    then packs the object into json so it can be sent over MQTT as a string. The frontend
-    can then unpack the recieved message back into a BackendResponse object so that it can
-    be processed.
+    Used to structure the location data to satisfy the request. Object can be flattened into a json string for transmition
+    over mqtt to the location decoder
     """
     def __init__(self, code_name, original_request, location_time, locations_identified, stream_manager):
         print("Creating a backend response")
@@ -41,10 +37,6 @@ class BackendResponse:
         package['original_request'] = self.original_request
         package['location_time'] = str(self.location_time)
         package['minutes_passed'] = str(self.location_time_passed)
-
-        # for l in self.locations_identified:
-        #     l.camera_id = self.stream_manager.camNames[l.camera_id]
-
         locations_identified = []
         for location in self.locations_identified:
             print("Pre-ID " + location.camera_id)

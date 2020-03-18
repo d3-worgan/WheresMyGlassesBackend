@@ -1,2 +1,4 @@
 /wmg_env
 libdarknet.so
+.vscode/
+.idea/

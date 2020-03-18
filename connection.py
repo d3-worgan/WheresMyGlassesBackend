@@ -22,13 +22,13 @@ class MQTTConnection:
         self.pClient.subscribe(topic)
         print(f"{self.name} client Subscribed to " + topic)
 
-    def on_log(client, userdata, level, buf):
+    def on_log(self, client, userdata, level, buf):
         """
         Use for debugging paho client
         """
         print("[ResponseDecoder] log: " + buf)
 
-    def on_connect(client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc):
         """
         Use for debugging the paho client
         """
@@ -37,7 +37,7 @@ class MQTTConnection:
         else:
             print("[ResponseDecoder] Bad connection, returned code ", rc)
 
-    def on_disconnect(client, userdata, flags, rc=0):
+    def on_disconnect(self, client, userdata, flags, rc=0):
         """
         Use for debugging the paho client
         """

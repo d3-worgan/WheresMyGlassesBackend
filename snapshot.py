@@ -5,9 +5,8 @@ from backend_response import BackendResponse
 
 class Snapshot:
     """
-    The Snapshot is used to hold all the information extracted from a given image. A
-    picture is taken and then analysed by the object detector and locator, the extractions
-    are then stored in a Snapshot for use later.
+    Used to manage and track objects. Detection and location data is saved to a snapshot
+    for processing later
     """
     def __init__(self):
         self.timestamp = None

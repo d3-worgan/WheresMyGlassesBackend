@@ -10,7 +10,7 @@ import cv2
 
 class ObjectLocator:
     """
-    Pulls together the camera streams and object detector to produce or investigate snapshots.
+    Pull together the camera streams and object detector to produce or investigate snapshots.
     """
 
     def __init__(self, od_model, model_folder, use_darknet, device_manager):
@@ -26,10 +26,11 @@ class ObjectLocator:
 
         print("Object locator ready.")
 
-    def take_snapshot(self, sid='x'):
+    def take_snapshot(self, flip, sid='x'):
         """
         Takes a picture and evaluates it for objects and their locations.
         :param sid: Give the Snapshot an ID for reference.
+        :param flip: Use to flip image vertically e.g. if camera is upside down
         :return: A Snapshot containing the detected objects and location information from an image.
         """
         # print("Taking a snapshot")
@@ -39,11 +40,11 @@ class ObjectLocator:
 
         # Take images from each camera
         # print("Reading camera stream")
-
         frames_devices = self.device_manager.poll_frames()
         for i, (device, frame) in enumerate(frames_devices.items()):
             image = np.asarray(frame[rs.stream.color].get_data())
-            image = cv2.flip(image, 0)
+            if flip:
+                image = cv2.flip(image, 0)
             snapshot.camera_snaps.append(CameraSnap(image, device))
 
         # Detect objects in the images

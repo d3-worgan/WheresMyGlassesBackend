@@ -21,7 +21,7 @@ class BackendManager:
     Waits and processes requests from the frontend.
     """
 
-    def __init__(self, od_model, model_folder, res_width, res_height, fps, broker, name, snapshot_interval, use_darknet, use_mqtt, display):
+    def __init__(self, od_model, model_folder, res_width, res_height, fps, flip_cameras, broker, name, snapshot_interval, use_darknet, use_mqtt, display):
         print("Loading backend manager...")
 
         # Open and configure connected realsense devices
@@ -36,8 +36,9 @@ class BackendManager:
         # Open and configure output streams (so we can view the snapshots)
         print("Loading camera streams...")
         self.stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
-        self.stream_manager.load_display_windows(self.device_manager._enabled_devices)
-        assert len(self.stream_manager.display_windows) > 0, "No display windows"
+        if display:
+            self.stream_manager.load_display_windows(self.device_manager._enabled_devices)
+            assert len(self.stream_manager.display_windows) > 0, "No display windows"
 
         # Load the object detection and location system
         print("Loading the object locator...")
@@ -67,6 +68,7 @@ class BackendManager:
         self.lock = threading.Lock()
 
         self.display = display
+        self.flip_cameras = flip_cameras
         print("BackendManager loaded, waiting for requests.")
 
     def idle(self):
@@ -83,9 +85,9 @@ class BackendManager:
                 if self.snapshot_interval > 0:
                     t = datetime.now()
                     if t.second % snapshot_interval == 0:
-                        self.add_snapshot_to_history(snapshot_id)
+                        self.add_snapshot_to_history(snapshot_id, self.flip_cameras)
                 else:
-                    self.add_snapshot_to_history(snapshot_id)
+                    self.add_snapshot_to_history(snapshot_id, self.flip_cameras)
 
                 # Display snapshot
                 if self.display:
@@ -133,7 +135,7 @@ class BackendManager:
         if self.validate_object(object, self.locator):
 
             # Check if the locator can locate the object in the current snapshot
-            current_snapshot = self.locator.take_snapshot('x')
+            current_snapshot = self.locator.take_snapshot(self.flip_cameras, 'x')
             print("Searching snapshot...")
             locations_identified = self.locator.search_snapshot(current_snapshot, object)
 
@@ -211,15 +213,15 @@ class BackendManager:
         self.lock.acquire()
 
         # Take the snapshot
-        snapshot = self.locator.take_snapshot(snapshot_id)
+        snapshot = self.locator.take_snapshot(self.flip_cameras, snapshot_id)
 
         # Maintain a fixed size queue
         if len(self.snapshot_history) < self.history_size:
-            self.snapshot_history.append(self.locator.take_snapshot(snapshot_id))
+            self.snapshot_history.append(self.locator.take_snapshot(self.flip_cameras, snapshot_id))
             snapshot_id += 1
         else:
             self.snapshot_history.pop(0)
-            self.snapshot_history.append(self.locator.take_snapshot(snapshot_id))
+            self.snapshot_history.append(self.locator.take_snapshot(self.flip_cameras, snapshot_id))
             snapshot_id += 1
 
         # Release the lock so the request handler can access the snapshot_history
@@ -262,7 +264,7 @@ if __name__ == "__main__":
     parser.add_argument("--broker", help="Specify the IP address of the MQTT broker", required=False, type=str, default="192.168.0.159")
     parser.add_argument("--display", help="True to display the output of the detection streams", required=False, type=bool, default=True)
     parser.add_argument("--resolution", help="Specify input res e.g. 1080, 720", required=False, type=int, default=1080)
-    parser.add_argument("--flip", help="True to vertically flip the camera image", required=False, type=bool, default=True)
+    parser.add_argument("--flip", help="True to vertically flip the camera image", required=False, type=bool, default=False)
 
     args = parser.parse_args()
 
@@ -307,7 +309,7 @@ if __name__ == "__main__":
     print("Display on          : " + str(display_output))
     print("Input Resolution    : " + str(res))
 
-    backend_manager = BackendManager(od_model, model_folder, resolution_width, resolution_height, frame_rate, broker,
+    backend_manager = BackendManager(od_model, model_folder, resolution_width, resolution_height, frame_rate, flip_cameras, broker,
                                      "BackendManager", snapshot_interval, use_darknet, use_mqtt, display_output)
 
     try:
