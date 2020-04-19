@@ -87,6 +87,8 @@ class BackendManager:
                 if display_output:
                     self.stream_manager.display_bboxes(self.snapshot_history[-1], flip_cameras)
 
+                self.snapshot_history[-1].
+
                 # Need to sleep otherwise will keep blocking the request handler
                 time.sleep(0.1)
 

@@ -36,6 +36,10 @@ class Snapshot:
             for loc in camera_snap.locations:
                 print(f"The {loc.object} is by the {loc.location}")
 
+    def delete_images(self):
+        for snap in self.camera_snaps:
+            snap.frame = None
+
     # def display_snapshot(self):
     #     """
     #     Display the image taken of the snapshot with bounding boxes around the
