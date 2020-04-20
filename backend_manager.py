@@ -85,13 +85,15 @@ class BackendManager:
                 if self.snapshot_interval > 0:
                     t = datetime.now()
                     if t.second % snapshot_interval == 0:
-                        self.add_snapshot_to_history(snapshot_id, self.flip_cameras)
+                        self.add_snapshot_to_history(snapshot_id)
                 else:
-                    self.add_snapshot_to_history(snapshot_id, self.flip_cameras)
+                    self.add_snapshot_to_history(snapshot_id)
 
                 # Display snapshot
                 if self.display:
                     self.stream_manager.display_bboxes(self.snapshot_history[-1], flip_cameras)
+
+                self.snapshot_history[-1].delete_frames()
 
                 # Need to sleep otherwise will keep blocking the request handler
                 time.sleep(0.1)
@@ -208,6 +210,12 @@ class BackendManager:
         self.lock.release()
 
     def add_snapshot_to_history(self, snapshot_id):
+        """
+        Update the state of the room by taking the latest pictures of the room, processing them and save them
+        to the snapshot history
+        :param snapshot_id:
+        :return:
+        """
 
         # Use the lock to avoid competing with the "process_requests" thread for the snapshot_history
         self.lock.acquire()

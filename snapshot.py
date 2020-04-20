@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from backend_response import BackendResponse
 
+
 class Snapshot:
     """
     Used to manage and track objects. Detection and location data is saved to a snapshot
@@ -14,6 +15,11 @@ class Snapshot:
         self.camera_snaps = []
 
     def to_response(self, code):
+        """
+        Prepare snapshot for sending to the frontend
+        :param code:
+        :return:
+        """
         br = BackendResponse(code, self.timestamp, self.camera_snaps)
         response = br.pack()
         return response
@@ -35,33 +41,14 @@ class Snapshot:
             for loc in camera_snap.locations:
                 print(f"The {loc.object} is by the {loc.location}")
 
-    # def display_snapshot(self):
-    #     """
-    #     Display the image taken of the snapshot with bounding boxes around the
-    #     detected objects.
-    #     :return:
-    #     """
-    #     # # Draw bounding boxes on detected objects
-    #     # font = cv2.FONT_HERSHEY_SIMPLEX
-    #     # color = (255, 100, 100)
-    #     #
-    #     # windows = {}
-    #     # for i, camera_snap in enumerate(self.camera_snaps):
-    #     #     winName = "Camera " + str(i)
-    #     #     windows[camera_snap] = winName
-    #     #     cv2.namedWindow(winName)
-    #     #
-    #     # for i, camera_snap in enumerate(self.camera_snaps):
-    #     #     window = windows[camera_snap]
-    #     #     for obj in camera_snap.detections:
-    #     #         cv2.rectangle(camera_snap.frame, (obj.x, obj.y), (obj.x + obj.w, obj.y + obj.h), color, 1)
-    #     #         cv2.putText(camera_snap.frame, obj.label + " " + str(round(obj.confidence, 2)), (obj.x, obj.y + 30), font, 1, color, 1)
-    #     #         cv2.imshow(window, camera_snap.frame)
-    #     #
-    #     # # Finish up
-    #     # cv2.waitKey(1)
-    #     # #cv2.destroyAllWindows()
-    #     # #print("Done.")
+    def delete_frames(self):
+        """
+        Delete the image after it has been processed to maintain privacy and save memory
+        :return:
+        """
+        for snap in self.camera_snaps:
+            if snap.frame is not None:
+                snap.frame = None
 
     def calculate_brightness(self):
         """
