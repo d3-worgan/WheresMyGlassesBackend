@@ -38,7 +38,7 @@ class BackendManager:
         self.stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
         if display:
             self.stream_manager.load_display_windows(self.device_manager._enabled_devices)
-            assert len(self.stream_manager.display_windows) > 0, "No display windows"
+            assert len(self.stream_manager.display_windows) > 0, "Display windows didnt open"
 
         # Load the object detection and location system
         print("Loading the object locator...")
@@ -64,7 +64,7 @@ class BackendManager:
         print("Snapshot history size " + str(self.history_size))
         assert self.history_size > 0, "The history size should be greater than zero?"
 
-        # Avoid conflict between "self.update" and "self.process_requests" accessing the snapshot history
+        # Used to avoid conflict between "self.update" and "self.process_requests" accessing the snapshot history
         self.lock = threading.Lock()
 
         self.display = display
@@ -73,7 +73,7 @@ class BackendManager:
 
     def idle(self):
         """
-        Background loop taking regular snapshots to keep track of objects and state of the room. Display output.
+        Background loop taking regular snapshots to keep update state of the room & display output.
         :return:
         """
         try:
