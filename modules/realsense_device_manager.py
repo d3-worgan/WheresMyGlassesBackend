@@ -138,11 +138,11 @@ class DeviceManager:
                             Enable/Disable the IR-Emitter of the device
         """
         pipeline = rs.pipeline()
-
+        print(f"Pipeline enabled")
         # Enable the device
         self._config.enable_device(device_serial)
         pipeline_profile = pipeline.start(self._config)
-
+        print(f"Pipeline started")
         # Set the acquisition parameters
         sensor = pipeline_profile.get_device().first_depth_sensor()
         sensor.set_option(rs.option.emitter_enabled, 1 if enable_ir_emitter else 0)

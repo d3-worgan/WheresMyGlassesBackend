@@ -13,16 +13,16 @@ class ObjectLocator:
     Pull together the camera streams and object detector to produce or investigate snapshots.
     """
 
-    def __init__(self, od_model, model_folder, use_darknet, device_manager):
+    def __init__(self, od_model, model_folder, opencv, device_manager):
 
         # CV or Darknet?
-        self.use_darknet = use_darknet
+        self.opencv = opencv
 
         # Use the device manager to grab images from the cameras
         self.device_manager = device_manager
 
         # Use the object detector to analyse images and extract detection info.
-        self.object_detector = ObjectDetector(od_model, model_folder, use_darknet)
+        self.object_detector = ObjectDetector(od_model, model_folder, opencv)
 
         print("Object locator ready.")
 
@@ -49,7 +49,7 @@ class ObjectLocator:
 
         # Detect objects in the images
         for camera_snap in snapshot.camera_snaps:
-            if self.use_darknet:
+            if self.opencv:
                 image_resized, camera_snap.detections = self.object_detector.detect_objects_dn(camera_snap.frame, camera_snap.camera_id)
                 camera_snap.frame = cv2.cvtColor(image_resized, cv2.COLOR_BGR2RGB)
             else:

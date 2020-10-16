@@ -22,10 +22,10 @@ ticked during in the installation.
 (e.g. “```C:\Program Files\IntelrealsenseSDK 2.0\bin```”) into either the python or anaconda site-packages folder installed on 
 the machine (e.g. “```C:\Anaconda\Lib\site-packages```”).
 ##### 2. Build and install Darknet & YOLO
-To use yolo and darknet we need the darknet library / binary file (```.so``` file on linux). The python bindings to the 
-library are managed in ```modules/darknet.py```. The easiest way to build the binaries is using the ```make``` command 
-which is explained in the [AlexyAB repo](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make). 
-Once the ```.so``` file has been built copy it into the ```modules/``` directory.
+To use yolo and darknet we need the darknet library / binary file (```.so``` file on linux or ```.dll``` on windows). 
+The python bindings to the library are managed in ```modules/darknet.py```. The [AlexyAB repo](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make). 
+explains [instructions](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make) for several ways to build 
+darknet on windows or linux. Once the ```.so``` or ```.dll``` file has been built, copy it into the ```modules/``` directory.
 ##### 3. Download and install detection models
 
 ##### 3. Setup a conda environment and python dependencies

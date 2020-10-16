@@ -1,5 +1,5 @@
 from modules.detected_object import DetectedObject
-from modules import darknet
+
 import cv2
 import numpy as np
 import os
@@ -10,7 +10,7 @@ class ObjectDetector:
     Darknet and YOLO object detector.
     Either use the original darknet and python bindings or use the opencv implementation of darknet 
     """
-    def __init__(self, od_model, model_folder, use_darknet):
+    def __init__(self, od_model, model_folder, opencv):
         print("Initialising detector")
 
         # Find the paths for the specified object detection model
@@ -22,17 +22,18 @@ class ObjectDetector:
             self.classes = [line.strip() for line in f.readlines()]
         self.colors = np.random.uniform(0, 255, size=(len(self.classes), 3))
 
-        if use_darknet:
-            print("Loading Darknet original")
-            self.net = darknet.load_net_custom(config.encode("ascii"), weights.encode("ascii"), 0, 1)  # batch size = 1
-            self.meta = darknet.load_meta(meta_data.encode("ascii"))
-        else:
+        if opencv:
             print("Loading Darknet openCV")
             print("config path " + config)
             print("weights path " + weights)
             self.net = cv2.dnn.readNetFromDarknet(config, weights)
             self.layer_names = self.net.getLayerNames()
             self.output_layers = [self.layer_names[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
+        else:
+            print("Loading Darknet original")
+            from modules.object_detection import darknet
+            self.net = darknet.load_net_custom(config.encode("ascii"), weights.encode("ascii"), 0, 1)  # batch size = 1
+            self.meta = darknet.load_meta(meta_data.encode("ascii"))
 
         print("Detector initialised.")
 

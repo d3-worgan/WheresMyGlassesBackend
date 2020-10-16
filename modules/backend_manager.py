@@ -1,12 +1,10 @@
-"""
-Video walk-through using Paho: https://www.youtube.com/watch?v=QAaXNt0oqSI
-"""
+
 import argparse
 
 from modules.object_locator import ObjectLocator
 from modules.backend_response import BackendResponse
 from modules.stream_manager import StreamManager
-from modules.realsense_device_manager import DeviceManager
+
 from modules.connection import MQTTConnection
 import threading
 import time
@@ -20,41 +18,38 @@ class BackendManager:
     Maintains the state of the room by saving regular snapshots to the snapshot history.
     Waits and processes requests from the frontend.
     """
+    def __init__(self, model, model_folder, opencv, interval, width, height, fps, flip, display, broker, mqtt):
 
-    def __init__(self, od_model, model_folder, res_width, res_height, fps, flip_cameras, broker, name, snapshot_interval, use_darknet, use_mqtt, display):
         print("Loading backend manager...")
 
-        # Open and configure connected realsense devices
-        print("Camera config %s x %s @ %s fps" % (res_width, res_height, fps))
-        rs_config = rs.config()
-        rs_config.enable_stream(rs.stream.color, res_width, res_height, rs.format.bgr8, fps)
-        self.device_manager = DeviceManager(rs.context(), rs_config)
-        self.device_manager.enable_all_devices()
-        assert len(self.device_manager._enabled_devices) > 0, "No realsense devices were found"
-        print(str(len(self.device_manager._enabled_devices)) + " realsense devices connected")
+        assert os.path.exists(model_folder), "Couldn't find the detection models folder..."
+        assert interval >= 0, "interval must be float greater than 0"
+        assert width == 720 or width == 1080, "Resolution must be 720 or 1080"
+        assert fps == 15 or fps == 30, f"{fps} is an invalid frame rate. FPS must be 15fps or 30fps"
 
-        # Open and configure output streams (so we can view the snapshots)
+        # Load the RealSense camera system
         print("Loading camera streams...")
-        self.stream_manager = StreamManager(resolution_width, resolution_height, frame_rate)
+        self.stream_manager = StreamManager(width, height, fps)
         if display:
-            self.stream_manager.load_display_windows(self.device_manager._enabled_devices)
+            self.stream_manager.load_display_windows()
             assert len(self.stream_manager.display_windows) > 0, "Display windows didnt open"
 
         # Load the object detection and location system
         print("Loading the object locator...")
-        self.locator = ObjectLocator(od_model, model_folder, use_darknet, self.device_manager)
+        self.locator = ObjectLocator(model, model_folder, opencv, self.stream_manager.device_manager)
         assert self.locator is not None, "Problem loading the locator..."
 
         # Connect to the MQTT
-        if use_mqtt:
+        self.mqtt = mqtt
+        if self.mqtt:
             print("Connecting to MQTT")
-            self.connection = MQTTConnection(broker, name, self.process_requests)
+            self.connection = MQTTConnection(broker, "BackendManager", self.process_requests)
             self.connection.pClient.subscribe("frontend/request")
 
         # Initialise the snapshot history, calculate the number of snapshots required to store a days worth of data
         # using the specified intervals
         seconds_in_a_day = 86400
-        self.snapshot_interval = snapshot_interval
+        self.snapshot_interval = interval
         if self.snapshot_interval == 0:
             self.history_size = 86400
         else:
@@ -68,7 +63,7 @@ class BackendManager:
         self.lock = threading.Lock()
 
         self.display = display
-        self.flip_cameras = flip_cameras
+        self.flip_cameras = flip
         print("BackendManager loaded, waiting for requests.")
 
     def idle(self):
@@ -80,11 +75,10 @@ class BackendManager:
             # Give each snapshot an id
             snapshot_id = 0
             while True:
-
                 # Take a snapshot on specified intervals
                 if self.snapshot_interval > 0:
                     t = datetime.now()
-                    if t.second % snapshot_interval == 0:
+                    if t.second % self.snapshot_interval == 0:
                         self.add_snapshot_to_history(snapshot_id)
                 else:
                     self.add_snapshot_to_history(snapshot_id)
@@ -103,7 +97,7 @@ class BackendManager:
         finally:
             print("done")
             self.lock.release()
-            if use_mqtt:
+            if self.mqtt:
                 self.connection.pClient.loop_stop()
                 self.connection.pClient.disconnect()
             print("done")

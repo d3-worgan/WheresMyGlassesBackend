@@ -1,25 +1,29 @@
-import pyrealsense2 as rs
+
 import numpy as np
 import cv2
 import time
 
+import pyrealsense2 as rs
+
+from modules.realsense_device_manager import DeviceManager
+
 
 class StreamManager:
 
-    def __init__(self, frame_width, frame_height, frames_second):
-        """
-        Class to manage the streams coming from the RealSense cameras
-        E.g. Output the streams to screen, video files, or the LSL
-        -----------------------------------------------------------
-        :param frame_width: Desired frame width in pixels
-        :param frame_height: Desired frame height in pixels
-        :param frames_second: Desired frames per second
-        """
+    def __init__(self, width, height, fps):
+
+        print("Camera config %s x %s @ %s fps" % (width, height, fps))
+
+        rs_config = rs.config()
+        rs_config.enable_stream(rs.stream.color, width, height, rs.format.bgr8, fps)
+        self.device_manager = DeviceManager(rs.context(), rs_config)
+        self.device_manager.enable_all_devices()
+        assert len(self.device_manager._enabled_devices) > 0, "No RealSense devices were found (Check connections?)"
+        print(str(len(self.device_manager._enabled_devices)) + " realsense devices connected")
 
         # Allow window to be smaller than frame:
         #self.defaultWinSize = (int(1920/3), int(1080/3)) # Good for 1920x1080 display, e.g. monitor in control room
         self.defaultWinSize = (int(1920/5), int(1080/5))  # Good for Living Lab TV when using low resolution.
-        #self.defaultWinSize = (int(frame_width/2), int(frame_height/2))
 
         # Set window positions for known cameras based on integer tiling in a 3x3 grid, roughly reflecting their
         # positions in the lab:
@@ -47,13 +51,13 @@ class StreamManager:
             "831612071440":'Kitchen',
         }
 
-        self.frame_width = frame_width
-        self.frame_height = frame_height
-        self.frames_second = frames_second
+        self.frame_width = width
+        self.frame_height = height
+        self.frames_second = fps
         self.display_windows = {}
-        print("Loaded lab manager " + str(self.frame_width) + " " + str(self.frame_height) + " " + str(self.frames_second))
+        print("Loaded camera system " + str(self.frame_width) + " " + str(self.frame_height) + " " + str(self.frames_second))
 
-    def load_display_windows(self, enabled_devices):
+    def load_display_windows(self):
         """
         Creates a window for each enabled device,
         saves the window into the 'self.display_windows = {}'
@@ -61,7 +65,7 @@ class StreamManager:
         :param enabled_devices: The devices passed from the device manager
         :return: None
         """
-        for device in enabled_devices:
+        for device in self.device_manager._enabled_devices:
             # If we don't know the name of this device, use its serial number.
             if device not in self.camNames:
                 self.camNames[device] = device
@@ -90,7 +94,6 @@ class StreamManager:
             print(str(self.camNames[device]) + " " + str(frame[rs.stream.color].frame_number) + " " + str(frame[rs.stream.color].timestamp))
             cv2.imshow(window, final_frame)
             ret = cv2.waitKey(1)
-
 
     def display_bboxes(self, snapshot, flip):
 
