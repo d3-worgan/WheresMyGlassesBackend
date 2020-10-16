@@ -36,8 +36,8 @@ parser.add_argument("--interval",
                     help="Specify an interval to take snapshots in seconds (else fast as possible)",
                     default=0)
 parser.add_argument("--width",
-                    help="Input res e.g. 1080, 720",
-                    default=1080)
+                    help="Input res e.g. 1280, 720",
+                    default=1280)
 parser.add_argument("--height",
                     help="Input height e.g. 1920, 1080",
                     default=720)

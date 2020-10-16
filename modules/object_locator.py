@@ -50,10 +50,11 @@ class ObjectLocator:
         # Detect objects in the images
         for camera_snap in snapshot.camera_snaps:
             if self.opencv:
+                camera_snap.detections = self.object_detector.detect_objects_cv(camera_snap.frame, camera_snap.camera_id)
+            else:
                 image_resized, camera_snap.detections = self.object_detector.detect_objects_dn(camera_snap.frame, camera_snap.camera_id)
                 camera_snap.frame = cv2.cvtColor(image_resized, cv2.COLOR_BGR2RGB)
-            else:
-                camera_snap.detections = self.object_detector.detect_objects_cv(camera_snap.frame, camera_snap.camera_id)
+
 
         # Try to locate the detected objects
 

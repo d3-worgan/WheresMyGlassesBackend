@@ -147,49 +147,31 @@ class ObjectDetector:
         meta_data = None
         names = None
 
-        if od_model == "yolov3":
-            print("Loading YOLOV3 network and model")
-            weights = os.path.join(model_folder, "coco/yolov3/yolov3.weights")
-            config = os.path.join(model_folder, "coco/yolov3/yolov3.cfg")
-            meta_data = os.path.join(model_folder, "coco/coco.data")
-            names = os.path.join(model_folder, "coco/coco.names")
-        elif od_model == "yoloCSP":
-            weights = os.path.join(model_folder, "coco/yoloCSP/yoloCSP.weights")
-            config = os.path.join(model_folder, "coco/yoloCSP/yoloCSP.cfg")
-            meta_data = os.path.join(model_folder, "coco/coco.data")
-            names = os.path.join(model_folder, "coco/coco.names")
-        elif od_model == "yolo9000":
-            weights = os.path.join(model_folder, "yolo9000/yolo9000.weights")
-            config = os.path.join(model_folder, "yolo9000/yolo9000.cfg")
-            meta_data = os.path.join(model_folder, "yolo9000/combine9k.data")
-            names = os.path.join(model_folder, "yolo9000/9k.names")
-        elif od_model == "open_images":
-            weights = os.path.join(model_folder, "open_images/yolov3-spp_final.weights")
-            config = os.path.join(model_folder, "open_images/yolov3-spp.cfg")
-            meta_data = os.path.join(model_folder, "open_images/yolo.data")
-            names = os.path.join(model_folder, "open_images/yolo.names")
-        elif od_model == "wmg_v3":
-            weights = os.path.join(model_folder, "wmg/wmg_v3/wmg_v3.weights")
-            config = os.path.join(model_folder, "wmg/wmg_v3/wmg_v3.cfg")
-            meta_data = os.path.join(model_folder, "wmg/wmg.data")
-            names = os.path.join(model_folder, "wmg/wmg.names")
-        elif od_model == "wmg_custom_anchors":
-            weights = os.path.join(model_folder, "wmg/wmg_custom_anchors/wmg_custom_anchors.weights")
-            config = os.path.join(model_folder, "wmg/wmg_custom_anchors/wmg_custom_anchors.cfg")
-            meta_data = os.path.join(model_folder, "wmg/wmg.data")
-            names = os.path.join(model_folder, "wmg/wmg.names")
-        elif od_model == "wmg_spp":
-            weights = os.path.join(model_folder, "wmg/wmg_spp/wmg_SPP.weights")
-            config = os.path.join(model_folder, "wmg/wmg_spp/wmg_SPP.cfg")
-            meta_data = os.path.join(model_folder, "wmg/wmg.data")
-            names = os.path.join(model_folder, "wmg/wmg.names")
-        else:
-            print("Specified model is not available, default yoloSuper")
+        # Walk the models directory and find one with the model name specified.
+        # Then generate the paths for each file inside
+        directories = next(os.walk(model_folder))[1]
+        for dir in directories:
+            if od_model in dir:
+                model_files = next(os.walk(os.path.join(model_folder, dir)))[2]
+                for f in model_files:
+                    if '.cfg' in f:
+                        config = os.path.join(model_folder, dir, f)
+                    elif '.weights' in f:
+                        weights = os.path.join(model_folder, dir, f)
+                    elif '.data' in f:
+                        meta_data = os.path.join(model_folder, dir, f)
+                    elif '.names' in f:
+                        names = os.path.join(model_folder, dir, f)
 
-        assert weights, "Couldn't find the .weights file for" + od_model
+        assert weights, "Couldn't find the .weights file for " + od_model
         assert config, "Couldn't find the .cfg file for " + od_model
         assert meta_data, "Couldn't find the .data file for " + od_model
         assert names, "Couldn't find the .names file for " + od_model
+
+        assert os.path.exists(weights), f"{weights} is not a valid path"
+        assert os.path.exists(config), f"{config} is not a valid path"
+        assert os.path.exists(meta_data), f"{meta_data} is not a valid path"
+        assert os.path.exists(names), f"{names} is not a valid path"
 
         # print("Weights path: " + weights)
         # print("Config path: " + config)

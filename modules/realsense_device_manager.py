@@ -137,7 +137,7 @@ class DeviceManager:
         enable_ir_emitter : bool
                             Enable/Disable the IR-Emitter of the device
         """
-        pipeline = rs.pipeline()
+        pipeline = rs.pipeline(self._context)
         print(f"Pipeline enabled")
         # Enable the device
         self._config.enable_device(device_serial)

@@ -23,8 +23,8 @@ class BackendManager:
         print("Loading backend manager...")
 
         assert os.path.exists(model_folder), "Couldn't find the detection models folder..."
-        assert interval >= 0, "interval must be float greater than 0"
-        assert width == 720 or width == 1080, "Resolution must be 720 or 1080"
+        assert interval >= 0, "Snapshot interval must be greater than 0"
+        #assert height == 720 or height == 1080, "Resolution must be 720 or 1080"
         assert fps == 15 or fps == 30, f"{fps} is an invalid frame rate. FPS must be 15fps or 30fps"
 
         # Load the RealSense camera system
@@ -85,7 +85,7 @@ class BackendManager:
 
                 # Display snapshot
                 if self.display:
-                    self.stream_manager.display_bboxes(self.snapshot_history[-1], flip_cameras)
+                    self.stream_manager.display_bboxes(self.snapshot_history[-1], self.flip_cameras)
 
                 self.snapshot_history[-1].delete_frames()
 
