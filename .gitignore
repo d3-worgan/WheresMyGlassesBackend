@@ -2,3 +2,5 @@
 modules/libdarknet.so
 .vscode/
 .idea/
+modules/__pycache__/
+modules/object_detection/__pycache__/
