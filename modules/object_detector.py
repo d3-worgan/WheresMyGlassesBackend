@@ -33,7 +33,7 @@ class ObjectDetector:
             print("Loading Darknet original")
             from modules.object_detection import darknet
             self.net = darknet.load_net_custom(config.encode("ascii"), weights.encode("ascii"), 0, 1)  # batch size = 1
-            self.meta = darknet.load_meta(meta_data.encode("ascii"))
+            #self.meta = darknet.load_meta(meta_data.encode("ascii"))
 
         print("Detector initialised.")
 
@@ -165,12 +165,12 @@ class ObjectDetector:
 
         assert weights, "Couldn't find the .weights file for " + od_model
         assert config, "Couldn't find the .cfg file for " + od_model
-        assert meta_data, "Couldn't find the .data file for " + od_model
+        #assert meta_data, "Couldn't find the .data file for " + od_model
         assert names, "Couldn't find the .names file for " + od_model
 
         assert os.path.exists(weights), f"{weights} is not a valid path"
         assert os.path.exists(config), f"{config} is not a valid path"
-        assert os.path.exists(meta_data), f"{meta_data} is not a valid path"
+        #assert os.path.exists(meta_data), f"{meta_data} is not a valid path"
         assert os.path.exists(names), f"{names} is not a valid path"
 
         # print("Weights path: " + weights)

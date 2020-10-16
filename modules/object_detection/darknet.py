@@ -150,7 +150,7 @@ if os.name == "nt":
             lib = CDLL(winGPUdll, RTLD_GLOBAL)
             print("Environment variables indicated a CPU run, but we didn't find `"+winNoGPUdll+"`. Trying a GPU run anyway.")
 else:
-    lib = CDLL("./libdarknet.so", RTLD_GLOBAL)
+    lib = CDLL("./modules/object_detection/libdarknet.so", RTLD_GLOBAL)
 
 
 """LOAD FUNCTIONS FROM .SO or .DLL (library)"""

@@ -12,21 +12,101 @@ for data acquisition and training object detection models using docker container
 Credit to [Joesph Redmon](https://github.com/pjreddie/darknet) and [AlexyAB](https://github.com/AlexeyAB/darknet) for 
 YOLO and Darknet.
 
+
 ## Installation
-The current implementation has been written and tested for Linux only.
+The current implementation has been written and tested for Linux only and uses the RealSense SDK to manage camera and image input.
+
 ##### 1. Install the RealSense SDK
+First we need to install the RealSense SDK to interface with the RealSense cameras
 1. Install the [RealSense SDK](https://github.com/IntelRealSense/librealsense) by downloading the installer in the 
 latest [release](https://github.com/IntelRealSense/librealsense/releases); make sure the python developer package is 
 ticked during in the installation.
 2. After installation copy realsense2.pyd and realsense2.dll from the bin directory of the installation 
 (e.g. “```C:\Program Files\IntelrealsenseSDK 2.0\bin```”) into either the python or anaconda site-packages folder installed on 
 the machine (e.g. “```C:\Anaconda\Lib\site-packages```”).
+
 ##### 2. Build and install Darknet & YOLO
-To use yolo and darknet we need the darknet library / binary file (```.so``` file on linux or ```.dll``` on windows). 
-The python bindings to the library are managed in ```modules/darknet.py```. The [AlexyAB repo](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make). 
+If we want to use a GPU to improve object detection speed we need to build Darknet from source. The [AlexyAB repo](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make). 
 explains [instructions](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make) for several ways to build 
-darknet on windows or linux. Once the ```.so``` or ```.dll``` file has been built, copy it into the ```modules/``` directory.
+darknet on windows or linux.
+
+The easiest way to do this step is on Linux like this:
+1. Change into a directory and download the darknet code e.g.
+```
+cd ~
+git clone https://github.com/AlexeyAB/darknet.git
+cd darknet
+```
+2. If using a GPU set the GPU option in the Makefile to 1, also set the LIBSO option to 1 to build for linux. Also you can configure darknet to use CUDNN if it is installed.
+```
+sed -i "s/GPU=0/GPU=1/" Makefile
+sed -i 's/LIBSO=0/LIBSO=1/' Makefile
+sed -i 's/CUDNN=0/CUDNN=1/' Makefile
+```
+3. Build darknet
+```
+make
+```
+4. The result of this should be a ```libdarknet.so``` file in the ```darknet/``` directory.
+
+##### 3. Setup the project
+Now that RealSense and Darknet are ready we can build the WheresMyGlasses project.
+1. Change out of the darknet directory and download WheresMyGlasses e.g.
+```
+cd ../
+git clone https://github.com/d3-worgan/WheresMyGlassesBackend.git
+cd WheresMyGlassesBackend
+```
+2. Create a conda python environment
+```
+conda create -y -n wmg python=3.6 
+conda activate wmg
+```
+3. Install the python dependencies
+```
+pip install -y -r requirements
+```
+4. Copy the darknet library into the WheresMyGlasses project e.g.
+```
+cp ../darknet/libdarknet.so modules/object_detection
+```
 ##### 3. Download and install detection models
+Finally we need to give WheresMyGlasses an object detection model to perform the object detection. There are several pre-trained models available on the AlexyAB repository. Or we can use a custom trained model. To keep model management simple, each model should be saved into its own folder with its corresponding ```.weights```, ```.cfg```, ```.names``` and ```.data``` files inside the ```modules/object_detection/models/``` folder.
+1. Change into the models directory
+```
+cd models/
+```
+2. Make a new directory for the detection model
+```
+mkdir yolov3
+cd yolov3
+```
+3. Download the model files
+```
+wget https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg
+wget https://pjreddie.com/media/files/yolov3.weights
+wget https://github.com/AlexeyAB/darknet/blob/master/data/coco.names
+```
+4. Then the model name can be specified on the command line using the ```--model``` option. 
 
-##### 3. Setup a conda environment and python dependencies
-
+## Usage
+Now we can test the installation has worked by running
+```
+python main.py --display
+```
+Or, if we want to use the CPU version 
+```
+python main.py --display --opencv
+```
+To specify which model to use, follow the steps above (i.e. put the model files in a new directory in the models directory) and specify the folder name using the ```--model``` option e.g.
+```
+python main.py --display --model yolov4
+```
+To connect the system to MQTT to allow to process and respond to requests try
+```
+python main.py --display --mqtt
+```
+To specify the address of the MQTT broker use e.g.
+```
+python main.py --display --mqtt --broker 192.168.0.123
+```
