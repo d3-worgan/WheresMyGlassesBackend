@@ -14,7 +14,19 @@ YOLO and Darknet.
 
 ## Installation
 The current implementation has been written and tested for Linux only.
-#### 1. Install the RealSense SDK
-#### 2. Build and install Darknet & YOLO
-#### 3. Setup a conda environment and python dependencies
+##### 1. Install the RealSense SDK
+1. Install the [RealSense SDK](https://github.com/IntelRealSense/librealsense) by downloading the installer in the 
+latest [release](https://github.com/IntelRealSense/librealsense/releases); make sure the python developer package is 
+ticked during in the installation.
+2. After installation copy realsense2.pyd and realsense2.dll from the bin directory of the installation 
+(e.g. “```C:\Program Files\IntelrealsenseSDK 2.0\bin```”) into either the python or anaconda site-packages folder installed on 
+the machine (e.g. “```C:\Anaconda\Lib\site-packages```”).
+##### 2. Build and install Darknet & YOLO
+To use yolo and darknet we need the darknet library / binary file (```.so``` file on linux). The python bindings to the 
+library are managed in ```modules/darknet.py```. The easiest way to build the binaries is using the ```make``` command 
+which is explained in the [AlexyAB repo](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make). 
+Once the ```.so``` file has been built copy it into the ```modules/``` directory.
+##### 3. Download and install detection models
+
+##### 3. Setup a conda environment and python dependencies
 
