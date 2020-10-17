@@ -83,7 +83,7 @@ python main.py --display --model yolov4
 ```
 To connect the system to MQTT we need to specify the ```--mqtt``` flag.
 ```
-python main.py --display --yolov3 --mqtt
+python main.py --display --mqtt
 ```
 The MQTT broker address defaults to localhost or the IP address of the machine. 
 To specify the address of the MQTT broker use the ```--broker``` flag e.g.
