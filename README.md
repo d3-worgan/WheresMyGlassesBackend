@@ -14,12 +14,13 @@ YOLO and Darknet.
 
 ## Installation (Linux)
 ### 1. Install the RealSense SDK
-Follow the instructions on the [RealSense](https://dev.intelrealsense.com/docs/compiling-librealsense-for-linux-ubuntu-guide) website to install the RealSense SDK.
+Follow the instructions on the [RealSense](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md) 
+github to install the RealSense SDK.
 
 ### 2. Build and install Darknet & YOLO
-Skip this step if using a CPU and use the ```--opencv``` option to use the opencv CPU implementation of darknet.
-If we want to use a GPU to improve object detection speed we need to build Darknet from source. Follow the 
-[instructions](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make) to build darknet. The easiest way 
+If we want to use a GPU to improve object detection speed we need to build Darknet from source. 
+Skip this step if using a CPU and use the ```--opencv``` option to use the opencv CPU implementation of darknet. 
+Follow the [instructions](https://github.com/AlexeyAB/darknet#how-to-compile-on-linux-using-make) to build darknet. The easiest way 
 is using ```make```. Note the dependencies in the darknet repo like CUDA 10.0, CUDNN 7.0. Other versions may cause issue.
 
 1. Change into a directory and download the darknet code e.g.
@@ -28,7 +29,8 @@ cd ~
 git clone https://github.com/AlexeyAB/darknet.git
 cd darknet
 ```
-2. Set the GPU option in the Makefile to 1, also set the LIBSO option to 1 to build for linux. Also you can configure darknet to use CUDNN if it is installed.
+2. Set the GPU option in the Makefile to 1, also set the LIBSO option to 1 to build for linux. You can also configure 
+darknet to use CUDNN if it is installed.
 ```
 sed -i "s/GPU=0/GPU=1/" Makefile
 sed -i 's/LIBSO=0/LIBSO=1/' Makefile
@@ -69,7 +71,7 @@ corresponding ```.weights```, ```.cfg```, ```.names``` and ```.data``` files ins
 folder. Here is an example.
 1. Change into the models directory
 ```
-cd models/
+cd modules/object_detection/models/
 ```
 2. Make a new directory for the detection model
 ```
@@ -81,7 +83,10 @@ cd yolov3
 wget https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg
 wget https://pjreddie.com/media/files/yolov3.weights
 wget https://github.com/AlexeyAB/darknet/blob/master/data/coco.names
+wget https://github.com/AlexeyAB/darknet/blob/master/cfg/coco.data
 ```
+4. Adjust the ```.data``` file for our project
+
 4. Then the model name can be specified on the command line using the ```--model``` option (see the example usage below). 
 
 ## Usage
