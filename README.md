@@ -131,5 +131,5 @@ In the backend terminal window we should see some output with the locater search
 and producing a final json message which it will publish on the "backend/response" topic e.g.
 
 ```
-{"code_name": "1", "original_request": "person", "location_time": "2020-10-17 16:17:15.511648", "minutes_passed": "1.18", "locations_identified": ["{\"object\": \"person\", \"location\": \"remote\", \"camera_id\": \"831612071526\"}"]}
+{"code_name": "1", "original_request": "remote", "location_time": "2020-10-17 16:17:15.511648", "minutes_passed": "1.18", "locations_identified": ["{\"object\": \"remote\", \"location\": \"person\", \"camera_id\": \"831612071526\"}"]}
 ```
