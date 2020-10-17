@@ -109,8 +109,7 @@ and producing a final json message which it will publish on the "backend/respons
 
 ## Alternative detection models
 There are several [pre-trained models](https://github.com/AlexeyAB/darknet#pre-trained-models) available on the AlexyAB 
-repository. Or we can use a custom trained model. To keep model management simple, each model should be saved into its #
-own folder with its corresponding ```.weights```, ```.cfg```, ```.names``` and ```.data``` files inside the 
+repository. Or we can use a custom trained model. To keep model management simple, each model should be saved into its own folder with its corresponding ```.weights```, ```.cfg```, ```.names``` and ```.data``` files inside the 
 ```modules/object_detection/models/``` folder. Here is an example.
 1. Change into the models directory
 ```
