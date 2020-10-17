@@ -80,14 +80,17 @@ cd yolov3
 ```
 3. Download the model files
 ```
-wget https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg
+cp ../../../../../darknet/cfg/yolov3.cfg yolov3.cfg
+cp ../../../../../darknet/cfg/coco.names coco.names
+cp ../../../../../darknet/cfg/coco.data coco.data
 wget https://pjreddie.com/media/files/yolov3.weights
-wget https://github.com/AlexeyAB/darknet/blob/master/data/coco.names
-wget https://github.com/AlexeyAB/darknet/blob/master/cfg/coco.data
 ```
 4. Adjust the ```.data``` file for our project
-
-4. Then the model name can be specified on the command line using the ```--model``` option (see the example usage below). 
+```
+sed -i 's/names = data\/coco.names/names = modules\/object_detection\/models\/yolov3\/coco.names/' coco.data
+```
+4. Then the model name can be specified on the command line using the ```--model``` option e.g. ```--model yolov3``` 
+(see the example usage below). 
 
 ## Usage
 Now we can test the installation has worked by running

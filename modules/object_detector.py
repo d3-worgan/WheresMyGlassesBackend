@@ -4,6 +4,8 @@ import cv2
 import numpy as np
 import os
 
+from modules.object_detection import darknet
+
 
 class ObjectDetector:
     """
@@ -31,9 +33,9 @@ class ObjectDetector:
             self.output_layers = [self.layer_names[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
         else:
             print("Loading Darknet original")
-            from modules.object_detection import darknet
+            #self.net = darknet.load_network(config, meta_data, weights, batch_size=1)
             self.net = darknet.load_net_custom(config.encode("ascii"), weights.encode("ascii"), 0, 1)  # batch size = 1
-            #self.meta = darknet.load_meta(meta_data.encode("ascii"))
+            self.meta = darknet.load_meta(meta_data.encode("ascii"))
 
         print("Detector initialised.")
 
@@ -52,14 +54,14 @@ class ObjectDetector:
         darknet.copy_image_from_bytes(darknet_image, frame_resized.tobytes())
 
         # Extracting detections
-        dees = darknet.detect_image(self.net, self.meta, darknet_image, thresh=0.5, hier_thresh=.5, nms=.45)
-
+        dees = darknet.detect_image(self.net, self.classes, darknet_image, thresh=0.5, hier_thresh=.5, nms=.45)
+        print(dees)
         detected_objects = []
         for d in dees:
 
             # Extract detection info
-            dindex = d[0]  # Class ID
-            label = self.classes[dindex]  # Retrieve the corresponding class name
+            lid = self.classes.index(d[0])
+            label = d[0]  # Retrieve the corresponding class name
             confidence = d[1]  # Confidence of the detection
             box = d[2]  # Get the coordinates
 
@@ -71,7 +73,7 @@ class ObjectDetector:
             x = int(box[0] - box[2] / 2)  # Left hand side?
             y = int(box[1] - box[3] / 2)  # Left hand side?
 
-            detected_object = DetectedObject(dindex, label, confidence, camera_id, center_x, center_y, x, y, w, h)
+            detected_object = DetectedObject(lid, label, confidence, camera_id, center_x, center_y, x, y, w, h)
             detected_objects.append(detected_object)
 
         return frame_resized, detected_objects
@@ -104,7 +106,7 @@ class ObjectDetector:
                 class_id = np.argmax(scores)
                 confidence = scores[class_id]
                 if confidence > 0.5:
-                    label = self.classes[class_id]
+                    label = self.classes[int(class_id)]
                     # Object detected
                     center_x = int(detection[0] * width)
                     center_y = int(detection[1] * height)
@@ -126,7 +128,7 @@ class ObjectDetector:
         for i in range(len(boxes)):
             if i in indexes:
                 detections.append(
-                    DetectedObject(class_ids[i], self.classes[class_ids[i]], confidences[i], camera_id, centers[i][0],
+                    DetectedObject(class_ids[i], self.classes[int(class_ids[i])], confidences[i], camera_id, centers[i][0],
                                    centers[i][1], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]))
 
         return detections
@@ -165,7 +167,7 @@ class ObjectDetector:
 
         assert weights, "Couldn't find the .weights file for " + od_model
         assert config, "Couldn't find the .cfg file for " + od_model
-        #assert meta_data, "Couldn't find the .data file for " + od_model
+        assert meta_data, "Couldn't find the .data file for " + od_model
         assert names, "Couldn't find the .names file for " + od_model
 
         assert os.path.exists(weights), f"{weights} is not a valid path"
@@ -173,9 +175,9 @@ class ObjectDetector:
         #assert os.path.exists(meta_data), f"{meta_data} is not a valid path"
         assert os.path.exists(names), f"{names} is not a valid path"
 
-        # print("Weights path: " + weights)
-        # print("Config path: " + config)
-        # print("meta_data path: " + meta_data)
-        # print("names path " + names)
+        print("Weights path: " + weights)
+        print("Config path: " + config)
+        print("meta_data path: " + meta_data)
+        print("names path " + names)
 
         return weights, config, meta_data, names
