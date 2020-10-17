@@ -77,7 +77,7 @@ If we wanted to use the CPU version
 ```
 python main.py --display --opencv
 ```
-We could specify an alternative detection model (see below to install an alternative)
+We could specify an alternative detection model (see below to install an [alternative model](https://github.com/d3-worgan/WheresMyGlassesBackend#alternative-detection-models))
 ```
 python main.py --display --model yolov4
 ```
