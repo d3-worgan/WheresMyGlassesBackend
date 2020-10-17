@@ -65,12 +65,53 @@ pip install -r requirements.txt
 ```
 cp ../darknet/libdarknet.so modules/object_detection
 ```
-### 3. Download and install detection models
-Finally we need to give WheresMyGlasses an object detection model to perform the object detection. There are several 
-[pre-trained models](https://github.com/AlexeyAB/darknet#pre-trained-models) available on the AlexyAB repository. Or we 
-can use a custom trained model. To keep model management simple, each model should be saved into its own folder with its 
-corresponding ```.weights```, ```.cfg```, ```.names``` and ```.data``` files inside the ```modules/object_detection/models/``` 
-folder. Here is an example.
+5. Download the WheresMyGlasses [weights file](https://drive.google.com/file/d/1HCr2iXLc3uIMUm8qxLNP_1Lpp0qFj__9/view?usp=sharing) and save it into ```modules/object_detection/models/wmg/```
+6. Test the installation
+```
+python main.py --display
+```
+This should show a video stream and the bounding box detections.
+
+## Usage
+If we wanted to use the CPU version 
+```
+python main.py --display --opencv
+```
+We could specify an alternative detection model (see below to install an alternative)
+```
+python main.py --display --model yolov4
+```
+To connect the system to MQTT we need to specify the ```--mqtt``` flag.
+```
+python main.py --display --yolov3 --mqtt
+```
+The MQTT broker address defaults to localhost or the IP address of the machine. 
+To specify the address of the MQTT broker use the ```--broker``` flag e.g.
+```
+python main.py --display --yolov3 --mqtt --broker 192.168.0.123
+```
+
+To test the mqtt is working, open a separate terminal window and make sure mosquitto mqtt client is installed
+```
+sudo apt install mosquitto-clients
+```
+Then publish the name of the object we want to search for on mqtt topic ```"frontend/request"``` e.g.
+```
+mosquitto_pub -h 127.0.1.1 -t frontend/request -m "glasses"
+```
+In the backend terminal window we should see some output with the locater searching for the object
+and producing a final json message which it will publish on the "backend/response" topic e.g.
+
+```
+{"code_name": "1", "original_request": "glasses", "location_time": "2020-10-17 16:17:15.511648", "minutes_passed": "1.18", "locations_identified": ["{\"object\": \"Glasses\", \"location\": \"Human head\", \"camera_id\": \"831612071526\"}"]}
+```
+
+
+## Alternative detection models
+There are several [pre-trained models](https://github.com/AlexeyAB/darknet#pre-trained-models) available on the AlexyAB 
+repository. Or we can use a custom trained model. To keep model management simple, each model should be saved into its #
+own folder with its corresponding ```.weights```, ```.cfg```, ```.names``` and ```.data``` files inside the 
+```modules/object_detection/models/``` folder. Here is an example.
 1. Change into the models directory
 ```
 cd modules/object_detection/models/
@@ -92,44 +133,6 @@ wget https://pjreddie.com/media/files/yolov3.weights
 sed -i 's/names = data\/coco.names/names = modules\/object_detection\/models\/yolov3\/coco.names/' coco.data
 ```
 4. Then the model name can be specified on the command line using the ```--model``` option e.g. ```--model yolov3``` 
-(see the example usage below). 
+(see the example usage). 
 
-## Usage
-Now we can test the installation has worked by running
-```
-cd ../../../../
-python main.py --display --model yolov3
-```
-This should show a video stream and the bounding box detections. If we wanted to use the CPU version 
-```
-python main.py --display --model yolov3 --opencv
-```
-We could specify an alternative detection model 
-```
-python main.py --display --model yolov4
-```
-To connect the system to MQTT we need to specify the ```--mqtt``` flag.
-```
-python main.py --display --yolov3 --mqtt
-```
-The MQTT broker address defaults to localhost or the IP address of the machine. 
-To specify the address of the MQTT broker use e.g.
-```
-python main.py --display --yolov3 --mqtt --broker 192.168.0.123
-```
 
-To test the mqtt is working, open a separate terminal window (ctrl + alt + t). 
-Make sure mosquitto mqtt client is installed
-```
-sudo apt install mosquitto-clients
-```
-Then publish the name of the object we want to search for on mqtt topic ```"frontend/request"``` e.g.
-```
-mosquitto_pub -h 127.0.1.1 -t frontend/request -m "remote"
-```
-In the backend terminal window we should see some output with the locater searching for the object
-and producing a final json message which it will publish on the "backend/response" topic e.g.
-
-```
-{"code_name": "1", "original_request": "remote", "location_time": "2020-10-17 16:17:15.511648", "minutes_passed": "1.18", "locations_identified": ["{\"object\": \"remote\", \"location\": \"person\", \"camera_id\": \"831612071526\"}"]}
-```

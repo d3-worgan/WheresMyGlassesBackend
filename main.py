@@ -13,7 +13,7 @@ IPAddr = socket.gethostbyname(hostname)
 parser = argparse.ArgumentParser(description='Run the object location system')
 parser.add_argument("--model",
                     help="Specify the name of the detection model e.g. yolov3, yolo9000",
-                    default="yolov3")
+                    default="wmg")
 parser.add_argument("--model_folder",
                     help="Specify the path to an alternative base location of the detection models",
                     default=model_folder)

@@ -1,0 +1,6 @@
+classes= 2
+train  = /home/dan/darknet/data/h&g/h&g_train.txt
+valid  = /home/dan/darknet/data/h&g/h&g_test.txt
+names = modules/object_detection/models/wmg/wmg.names
+backup = /home/dan/darknet/data/h&g/weights_custom_anchor/
+
