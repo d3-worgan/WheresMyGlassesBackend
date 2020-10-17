@@ -98,22 +98,38 @@ sed -i 's/names = data\/coco.names/names = modules\/object_detection\/models\/yo
 Now we can test the installation has worked by running
 ```
 cd ../../../../
-python main.py --display
+python main.py --display --model yolov3
 ```
-Or, if we want to use the CPU version 
+This should show a video stream and the bounding box detections. If we wanted to use the CPU version 
 ```
-python main.py --display --opencv
+python main.py --display --model yolov3 --opencv
 ```
-Specify which detection model to use
+We could specify an alternative detection model 
 ```
 python main.py --display --model yolov4
 ```
-To connect the system to MQTT try
+To connect the system to MQTT we need to specify the ```--mqtt``` flag.
 ```
-python main.py --display --mqtt
+python main.py --display --yolov3 --mqtt
 ```
 The MQTT broker address defaults to localhost or the IP address of the machine. 
 To specify the address of the MQTT broker use e.g.
 ```
-python main.py --display --mqtt --broker 192.168.0.123
+python main.py --display --yolov3 --mqtt --broker 192.168.0.123
+```
+
+To test the mqtt is working, open a separate terminal window (ctrl + alt + t). 
+Make sure mosquitto mqtt client is installed
+```
+sudo apt install mosquitto-clients
+```
+Then publish the name of the object we want to search for on mqtt topic ```"frontend/request"``` e.g.
+```
+mosquitto_pub -h 127.0.1.1 -t frontend/request -m "remote"
+```
+In the backend terminal window we should see some output with the locater searching for the object
+and producing a final json message which it will publish on the "backend/response" topic e.g.
+
+```
+{"code_name": "1", "original_request": "person", "location_time": "2020-10-17 16:17:15.511648", "minutes_passed": "1.18", "locations_identified": ["{\"object\": \"person\", \"location\": \"remote\", \"camera_id\": \"831612071526\"}"]}
 ```

@@ -22,8 +22,8 @@ class StreamManager:
         print(str(len(self.device_manager._enabled_devices)) + " realsense devices connected")
 
         # Allow window to be smaller than frame:
-        #self.defaultWinSize = (int(1920/3), int(1080/3)) # Good for 1920x1080 display, e.g. monitor in control room
-        self.defaultWinSize = (int(1920/5), int(1080/5))  # Good for Living Lab TV when using low resolution.
+        self.defaultWinSize = (int(1920/3), int(1080/3)) # Good for 1920x1080 display, e.g. monitor in control room
+        #self.defaultWinSize = (int(1920/5), int(1080/5))  # Good for Living Lab TV when using low resolution.
 
         # Set window positions for known cameras based on integer tiling in a 3x3 grid, roughly reflecting their
         # positions in the lab:
