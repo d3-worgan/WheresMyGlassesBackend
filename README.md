@@ -26,6 +26,8 @@ is using ```make```. Note the dependencies in the darknet repo like CUDA 10.0, C
 1. Change into a directory and download the darknet code e.g.
 ```
 cd ~
+mkdir wmg
+cd wmg
 git clone https://github.com/AlexeyAB/darknet.git
 cd darknet
 ```
@@ -57,7 +59,7 @@ conda activate wmg
 ```
 3. Install the python dependencies
 ```
-pip install -y -r requirements
+pip install -r requirements.txt
 ```
 4. Copy the darknet library file we made earlier into the WheresMyGlasses project e.g.
 ```
@@ -95,6 +97,7 @@ sed -i 's/names = data\/coco.names/names = modules\/object_detection\/models\/yo
 ## Usage
 Now we can test the installation has worked by running
 ```
+cd ../../../../
 python main.py --display
 ```
 Or, if we want to use the CPU version 
