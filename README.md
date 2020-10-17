@@ -1,5 +1,5 @@
 # Wheres My Glasses (Backend)
-Object location system with MQTT server using Intel RealSense, Darknet and YOLO object detection. 
+Object location system with MQTT connection using Intel RealSense, Darknet and YOLO object detection. 
 
 ![location demo](location_demo.png)  
 
