@@ -1,6 +1,8 @@
 /wmg_env
-modules/libdarknet.so
+*.so
 .vscode/
 .idea/
 modules/__pycache__/
 modules/object_detection/__pycache__/
+modules/object_detection/models/
+
