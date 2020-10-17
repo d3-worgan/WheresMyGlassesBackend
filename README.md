@@ -79,7 +79,7 @@ python main.py --display --opencv
 ```
 We could specify an alternative detection model (see below to install an [alternative model](https://github.com/d3-worgan/WheresMyGlassesBackend#alternative-detection-models))
 ```
-python main.py --display --model yolov4
+python main.py --display --model yolov3
 ```
 To connect the system to MQTT we need to specify the ```--mqtt``` flag.
 ```
