@@ -62,7 +62,7 @@ class ObjectDetector:
             # Extract detection info
             lid = self.classes.index(d[0])
             label = d[0]  # Retrieve the corresponding class name
-            confidence = d[1]  # Confidence of the detection
+            confidence = float(d[1])  # Confidence of the detection
             box = d[2]  # Get the coordinates
 
             # Calculate bounding box coordinates
