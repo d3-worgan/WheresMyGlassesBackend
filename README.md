@@ -1,5 +1,5 @@
 # Wheres My Glasses (Backend)
-Object location MQTT server using Intel RealSense, Darknet and YOLO object detection. 
+Object location system with MQTT server using Intel RealSense, Darknet and YOLO object detection. 
 
 ![location demo](location_demo.png)  
 
@@ -59,7 +59,7 @@ conda activate wmg
 ```
 pip install -y -r requirements
 ```
-4. Copy the darknet library file into the WheresMyGlasses project e.g.
+4. Copy the darknet library file we made earlier into the WheresMyGlasses project e.g.
 ```
 cp ../darknet/libdarknet.so modules/object_detection
 ```
@@ -85,7 +85,7 @@ cp ../../../../../darknet/cfg/coco.names coco.names
 cp ../../../../../darknet/cfg/coco.data coco.data
 wget https://pjreddie.com/media/files/yolov3.weights
 ```
-4. Adjust the ```.data``` file for our project
+4. Point the path in the ```.data``` file to the ```.names``` file
 ```
 sed -i 's/names = data\/coco.names/names = modules\/object_detection\/models\/yolov3\/coco.names/' coco.data
 ```
@@ -101,14 +101,15 @@ Or, if we want to use the CPU version
 ```
 python main.py --display --opencv
 ```
-To specify which model to use, follow the steps above (i.e. put the model files in a new directory in the models directory) and specify the folder name using the ```--model``` option e.g.
+Specify which detection model to use
 ```
 python main.py --display --model yolov4
 ```
-To connect the system to MQTT to allow to process and respond to requests try
+To connect the system to MQTT try
 ```
 python main.py --display --mqtt
 ```
+The MQTT broker address defaults to localhost or the IP address of the machine. 
 To specify the address of the MQTT broker use e.g.
 ```
 python main.py --display --mqtt --broker 192.168.0.123
