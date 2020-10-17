@@ -55,7 +55,7 @@ class ObjectDetector:
 
         # Extracting detections
         dees = darknet.detect_image(self.net, self.classes, darknet_image, thresh=0.5, hier_thresh=.5, nms=.45)
-        print(dees)
+        
         detected_objects = []
         for d in dees:
 
