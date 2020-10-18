@@ -1,5 +1,4 @@
-![Wheres my glasses](https://github.com/d3-worgan/WheresMyGlassesBackend/workflows/Wheres%20my%20glasses/badge.svg)
-[![Wheres my glasses Actions Status](https://github.com/d3-worgan/WheresMyGlassesBackend/workflows/Wheres%20my%20glasses/badge.svg)](https://github.com/d3-worgan/WheresMyGlasses/actions)
+![Build](https://github.com/d3-worgan/WheresMyGlassesBackend/workflows/Wheres%20my%20glasses/badge.svg)
 
 # Wheres My Glasses (Backend)
 Object location system with MQTT connection using Intel RealSense, Darknet and YOLO object detection. 
