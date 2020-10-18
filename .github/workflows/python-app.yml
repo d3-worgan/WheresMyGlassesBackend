@@ -70,6 +70,10 @@ jobs:
         run: |
           cd ../
           cd WheresMyGlassesBackend
+          cp ../darknet/libdarknet.so modules/object_detection
+          cd modules/object_detection/models/wmg/
+          wget https://drive.google.com/u/0/uc?id=1HCr2iXLc3uIMUm8qxLNP_1Lpp0qFj__9&export=download
+          cd ../../../../
       - name: Set up Python 3.6
         uses: actions/setup-python@v2
         with:
