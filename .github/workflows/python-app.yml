@@ -13,87 +13,71 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Update apt
-      run: sudo apt update
-    - name: Install dependencies
-      run: sudo apt install libopencv-dev
-    - name: 'Install CUDA'
-      run: |
-        wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-        sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-        sudo dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-        wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-        sudo dpkg -i nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-        sudo apt update
-        sudo apt-get install -y --no-install-recommends cuda-compiler-10-2 cuda-libraries-dev-10-2 cuda-driver-dev-10-2 cuda-cudart-dev-10-2 cuda-curand-dev-10-2
-        sudo apt-get install -y --no-install-recommends libcudnn7-dev
-        sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/stubs/libcuda.so.1
-        sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/libcuda.so.1
-        sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/libcuda.so
-        sudo ln -s /usr/local/cuda-10.2 /usr/local/cuda
-        export PATH=/usr/local/cuda/bin:$PATH
-        export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
-        nvcc --version
-        gcc --version
-      
-    - name: Install RealSense SDK
-      run: |
-        sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
-        sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
-        sudo apt-get install librealsense2-dkms
-        sudo apt-get install librealsense2-utils
-        
-        
-#     - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=0'
-#       run: |
-#         make LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 -j 8
-#         make clean
-#     - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 DEBUG=1'
-#       run: |
-#         make LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 DEBUG=1 -j 8
-#         make clean
-#     - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 AVX=1'
-#       run: |
-#         make LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 AVX=1 -j 8
-#         make clean
-#     - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=1'
-#       run: |
-#         make LIBSO=1 GPU=0 CUDNN=0 OPENCV=1 -j 8
-#         make clean
-#     - name: 'LIBSO=1 GPU=1 CUDNN=1 OPENCV=1'
-#       run: |
-#         export PATH=/usr/local/cuda/bin:$PATH
-#         export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
-#         make LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 -j 8
-#         make clean
-#     - name: 'LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1'
-#       run: |
-#         export PATH=/usr/local/cuda/bin:$PATH
-#         export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
-#         make LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1 -j 8
-#         make clean
-#     - name: 'LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1 USE_CPP=1'
-#       run: |
-#         export PATH=/usr/local/cuda/bin:$PATH
-#         export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
-#         make LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1 USE_CPP=1 -j 8
-#         make clean
+      - name: check directory
+        run: ls
+      - uses: actions/checkout@v2
+      - name: check directory
+        run: ls
+      - name: Update apt
+        run: sudo apt update
+      - name: Install dependencies
+        run: sudo apt install libopencv-dev
+      - name: 'Install CUDA'
+        run: |
+          wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+          sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+          sudo dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+          wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+          sudo dpkg -i nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+          sudo apt update
+          sudo apt-get install -y --no-install-recommends cuda-compiler-10-2 cuda-libraries-dev-10-2 cuda-driver-dev-10-2 cuda-cudart-dev-10-2 cuda-curand-dev-10-2
+          sudo apt-get install -y --no-install-recommends libcudnn7-dev
+          sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/stubs/libcuda.so.1
+          sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/libcuda.so.1
+          sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/libcuda.so
+          sudo ln -s /usr/local/cuda-10.2 /usr/local/cuda
+          export PATH=/usr/local/cuda/bin:$PATH
+          export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
+          nvcc --version
+          gcc --version
+
+      - name: Install RealSense SDK
+        run: |
+          sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+          sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
+          sudo apt-get install librealsense2-dkms
+          sudo apt-get install librealsense2-utils
+
+      - name: Build Darknet
+        run: |
+          cd ~
+          mkdir wmg
+          cd wmg
+          git clone https://github.com/AlexeyAB/darknet.git
+          cd darknet
+          sed -i "s/GPU=0/GPU=1/" Makefile
+          sed -i 's/LIBSO=0/LIBSO=1/' Makefile
+          make
+      - name: Setup project
+        run: |
+          cd ../
+          git clone https://github.com/d3-worgan/WheresMyGlassesBackend.git
+          cd WheresMyGlassesBackend
 
     
     
-    - name: Set up Python 3.6
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.6
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
