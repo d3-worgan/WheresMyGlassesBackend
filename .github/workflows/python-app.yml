@@ -14,16 +14,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check directory
-        run: ls
-      - uses: actions/checkout@v2
-      - name: check directory
-        run: ls
+        run: |
+          pwd
+          ls
+          cd ~
+          ls
+          mkdir buildp
+          cd buildp
+          ls
       - name: Update apt
         run: sudo apt update
       - name: Install dependencies
         run: sudo apt install libopencv-dev
       - name: 'Install CUDA'
         run: |
+          mkdir cuda
+          cd cuda
           wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
           sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
           sudo dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
@@ -50,22 +56,20 @@ jobs:
 
       - name: Build Darknet
         run: |
-          cd ~
-          mkdir wmg
-          cd wmg
+          cd ../
           git clone https://github.com/AlexeyAB/darknet.git
           cd darknet
           sed -i "s/GPU=0/GPU=1/" Makefile
           sed -i 's/LIBSO=0/LIBSO=1/' Makefile
+          export PATH=/usr/local/cuda/bin:$PATH
+          export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
           make
+          make clean
       - name: Setup project
         run: |
           cd ../
           git clone https://github.com/d3-worgan/WheresMyGlassesBackend.git
           cd WheresMyGlassesBackend
-
-    
-    
       - name: Set up Python 3.6
         uses: actions/setup-python@v2
         with:
