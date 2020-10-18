@@ -68,13 +68,9 @@ pip install -r requirements.txt
 cp ../darknet/libdarknet.so modules/object_detection
 ```
 5. Download the WheresMyGlasses [weights file](https://drive.google.com/file/d/1HCr2iXLc3uIMUm8qxLNP_1Lpp0qFj__9/view?usp=sharing) and save it into ```modules/object_detection/models/wmg/```
-```
-cd modules/object_detection/models/wmg/
-wget https://drive.google.com/u/0/uc?id=1HCr2iXLc3uIMUm8qxLNP_1Lpp0qFj__9&export=download
-```
+
 6. Test the installation
 ```
-cd ../../../../
 python main.py --display
 ```
 This should show a video stream and the bounding box detections.
