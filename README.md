@@ -1,4 +1,4 @@
-![Wheres my glasses](https://github.com/d3-worgan/WheresMyGlassesBackend/workflows/python-app/badge.svg)
+![Wheres my glasses](https://github.com/d3-worgan/WheresMyGlassesBackend/.github/workflows/python-app.yml/badge.svg)
 
 
 # Wheres My Glasses (Backend)
