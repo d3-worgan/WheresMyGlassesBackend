@@ -65,10 +65,10 @@ jobs:
           export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
           make
           make clean
+          
       - name: Setup project
         run: |
           cd ../
-          git clone https://github.com/d3-worgan/WheresMyGlassesBackend.git
           cd WheresMyGlassesBackend
       - name: Set up Python 3.6
         uses: actions/setup-python@v2
