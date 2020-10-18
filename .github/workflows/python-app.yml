@@ -21,7 +21,7 @@ jobs:
       run: echo "Installing mosquitto"
     - name: Install mosquitto
       run: |
-        apt install mosquitto-clients
+        sudo apt install mosquitto-clients
     - name: Test actions 1
       run: echo "Installed mosquitto"
     
