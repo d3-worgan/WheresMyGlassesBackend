@@ -11,21 +11,66 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Test actions 1
-      run: echo "Installing mosquitto"
-    - name: Install mosquitto
+    - name: Update apt
+      run: sudo apt update
+    - name: Install dependencies
+      run: sudo apt install libopencv-dev
+    - name: 'Install CUDA'
       run: |
-        sudo apt install mosquitto-clients
-    - name: Test actions 1
-      run: echo "Installed mosquitto"
-    
-    
+        wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+        sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+        sudo dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+        wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+        sudo dpkg -i nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+        sudo apt update
+        sudo apt-get install -y --no-install-recommends cuda-compiler-10-2 cuda-libraries-dev-10-2 cuda-driver-dev-10-2 cuda-cudart-dev-10-2 cuda-curand-dev-10-2
+        sudo apt-get install -y --no-install-recommends libcudnn7-dev
+        sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/stubs/libcuda.so.1
+        sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/libcuda.so.1
+        sudo ln -s /usr/local/cuda-10.2/lib64/stubs/libcuda.so /usr/local/cuda-10.2/lib64/libcuda.so
+        sudo ln -s /usr/local/cuda-10.2 /usr/local/cuda
+        export PATH=/usr/local/cuda/bin:$PATH
+        export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
+        nvcc --version
+        gcc --version
+    - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=0'
+      run: |
+        make LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 -j 8
+        make clean
+    - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 DEBUG=1'
+      run: |
+        make LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 DEBUG=1 -j 8
+        make clean
+    - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 AVX=1'
+      run: |
+        make LIBSO=1 GPU=0 CUDNN=0 OPENCV=0 AVX=1 -j 8
+        make clean
+    - name: 'LIBSO=1 GPU=0 CUDNN=0 OPENCV=1'
+      run: |
+        make LIBSO=1 GPU=0 CUDNN=0 OPENCV=1 -j 8
+        make clean
+    - name: 'LIBSO=1 GPU=1 CUDNN=1 OPENCV=1'
+      run: |
+        export PATH=/usr/local/cuda/bin:$PATH
+        export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
+        make LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 -j 8
+        make clean
+    - name: 'LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1'
+      run: |
+        export PATH=/usr/local/cuda/bin:$PATH
+        export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
+        make LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1 -j 8
+        make clean
+    - name: 'LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1 USE_CPP=1'
+      run: |
+        export PATH=/usr/local/cuda/bin:$PATH
+        export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib64/stubs:$LD_LIBRARY_PATH
+        make LIBSO=1 GPU=1 CUDNN=1 OPENCV=1 CUDNN_HALF=1 USE_CPP=1 -j 8
+        make clean
+
     
     
     - name: Set up Python 3.6
